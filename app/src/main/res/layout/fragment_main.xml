@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.main.MainFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_profile"
+        android:layout_width="@dimen/_42sdp"
+        android:layout_height="@dimen/_42sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginLeft="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_44sdp"
+        app:cardCornerRadius="9999dp"
+        app:cardElevation="@dimen/_5sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="center"
+            android:alpha="1"
+            android:backgroundTint="#FF611C"
+            android:outlineAmbientShadowColor="#FF5722"
+            android:outlineSpotShadowColor="#FF5722"
+            app:cardCornerRadius="9999dp"
+            app:cardElevation="@dimen/_3sdp"
+            tools:targetApi="p">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_person" />
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginLeft="@dimen/_16sdp"
+        android:fontFamily="@font/g_regular"
+        android:text="Salom, Shohjahon"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintBottom_toBottomOf="@id/cv_profile"
+        app:layout_constraintStart_toEndOf="@id/cv_profile"
+        app:layout_constraintTop_toTopOf="@id/cv_profile" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_notification"
+        android:layout_width="@dimen/_42sdp"
+        android:layout_height="@dimen/_42sdp"
+        android:layout_marginTop="@dimen/_44sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:layout_marginRight="@dimen/_16sdp"
+        app:cardCornerRadius="9999dp"
+        app:cardElevation="@dimen/_5sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="center"
+            android:alpha="1"
+            android:outlineAmbientShadowColor="#FF5722"
+            android:outlineSpotShadowColor="#FF5722"
+            app:cardCornerRadius="9999dp"
+            app:cardElevation="@dimen/_3sdp"
+            tools:targetApi="p">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/_5sdp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_notification" />
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginLeft="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:fontFamily="@font/g_bold"
+        android:text="@string/qanaqa_kitob_izlayopsiz"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_25ssp"
+        android:id="@+id/tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cv_profile" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:id="@+id/cv_search"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:outlineAmbientShadowColor="#A9ACA4A2"
+        app:layout_constraintCircleRadius="@dimen/_32sdp"
+        android:outlineSpotShadowColor="#A9ACA4A2"
+        android:layout_marginEnd="@dimen/_16sdp"
+        app:cardCornerRadius="@dimen/_10sdp"
+        app:cardElevation="@dimen/_8sdp"
+        tools:targetApi="p">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:padding="@dimen/_5sdp"
+                android:background="@color/white"
+                android:maxLines="1"
+                android:inputType="textPersonName"
+                android:hint="@string/kitobni_izlash"
+                android:fontFamily="@font/g_regular"
+                android:layout_centerVertical="true"
+                android:textColorHint="#6E7D91"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginBottom="@dimen/_4sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:id="@+id/et_search_places"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_width="@dimen/_36sdp"
+                android:layout_height="@dimen/_36sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                app:cardCornerRadius="9999dp"
+                app:cardElevation="@dimen/_5sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/_8sdp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:layout_gravity="center"
+                    android:alpha="1"
+                    android:outlineAmbientShadowColor="#FF5722"
+                    android:outlineSpotShadowColor="#FF5722"
+                    app:cardCornerRadius="9999dp"
+                    app:cardElevation="@dimen/_3sdp"
+                    tools:targetApi="p">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="@dimen/_4sdp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_search" />
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginLeft="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:fontFamily="@font/g_bold"
+        android:text="@string/hozirda_o_qilmoqda"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_15ssp"
+        android:id="@+id/tv_now"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cv_search" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rv_now"
+        app:layout_constraintTop_toBottomOf="@id/tv_now"
+        android:nestedScrollingEnabled="false"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:clipToPadding="false"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginLeft="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:fontFamily="@font/g_bold"
+        android:text="@string/kunning_eng_yaxshilari"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_15ssp"
+        android:id="@+id/tv_now_best"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_now" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rv_now_best"
+        app:layout_constraintTop_toBottomOf="@id/tv_now_best"
+        android:nestedScrollingEnabled="false"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:clipToPadding="false"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginLeft="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:fontFamily="@font/g_bold"
+        android:text="@string/bestsellerlar"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_15ssp"
+        android:id="@+id/tv_bestseller"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_now_best" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false"
+        android:id="@+id/rv_bestseller"
+        app:layout_constraintTop_toBottomOf="@id/tv_bestseller"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:clipToPadding="false"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>

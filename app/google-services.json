@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "861893598342",
+    "project_id": "o-harid",
+    "storage_bucket": "o-harid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861893598342:android:6f7219e152026324ab4507",
+        "android_client_info": {
+          "package_name": "lars_lion.dev.o_harid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "861893598342-isou578v2c1r8hbkjiciorl7b6j1q982.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZlTkfmr7Dj1755t7xKV3Gnk__QQ3wt2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "861893598342-isou578v2c1r8hbkjiciorl7b6j1q982.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

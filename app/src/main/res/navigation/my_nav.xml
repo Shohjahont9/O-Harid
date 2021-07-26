@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="lars_lion.dev.o_harid.ui.main.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" />
+    <fragment
+        android:id="@+id/audioFragment"
+        android:name="lars_lion.dev.o_harid.ui.audio.AudioFragment"
+        android:label="fragment_audio"
+        tools:layout="@layout/fragment_audio" />
+    <fragment
+        android:id="@+id/bookFragment"
+        android:name="lars_lion.dev.o_harid.ui.book.BookFragment"
+        android:label="fragment_book"
+        tools:layout="@layout/fragment_book" />
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="lars_lion.dev.o_harid.ui.favourite.FavouriteFragment"
+        android:label="fragment_favourite"
+        tools:layout="@layout/fragment_favourite" />
+</navigation>
