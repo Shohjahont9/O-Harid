@@ -15,11 +15,13 @@ class PreferencesManager(
     }
 
     var isAuthVerified by PreferencesDelegate(preferences, IS_AUTH_VERIFIED, false)
-
+    var name by PreferencesDelegate(preferences, NAME, "empty")
+    var token by PreferencesDelegate(preferences, TOKEN, "empty")
 
     companion object {
-
         private const val IS_AUTH_VERIFIED = "IS_AUTH_VERIFIED"
+        private const val NAME = "NAME"
+        private const val TOKEN = "TOKEN"
     }
 
 }
