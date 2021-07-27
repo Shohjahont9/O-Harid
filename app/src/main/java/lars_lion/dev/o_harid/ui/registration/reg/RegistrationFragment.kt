@@ -1,17 +1,23 @@
 package lars_lion.dev.o_harid.ui.registration.reg
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.ColorRes
 import androidx.core.os.postDelayed
 import androidx.fragment.app.viewModels
-import com.google.android.gms.tasks.OnCompleteListener
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
@@ -22,6 +28,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.gson.JsonObject
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_registration.*
+import lars_lion.dev.o_harid.R
 import lars_lion.dev.o_harid.base.BaseFragment
 import lars_lion.dev.o_harid.databinding.FragmentRegistrationBinding
 import lars_lion.dev.o_harid.preferences.PreferencesManager
@@ -93,7 +100,7 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
 
         with(binding!!) {
             loginButton.setOnClickListener {
-                if (etName.text.isNotEmpty()) {
+                if (etName.text.isNotEmpty() && etPhone.text.toString().isNotEmpty()) {
                     binding!!.progressBar.visible(true)
                     hideKeyBoard(it)
                     if (!isCodeSend) {
@@ -112,10 +119,23 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
                         }
                     }
 
-                } else toast("Ismni kiriting")
+                } else toast(getString(R.string.toliq_kirit))
             }
         }
 
+        login()
+    }
+
+    fun login(){
+        val spannable = SpannableString(getString(R.string.login_text))
+        spannable.setSpan(ForegroundColorSpan(Color.parseColor("#FF3700B3")),
+            29, spannable.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        binding!!.tvLogin.text = spannable
+
+        binding!!.tvLogin.setOnClickListener {
+            findNavController().navigateSafe(R.id.action_registrationFragment_to_loginFragment)
+        }
     }
 
     private fun startPhoneNumberVerification(phoneNumber: String) {

@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
 import lars_lion.dev.o_harid.network.ApiService
+import lars_lion.dev.o_harid.ui.registration.login.LoginRepository
 import lars_lion.dev.o_harid.ui.registration.reg.RegisstrationRepository
 
 
@@ -18,6 +19,13 @@ object RepositoryModule {
     fun provideRegisterRepository(
         apiService: ApiService
     ): RegisstrationRepository = RegisstrationRepository(apiService)
+
+
+    @Provides
+    @ViewModelScoped
+    fun provideLoginRepository(
+        apiService: ApiService
+    ): LoginRepository = LoginRepository(apiService)
 
 
 }

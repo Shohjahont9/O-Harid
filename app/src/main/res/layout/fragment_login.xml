@@ -1,14 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.registration.login.LoginFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/image_logo"
+            android:layout_width="@dimen/_250sdp"
+            android:layout_height="@dimen/_125sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:src="@drawable/logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_xush"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_logo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:fontFamily="@font/g_regular"
+            android:text="@string/tv_login"
+            android:textColor="@color/main_color"
+            android:textSize="@dimen/_30sdp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_logo" />
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_kod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_xush"
+            android:layout_marginStart="@dimen/_32sdp"
+            android:layout_marginTop="@dimen/_32sdp"
+            app:cardElevation="@dimen/_3sdp"
+            app:cardCornerRadius="@dimen/_5sdp">
+
+            <EditText
+                android:id="@+id/et_kod"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cv_name"
+                android:background="@color/white"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:gravity="center"
+                android:padding="@dimen/_5sdp"
+                android:text="+998"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/_15ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_xush" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_xush"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_32sdp"
+            android:layout_toEndOf="@id/cv_kod"
+            android:paddingStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_32sdp"
+            app:cardElevation="@dimen/_3sdp"
+            app:cardCornerRadius="@dimen/_5sdp">
+
+            <br.com.sapereaude.maskedEditText.MaskedEditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_xush"
+                android:hint="931234657"
+                android:imeOptions="actionGo"
+                android:background="@color/white"
+                android:inputType="phone"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/_15ssp"
+                android:typeface="monospace"
+                app:keep_hint="true"
+                mask:allowed_chars="1234567890"
+                mask:mask="(##)###-##-##" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cv_kod"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_40sdp"
+            app:cardElevation="@dimen/_3sdp"
+            android:visibility="gone"
+            app:cardCornerRadius="@dimen/_5sdp">
+
+            <EditText
+                android:id="@+id/et_parol"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:hint="parol"
+                android:inputType="number"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/_15ssp"
+                />
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/tv_login"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_25sdp"
+            android:paddingStart="@dimen/_8sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:layout_below="@id/cv_number"
+            android:layout_alignEnd="@+id/cv_number"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:gravity="center"
+            android:text="login"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:id="@+id/login_button"
+            android:layout_width="240dp"
+            android:layout_height="55dp"
+            android:layout_below="@id/cv_kod"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_120sdp"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:background="@drawable/button_back"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:scrollbarStyle="outsideInset">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/login"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="22sp" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginLeft="@dimen/_16sdp"
+                android:backgroundTint="@color/white"
+                android:progressTint="@color/white"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</ScrollView>

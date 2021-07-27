@@ -22,6 +22,7 @@ class RegistrationViewModel(
         try {
             when (repository.register(body).code()) {
                 200 -> _register.value = Event(UiState.Success(repository.register(body).body()!!))
+                202 -> _register.value = Event(UiState.Error("Bunday raqam mavjud emas!"))
             }
         } catch (e: Exception) {
             _register.value = Event(UiState.Error("register User error -> ${e.message.toString()}"))

@@ -31,7 +31,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/_16sdp"
             android:fontFamily="@font/g_regular"
-            android:text="@string/xush_kelibsiz"
+            android:text="@string/reg"
             android:textColor="@color/main_color"
             android:textSize="@dimen/_30sdp"
             android:textStyle="bold"
@@ -148,6 +148,19 @@
             android:textSize="@dimen/_15ssp"
             />
         </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/tv_login"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_25sdp"
+            android:paddingStart="@dimen/_8sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:layout_below="@id/cv_number"
+            android:layout_alignEnd="@+id/cv_number"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:gravity="center"
+            android:text="login"
+            android:textColor="@color/black" />
 
         <LinearLayout
             android:id="@+id/login_button"
