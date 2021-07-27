@@ -24,7 +24,7 @@ interface ApiService {
     @GET("book/get/best/seller")
     suspend fun bestSeller(
         @Header("Authorization") token: String,
-        @Query("page") page: Int
+        @Query("size") page: Int
     ): Response<LoginResponse>
 
 

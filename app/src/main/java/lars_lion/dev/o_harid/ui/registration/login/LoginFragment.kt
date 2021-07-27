@@ -128,7 +128,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         prefs.token = it.value.`object`.accessToken
                         binding!!.progressBar.visible(true)
                         if (!isCodeSend) {
-                            startPhoneNumberVerification(number)
+                            Handler(Looper.myLooper()!!).postDelayed({
+                                prefs.isAuthVerified = true
+                                startActivity(Intent(requireContext(), MainActivity::class.java))
+                                requireActivity().finish()
+                            }, 2000)
+//                            startPhoneNumberVerification(number)
                             println("number - > $number")
                         } else {
                             println("etParol -> ${etParol.text}  code -> $code")

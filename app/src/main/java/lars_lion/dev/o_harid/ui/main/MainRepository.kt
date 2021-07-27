@@ -6,6 +6,6 @@ import javax.inject.Inject
 class MainRepository @Inject constructor(
     private val apiService: ApiService,
 ) {
-    suspend fun bestSeller(token:String) = apiService.bestSeller(token, 0)
+    suspend fun bestSeller(token:String) = apiService.bestSeller(token, 10)
 
 }

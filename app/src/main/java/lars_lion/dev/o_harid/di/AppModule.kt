@@ -25,7 +25,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder().also { client ->
+    fun provideOkHttpClient(@ApplicationContext context: Context): OkHttpClient = OkHttpClient.Builder().also { client ->
         val logging = HttpLoggingInterceptor()
 
         val loggingInterceptor =
@@ -35,6 +35,7 @@ object AppModule {
         client.readTimeout(60, TimeUnit.SECONDS)
         client.connectTimeout(60, TimeUnit.SECONDS)
         client.addInterceptor(logging)
+        client.addInterceptor(ChuckerInterceptor(context))
         client.addInterceptor(loggingInterceptor)
     }.build()
 
