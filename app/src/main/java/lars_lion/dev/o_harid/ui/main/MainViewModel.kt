@@ -19,11 +19,11 @@ class MainViewModel @Inject constructor(
     private val _bestSeller = MutableLiveData<Event<UiState<BestSellerResponse>>>()
     val bestSeller : LiveData<Event<UiState<BestSellerResponse>>> = _bestSeller
 
-    fun getBestSeller()= viewModelScope.launch {
+    fun getBestSeller(token:String)= viewModelScope.launch {
         _bestSeller.value = Event(UiState.Loading)
         try {
-            when(repository.bestSeller().code()){
-                200 -> Event(UiState.Success(repository.bestSeller().body()!!))
+            when(repository.bestSeller(token).code()){
+                200 -> Event(UiState.Success(repository.bestSeller(token).body()!!))
             }
         }catch (e:Exception){
             _bestSeller.value = Event(UiState.Error(e.message.toString()))

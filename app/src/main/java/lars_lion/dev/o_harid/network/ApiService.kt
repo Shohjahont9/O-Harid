@@ -23,7 +23,7 @@ interface ApiService {
     @Headers("Content-Type: application/json")
     @GET("book/get/best/seller")
     suspend fun bestSeller(
-        @Header("Bearer Token") token: String,
+        @Header("Authorization") token: String,
         @Query("page") page: Int
     ): Response<LoginResponse>
 

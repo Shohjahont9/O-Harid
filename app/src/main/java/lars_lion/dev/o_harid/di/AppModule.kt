@@ -38,7 +38,8 @@ object AppModule {
         client.addInterceptor(loggingInterceptor)
     }.build()
 
-    @Provides
+
+ @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
         .baseUrl(Constants.BASE_URL)

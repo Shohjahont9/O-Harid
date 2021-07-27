@@ -41,7 +41,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
     }
 
     private fun loadBestSeller() {
-        viewModel.getBestSeller()
+        println("token -> ${prefs.token}")
+        viewModel.getBestSeller("Bearer ${prefs.token}")
         with(binding!!) {
             viewModel.bestSeller.observe(viewLifecycleOwner, EventObserver {
                 when (it) {

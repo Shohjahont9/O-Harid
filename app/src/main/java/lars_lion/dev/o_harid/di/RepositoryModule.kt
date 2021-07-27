@@ -34,8 +34,7 @@ object RepositoryModule {
     @ViewModelScoped
     fun provideMainRepository(
         apiService: ApiService,
-        prefs:PreferencesManager
-    ): MainRepository = MainRepository(apiService, prefs)
+    ): MainRepository = MainRepository(apiService)
 
 
 }
