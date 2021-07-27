@@ -20,8 +20,12 @@ interface ApiService {
         @Body data: String,
     ): Response<LoginResponse>
 
-
-
+    @Headers("Content-Type: application/json")
+    @GET("book/get/best/seller")
+    suspend fun bestSeller(
+        @Header("Bearer Token") token: String,
+        @Query("page") page: Int
+    ): Response<LoginResponse>
 
 
 }

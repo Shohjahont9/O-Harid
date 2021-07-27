@@ -65,40 +65,37 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                // This callback will be invoked in two situations:
                 Log.d(TAG, "onVerificationCompleted:$credential")
                 signInWithPhoneAuthCredential(credential)
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
-                // This callback is invoked in an invalid request for verification is made,
                 Log.w(TAG, "onVerificationFailed", e)
 
                 if (e is FirebaseAuthInvalidCredentialsException) {
                     // Invalid request
                 } else if (e is FirebaseTooManyRequestsException) {
-                    // The SMS quota for the project has been exceeded
                 }
 
-                // Show a message and update the UI
             }
 
             override fun onCodeSent(
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
-                // The SMS verification code has been sent to the provided phone number, we
-                // now need to ask the user to enter the code and then construct a credential
-                // by combining the code with a verification ID.
                 Log.d(TAG, "onCodeSent:$verificationId")
-//                verifyPhoneNumberWithCode(verificationId, code)
-                // Save verification ID and resending token so we can use them later
+                isCodeSend = true
                 storedVerificationId = verificationId
                 resendToken = token
             }
         }
 
         with(binding!!) {
+
+            root.setOnClickListener {
+                hideKeyBoard(it)
+            }
+
             loginButton.setOnClickListener {
                 if (etName.text.isNotEmpty() && etPhone.text.toString().isNotEmpty()) {
                     binding!!.progressBar.visible(true)
@@ -110,13 +107,13 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
                             etPhone.text.toString().substring(8, 10)
                         }${etPhone.text.toString().substring(11)}"
                         startPhoneNumberVerification(number)
-                        println("number - > $number")
-                    } else {
-                        println("etParol -> ${etParol.text}  code -> $code")
-                        if (etParol.text.toString() == code) {
 
-                            startActivity(Intent(requireContext(), MainActivity::class.java))
-                        }
+                    } else {
+                            val data = JsonObject()
+                            data.addProperty("name", et_name.text.toString().trim())
+                            data.addProperty("number", number)
+                            viewModel.registerUser(data.toString())
+                            observeUser()
                     }
 
                 } else toast(getString(R.string.toliq_kirit))
@@ -126,11 +123,13 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
         login()
     }
 
-    fun login(){
+    fun login() {
         val spannable = SpannableString(getString(R.string.login_text))
-        spannable.setSpan(ForegroundColorSpan(Color.parseColor("#FF3700B3")),
+        spannable.setSpan(
+            ForegroundColorSpan(Color.parseColor("#FF3700B3")),
             29, spannable.length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
         binding!!.tvLogin.text = spannable
 
         binding!!.tvLogin.setOnClickListener {
@@ -139,7 +138,6 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
     }
 
     private fun startPhoneNumberVerification(phoneNumber: String) {
-        // [START start_phone_auth]
         val options = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber(phoneNumber)       // Phone number to verify
             .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
@@ -147,7 +145,6 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
             .setCallbacks(callbacks)          // OnVerificationStateChangedCallbacks
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
-        // [END start_phone_auth]
     }
 
     // [START resend_verification]
@@ -165,22 +162,17 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
         }
         PhoneAuthProvider.verifyPhoneNumber(optionsBuilder.build())
     }
-    // [END resend_verification]
 
-    // [START sign_in_with_phone]
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
+                    binding!!.progressBar.visible(false)
                     binding!!.cvCode.visible(true)
                     binding!!.etParol.setText(credential.smsCode)
-                    val data = JsonObject()
-                    data.addProperty("name", et_name.text.toString().trim())
-                    data.addProperty("number", number)
-                    viewModel.registerUser(data.toString())
-                    observeUser()
+
                     val user = task.result?.user
                 } else {
                     // Sign in failed, display a message and update the UI
@@ -209,8 +201,8 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
                         }, 2000)
                     }
                     is UiState.Error -> {
-                        progressBar.visible(false)
                         toast(it.message)
+                        progressBar.visible(false)
                     }
                 }.exhaustive
             })

@@ -9,10 +9,11 @@ import kotlinx.coroutines.launch
 import lars_lion.dev.o_harid.network.response.login.LoginResponse
 import lars_lion.dev.o_harid.utils.Event
 import lars_lion.dev.o_harid.utils.UiState
+import javax.inject.Inject
 
 
 @HiltViewModel
-class LoginViewModel(
+class LoginViewModel @Inject constructor(
     private val repository: LoginRepository
 ) : ViewModel() {
     private val _login = MutableLiveData<Event<UiState<LoginResponse>>>()

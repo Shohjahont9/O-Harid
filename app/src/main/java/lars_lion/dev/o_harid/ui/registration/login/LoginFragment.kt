@@ -61,7 +61,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         auth = Firebase.auth
         // [START phone_auth_callbacks]
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
                 // This callback will be invoked in two situations:
                 Log.d("TAG", "onVerificationCompleted:$credential")
@@ -85,8 +84,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
+                isCodeSend = true
                 Log.d("TAG", "onCodeSent:$verificationId")
-
                 storedVerificationId = verificationId
                 resendToken = token
             }
@@ -95,19 +94,24 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         login()
 
         with(binding!!) {
+
+            root.setOnClickListener {
+                hideKeyBoard(it)
+            }
+
             loginButton.setOnClickListener {
-                if(etPhone.text.toString().isNotEmpty()){
+                if (etPhone.text.toString().isNotEmpty()) {
                     hideKeyBoard(it)
                     val body = JsonObject()
-                number = "+998${
-                    etPhone.text.toString().substring(1, 3)
-                }${etPhone.text.toString().substring(4, 7)}${
-                    etPhone.text.toString().substring(8, 10)
-                }${etPhone.text.toString().substring(11)}"
-                body.addProperty("number", number)
-                viewModel.loginUser(body.toString())
-                observeUser()}
-                else
+                    number = "+998${
+                        etPhone.text.toString().substring(1, 3)
+                    }${etPhone.text.toString().substring(4, 7)}${
+                        etPhone.text.toString().substring(8, 10)
+                    }${etPhone.text.toString().substring(11)}"
+                    body.addProperty("number", number)
+                    viewModel.loginUser(body.toString())
+                    observeUser()
+                } else
                     toast(getString(R.string.toliq_kirit))
             }
         }
@@ -120,23 +124,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             viewModel.login.observe(viewLifecycleOwner, EventObserver {
                 when (it) {
                     UiState.Loading -> progressBar.visible(true)
-                    is UiState.Success ->{
+                    is UiState.Success -> {
                         prefs.token = it.value.`object`.accessToken
                         binding!!.progressBar.visible(true)
-
                         if (!isCodeSend) {
-                            number = "+998${
-                                etPhone.text.toString().substring(1, 3)
-                            }${etPhone.text.toString().substring(4, 7)}${
-                                etPhone.text.toString().substring(8, 10)
-                            }${etPhone.text.toString().substring(11)}"
                             startPhoneNumberVerification(number)
                             println("number - > $number")
                         } else {
                             println("etParol -> ${etParol.text}  code -> $code")
                             if (etParol.text.toString() == code) {
                                 startActivity(Intent(requireContext(), MainActivity::class.java))
-                            }else {}
+                            } else {
+                            }
                         }
                     }
                     is UiState.Error -> {
@@ -178,7 +177,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
                     val user = task.result?.user
                 } else {
-                    // Sign in failed, display a message and update the UI
                     Log.w("TAG", "signInWithCredential:failure", task.exception)
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         // The verification code entered was invalid

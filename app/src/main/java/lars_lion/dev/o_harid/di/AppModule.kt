@@ -1,6 +1,7 @@
 package lars_lion.dev.o_harid.di
 
 import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,6 +16,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import lars_lion.dev.o_harid.network.ApiService
 import lars_lion.dev.o_harid.preferences.PreferencesManager
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Module
@@ -30,8 +32,8 @@ object AppModule {
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-        client.readTimeout(60, TimeUnit.SECONDS);
-        client.connectTimeout(60, TimeUnit.SECONDS);
+        client.readTimeout(60, TimeUnit.SECONDS)
+        client.connectTimeout(60, TimeUnit.SECONDS)
         client.addInterceptor(logging)
         client.addInterceptor(loggingInterceptor)
     }.build()

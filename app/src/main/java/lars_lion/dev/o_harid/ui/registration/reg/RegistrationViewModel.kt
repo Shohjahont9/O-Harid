@@ -9,9 +9,10 @@ import kotlinx.coroutines.launch
 import lars_lion.dev.o_harid.network.response.register.RegisterResponse
 import lars_lion.dev.o_harid.utils.Event
 import lars_lion.dev.o_harid.utils.UiState
+import javax.inject.Inject
 
 @HiltViewModel
-class RegistrationViewModel(
+class RegistrationViewModel @Inject constructor(
     private val repository: RegisstrationRepository
 ) : ViewModel() {
     private val _register = MutableLiveData<Event<UiState<RegisterResponse>>>()
@@ -22,7 +23,7 @@ class RegistrationViewModel(
         try {
             when (repository.register(body).code()) {
                 200 -> _register.value = Event(UiState.Success(repository.register(body).body()!!))
-                202 -> _register.value = Event(UiState.Error("Bunday raqam mavjud emas!"))
+                202 -> _register.value = Event(UiState.Error("Bunday raqam mavjud!"))
             }
         } catch (e: Exception) {
             _register.value = Event(UiState.Error("register User error -> ${e.message.toString()}"))
