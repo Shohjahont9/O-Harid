@@ -1,19 +1,15 @@
 package lars_lion.dev.o_harid.ui.main
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import lars_lion.dev.o_harid.R
 import lars_lion.dev.o_harid.adapter.BestSellerAdapter
 import lars_lion.dev.o_harid.base.BaseFragment
 import lars_lion.dev.o_harid.databinding.FragmentMainBinding
-import lars_lion.dev.o_harid.network.response.bestSeller.Object
 import lars_lion.dev.o_harid.preferences.PreferencesManager
 import lars_lion.dev.o_harid.utils.*
 import javax.inject.Inject
@@ -49,10 +45,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
                     UiState.Loading -> progressBarBestseller.visible(true)
                     is UiState.Success -> {
                         progressBarBestseller.visible(false)
-                        val bestSeller = ArrayList<Object>()
+                        val bestSeller = ArrayList<lars_lion.dev.o_harid.network.response.bestSeller.Object>()
                         it.value.`object`.forEach { data ->
                             bestSeller.add(
-                                Object(
+                                lars_lion.dev.o_harid.network.response.bestSeller.Object(
                                     data.author,
                                     data.description,
                                     data.file,
@@ -67,8 +63,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
                                 )
                             )
                         }
-                        binding!!.rvBestseller.adapter = bestSellerAdapter
+
+                        println("Data-> $bestSeller")
                         bestSellerAdapter.updateList(bestSeller)
+                        initRv()
+                        binding!!.rvBestseller.adapter = bestSellerAdapter
 
                     }
                     is UiState.Error -> {
@@ -83,13 +82,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
     private fun initRv() {
         bestSellerAdapter = BestSellerAdapter(this)
         with(binding!!.rvBestseller) {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
         }
     }
 
-    override fun onItemClick(position: Int, data: Object) {
+    override fun onItemClick(position: Int, data: lars_lion.dev.o_harid.network.response.bestSeller.Object) {
 
     }
 

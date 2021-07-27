@@ -2,15 +2,12 @@ package lars_lion.dev.o_harid.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.Coil
 import coil.load
 import coil.transform.CircleCropTransformation
 import lars_lion.dev.o_harid.R
 import lars_lion.dev.o_harid.databinding.ItemRvBinding
-import lars_lion.dev.o_harid.network.response.bestSeller.Object
 import kotlin.collections.ArrayList
 
 @SuppressLint("SetTextI18n")
@@ -18,7 +15,7 @@ class BestSellerAdapter(
     private val listener: BestSellerAdapterListener
 ) : RecyclerView.Adapter<BestSellerAdapter.BestSellerViewHolder>() {
 
-    private var fullDataList = ArrayList<Object>()
+    private var fullDataList = ArrayList<lars_lion.dev.o_harid.network.response.bestSeller.Object>()
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
@@ -37,7 +34,7 @@ class BestSellerAdapter(
     override fun getItemCount() =
         fullDataList.size
 
-    fun updateList(list: List<Object>) {
+    fun updateList(list: List<lars_lion.dev.o_harid.network.response.bestSeller.Object>) {
         fullDataList.clear()
         fullDataList.addAll(list)
         notifyDataSetChanged()
@@ -48,7 +45,7 @@ class BestSellerAdapter(
         private val binding: ItemRvBinding,
         private val listener: BestSellerAdapterListener
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Object) {
+        fun bind(data:lars_lion.dev.o_harid.network.response.bestSeller.Object ) {
             with(binding) {
                 imgItem.load(data.foto) {
                     crossfade(true)
@@ -61,7 +58,7 @@ class BestSellerAdapter(
 
 
     interface BestSellerAdapterListener {
-        fun onItemClick(position: Int, data: Object)
+        fun onItemClick(position: Int, data: lars_lion.dev.o_harid.network.response.bestSeller.Object)
     }
 }
 

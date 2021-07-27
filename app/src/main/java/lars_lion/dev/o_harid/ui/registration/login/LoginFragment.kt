@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.google.firebase.FirebaseException
@@ -25,6 +26,9 @@ import com.google.firebase.ktx.Firebase
 import com.google.gson.JsonObject
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_registration.*
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import lars_lion.dev.o_harid.R
 import lars_lion.dev.o_harid.base.BaseFragment
 import lars_lion.dev.o_harid.databinding.FragmentLoginBinding
@@ -102,30 +106,39 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             loginButton.setOnClickListener {
                 if (etPhone.text.toString().isNotEmpty()) {
                     hideKeyBoard(it)
+                    number = "+998${etPhone.text.toString().substring(1, 3)}${
+                        etPhone.text.toString().substring(4, 7)
+                    }${etPhone.text.toString().substring(8, 10)}${
+                        etPhone.text.toString().substring(11)
+                    }"
+
+                    println("button clicked")
+
                     val body = JsonObject()
-                    number = "+998${
-                        etPhone.text.toString().substring(1, 3)
-                    }${etPhone.text.toString().substring(4, 7)}${
-                        etPhone.text.toString().substring(8, 10)
-                    }${etPhone.text.toString().substring(11)}"
                     body.addProperty("number", number)
-                    viewModel.loginUser(body.toString())
-                    observeUser()
+                    lifecycleScope.launch {
+                        viewModel.fetchLoginUser(body.toString()).catch {it->
+                            toast(it.message ?: "message == null")  }.collectLatest { data ->
+                            viewModel.loginUser(data)
+                            observeUser()
+                        }
+                    }
                 } else
                     toast(getString(R.string.toliq_kirit))
             }
         }
-
-
     }
 
     private fun observeUser() {
         with(binding!!) {
             viewModel.login.observe(viewLifecycleOwner, EventObserver {
+                println("Observe")
                 when (it) {
                     UiState.Loading -> progressBar.visible(true)
                     is UiState.Success -> {
                         prefs.token = it.value.`object`.accessToken
+                        prefs.name = it.value.`object`.name
+
                         binding!!.progressBar.visible(true)
                         if (!isCodeSend) {
                             Handler(Looper.myLooper()!!).postDelayed({
@@ -133,7 +146,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                                 startActivity(Intent(requireContext(), MainActivity::class.java))
                                 requireActivity().finish()
                             }, 2000)
-//                            startPhoneNumberVerification(number)
+//                          //  startPhoneNumberVerification(number)
                             println("number - > $number")
                         } else {
                             println("etParol -> ${etParol.text}  code -> $code")

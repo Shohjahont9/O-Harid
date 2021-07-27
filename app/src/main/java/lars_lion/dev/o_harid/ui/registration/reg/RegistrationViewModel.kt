@@ -21,8 +21,8 @@ class RegistrationViewModel @Inject constructor(
     fun registerUser(body: String) = viewModelScope.launch {
         _register.value = Event(UiState.Loading)
         try {
-            when (repository.register(body).code()) {
-                200 -> _register.value = Event(UiState.Success(repository.register(body).body()!!))
+            when (repository.register(body).status.code) {
+                200 -> _register.value = Event(UiState.Success(repository.register(body)))
                 202 -> _register.value = Event(UiState.Error("Bunday raqam mavjud!"))
             }
         } catch (e: Exception) {

@@ -6,7 +6,7 @@ data class Object(
     val `file`: String,
     val foto: String,
     val id: Int,
-    val interested: Any,
+    val interested: Int,
     val language: String,
     val like: Boolean,
     val name: String,

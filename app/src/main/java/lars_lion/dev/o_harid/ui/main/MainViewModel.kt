@@ -26,7 +26,7 @@ class MainViewModel @Inject constructor(
                 200 -> Event(UiState.Success(repository.bestSeller(token).body()!!))
             }
         }catch (e:Exception){
-            _bestSeller.value = Event(UiState.Error(e.message.toString()))
+            _bestSeller.value = Event(UiState.Error("main error ->${e.message}"))
         }
     }
 
