@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import lars_lion.dev.o_harid.network.response.addFavourite.AddFavouriteResponse
 import lars_lion.dev.o_harid.network.response.bookDetail.BookDetailResponse
 import lars_lion.dev.o_harid.network.response.comments.CommentResponse
 import lars_lion.dev.o_harid.utils.Event
@@ -51,6 +52,23 @@ class BookDetailViewModel @Inject constructor(
             }
         }catch (e:Exception){
             _bookDetail.value = Event(UiState.Error(e.message ?: "message==null"))
+        }
+    }
+
+    private val _addFavouriteBook = MutableLiveData<Event<UiState<AddFavouriteResponse>>>()
+    val addFavouriteBook: LiveData<Event<UiState<AddFavouriteResponse>>> = _addFavouriteBook
+
+    fun addFavBook(id:Int) = viewModelScope.launch {
+        _addFavouriteBook.value = Event(UiState.Loading)
+        try {
+            repository.addFavouriteBook(id).catch {e->
+                _addFavouriteBook.value = Event(UiState.Error(e.message ?: "message==null"))
+            }.collectLatest {repos->
+                if (repos.status.code==200)
+                    _addFavouriteBook.value = Event(UiState.Success(repos))
+            }
+        }catch (e:Exception){
+            _addFavouriteBook.value = Event(UiState.Error(e.message ?: "message==null"))
         }
     }
 

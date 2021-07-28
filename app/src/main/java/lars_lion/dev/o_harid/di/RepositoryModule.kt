@@ -8,6 +8,7 @@ import dagger.hilt.android.scopes.ViewModelScoped
 import lars_lion.dev.o_harid.network.ApiService
 import lars_lion.dev.o_harid.preferences.PreferencesManager
 import lars_lion.dev.o_harid.ui.book_detail.BookDetailRepository
+import lars_lion.dev.o_harid.ui.favourite.FavouriteRepository
 import lars_lion.dev.o_harid.ui.main.MainRepository
 import lars_lion.dev.o_harid.ui.registration.login.LoginRepository
 import lars_lion.dev.o_harid.ui.registration.reg.RegisstrationRepository
@@ -44,6 +45,14 @@ object RepositoryModule {
         apiService: ApiService,
         prefs: PreferencesManager
     ): BookDetailRepository = BookDetailRepository(apiService, prefs)
+
+
+    @Provides
+    @ViewModelScoped
+    fun provideFavouriteRepository(
+        apiService: ApiService,
+        prefs: PreferencesManager
+    ): FavouriteRepository = FavouriteRepository(apiService, prefs)
 
 
 }

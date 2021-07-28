@@ -1,12 +1,15 @@
 package lars_lion.dev.o_harid.network
 
+import lars_lion.dev.o_harid.network.response.addFavourite.AddFavouriteResponse
 import lars_lion.dev.o_harid.network.response.bestSeller.BestSellerResponse
 import lars_lion.dev.o_harid.network.response.bookDetail.BookDetailResponse
 import lars_lion.dev.o_harid.network.response.bookType.BookTypeResponse
 import lars_lion.dev.o_harid.network.response.comments.CommentResponse
+import lars_lion.dev.o_harid.network.response.favourite.FavouriteBookResponse
 import lars_lion.dev.o_harid.network.response.login.LoginResponse
 import lars_lion.dev.o_harid.network.response.nowadays.NowadaysResponse
 import lars_lion.dev.o_harid.network.response.register.RegisterResponse
+import lars_lion.dev.o_harid.ui.favourite.FavouriteRepository
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -55,7 +58,20 @@ interface ApiService {
     @GET("api/book/one/{id}")
     suspend fun bookDetails(
         @Header("Authorization") token: String,
-        @Path("id") id:Int
+        @Path("id") id: Int
     ): BookDetailResponse
+
+    @Headers("Content-Type: application/json")
+    @GET("api/book/lib/books")
+    suspend fun favouriteBook(
+        @Header("Authorization") token: String,
+    ): FavouriteBookResponse
+
+    @Headers("Content-Type: application/json")
+    @POST("api/auth/add/library/{id}")
+    suspend fun addFavouriteBook(
+        @Header("Authorization") token: String,
+        @Path("id") id:Int
+    ): AddFavouriteResponse
 
 }

@@ -33,5 +33,9 @@
         android:id="@+id/bookDetailFragment"
         android:name="lars_lion.dev.o_harid.ui.book_detail.BookDetailFragment"
         android:label="fragment_book_detail"
-        tools:layout="@layout/fragment_book_detail" />
+        tools:layout="@layout/fragment_book_detail" >
+        <action
+            android:id="@+id/action_bookDetailFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 </navigation>

@@ -1,17 +1,21 @@
 package lars_lion.dev.o_harid.ui.book_detail
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import coil.request.ImageRequest
 import coil.request.ImageResult
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_login.*
 import lars_lion.dev.o_harid.R
 import lars_lion.dev.o_harid.adapter.BestSellerAdapter
 import lars_lion.dev.o_harid.adapter.CommentsAdapter
@@ -35,6 +39,17 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
     lateinit var prefs: PreferencesManager
     val viewModel: BookDetailViewModel by viewModels()
 
+    private val backPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            findNavController().navigateSafe(R.id.action_bookDetailFragment_to_mainFragment)
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        requireActivity().onBackPressedDispatcher.addCallback(backPressedCallback)
+    }
+
     override fun setBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -46,6 +61,24 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
         loadComments()
 
         loadBookItems()
+
+        binding!!.cvBack.setOnClickListener {
+            findNavController().navigateSafe(R.id.action_bookDetailFragment_to_mainFragment)
+        }
+
+        binding!!.cvLib.setOnClickListener {
+            viewModel.addFavBook(prefs.bookId)
+            viewModel.addFavouriteBook.observe(viewLifecycleOwner, EventObserver {
+                when (it) {
+                    UiState.Loading -> {
+                    }
+                    is UiState.Success -> {
+                        root.snackbar("Bu kitob javonga qo`shildi")
+                    }
+                    is UiState.Error -> toast(it.message)
+                }.exhaustive
+            })
+        }
     }
 
     private fun loadBookItems() {

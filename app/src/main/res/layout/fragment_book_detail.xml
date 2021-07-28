@@ -14,6 +14,8 @@
             android:id="@+id/cv_back"
             android:layout_width="@dimen/_36sdp"
             android:layout_height="@dimen/_36sdp"
+            android:focusable="true"
+            android:clickable="true"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/_16sdp"
@@ -40,8 +42,8 @@
                     android:padding="@dimen/_4sdp">
 
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="26dp"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/ic_back"
                         app:tint="@color/main_color_orange" />
                 </RelativeLayout>
