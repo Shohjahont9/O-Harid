@@ -26,13 +26,13 @@ class BookDetailViewModel @Inject constructor(
     fun getComment() = viewModelScope.launch {
         _comments.value = Event(UiState.Loading)
         try {
-            repository.comments().catch {e->
+            repository.comments().catch { e ->
                 _comments.value = Event(UiState.Error(e.message ?: "message==null"))
-            }.collectLatest {repos->
-                if (repos.status.code==200)
+            }.collectLatest { repos ->
+                if (repos.status.code == 200)
                     _comments.value = Event(UiState.Success(repos))
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             _comments.value = Event(UiState.Error(e.message ?: "message==null"))
         }
     }
@@ -41,16 +41,16 @@ class BookDetailViewModel @Inject constructor(
     private val _bookDetail = MutableLiveData<Event<UiState<BookDetailResponse>>>()
     val bookDetail: LiveData<Event<UiState<BookDetailResponse>>> = _bookDetail
 
-    fun getBookDetail(id:Int) = viewModelScope.launch {
+    fun getBookDetail(id: Int) = viewModelScope.launch {
         _bookDetail.value = Event(UiState.Loading)
         try {
-            repository.bookDetail(id).catch {e->
+            repository.bookDetail(id).catch { e ->
                 _bookDetail.value = Event(UiState.Error(e.message ?: "message==null"))
-            }.collectLatest {repos->
-                if (repos.status.code==200)
+            }.collectLatest { repos ->
+                if (repos.status.code == 200)
                     _bookDetail.value = Event(UiState.Success(repos))
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             _bookDetail.value = Event(UiState.Error(e.message ?: "message==null"))
         }
     }
@@ -58,16 +58,18 @@ class BookDetailViewModel @Inject constructor(
     private val _addFavouriteBook = MutableLiveData<Event<UiState<AddFavouriteResponse>>>()
     val addFavouriteBook: LiveData<Event<UiState<AddFavouriteResponse>>> = _addFavouriteBook
 
-    fun addFavBook(id:Int) = viewModelScope.launch {
+    fun addFavBook(id: Int) = viewModelScope.launch {
         _addFavouriteBook.value = Event(UiState.Loading)
         try {
-            repository.addFavouriteBook(id).catch {e->
+            repository.addFavouriteBook(id).catch { e ->
                 _addFavouriteBook.value = Event(UiState.Error(e.message ?: "message==null"))
-            }.collectLatest {repos->
-                if (repos.status.code==200)
+            }.collectLatest { repos ->
+                if (repos.status.code == 200)
                     _addFavouriteBook.value = Event(UiState.Success(repos))
+                else
+                    _addFavouriteBook.value = Event(UiState.Error(repos.status.message))
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             _addFavouriteBook.value = Event(UiState.Error(e.message ?: "message==null"))
         }
     }

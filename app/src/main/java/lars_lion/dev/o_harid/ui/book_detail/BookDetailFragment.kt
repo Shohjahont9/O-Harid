@@ -75,7 +75,7 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
                     is UiState.Success -> {
                         root.snackbar("Bu kitob javonga qo`shildi")
                     }
-                    is UiState.Error -> toast(it.message)
+                    is UiState.Error -> root.snackbar(it.message)
                 }.exhaustive
             })
         }
