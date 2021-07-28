@@ -124,6 +124,7 @@ dependencies {
     implementation 'ru.egslava:MaskedEditText:1.0.5'
 
     implementation 'com.airbnb.android:lottie:3.7.2'
+    implementation 'io.github.everythingme:overscroll-decor-android:1.1.1'
 
 }
 

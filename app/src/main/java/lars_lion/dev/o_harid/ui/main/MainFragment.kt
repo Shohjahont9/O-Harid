@@ -4,25 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import lars_lion.dev.o_harid.adapter.BestSellerAdapter
+import lars_lion.dev.o_harid.adapter.JanrAdapter
+import lars_lion.dev.o_harid.adapter.NowadaysBooksAdapter
 import lars_lion.dev.o_harid.base.BaseFragment
 import lars_lion.dev.o_harid.databinding.FragmentMainBinding
+import lars_lion.dev.o_harid.network.response.nowadays.Object
 import lars_lion.dev.o_harid.preferences.PreferencesManager
 import lars_lion.dev.o_harid.utils.*
 import javax.inject.Inject
 
+
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(),
-    BestSellerAdapter.BestSellerAdapterListener {
+    BestSellerAdapter.BestSellerAdapterListener, NowadaysBooksAdapter.BestSellerAdapterListener ,JanrAdapter.BestSellerAdapterListener{
     lateinit var bestSellerAdapter: BestSellerAdapter
+    lateinit var nowadaysAdapter: NowadaysBooksAdapter
+    lateinit var bookTypeAdapter: JanrAdapter
 
     @Inject
     lateinit var prefs: PreferencesManager
@@ -35,65 +37,138 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initRv()
-
         loadBestSeller()
+
+        loadNowadaysBooks()
+
+        loadBookType()
+    }
+
+    private fun loadBookType() {
+        with(binding!!) {
+            viewModel.getBookType("Bearer ${prefs.token}")
+            viewModel.bookType.observe(viewLifecycleOwner, EventObserver {
+                when (it) {
+                    UiState.Loading -> watchAnimationJanr.visible(true)
+                    is UiState.Success -> {
+                        watchAnimationJanr.visible(false)
+                        val nowadaysBooks =
+                            ArrayList<lars_lion.dev.o_harid.network.response.bookType.Object>()
+                        nowadaysBooks.addAll(it.value.`object`)
+                        initRvBookType()
+                        binding!!.rvJanr.adapter = bookTypeAdapter
+                        bookTypeAdapter.updateList(nowadaysBooks)
+                        with(rvJanr){
+                            viewTreeObserver.addOnPreDrawListener(
+                                object : ViewTreeObserver.OnPreDrawListener {
+                                    override fun onPreDraw(): Boolean {
+                                        viewTreeObserver.removeOnPreDrawListener(this)
+                                        for (i in 0 until childCount) {
+                                            val v: View = getChildAt(i)
+                                            v.alpha = 0.0f
+                                            v.animate().alpha(1.0f)
+                                                .setDuration(1000)
+                                                .setStartDelay((i * 100).toLong())
+                                                .start()
+                                        }
+                                        return true
+                                    }
+                                })
+                        }
+                    }
+                    is UiState.Error -> {
+                        watchAnimationJanr.visible(false)
+                        toast(it.message)
+                    }
+                }.exhaustive
+            })
+
+        }
+
+    }
+
+    private fun loadNowadaysBooks() {
+        with(binding!!) {
+            viewModel.getNowadaysBook("Bearer ${prefs.token}")
+            viewModel.nowadaysBook.observe(viewLifecycleOwner, EventObserver {
+                when (it) {
+                    UiState.Loading -> watchAnimation.visible(true)
+                    is UiState.Success -> {
+                        watchAnimation.visible(false)
+                        val nowadaysBooks =
+                            ArrayList<Object>()
+                        nowadaysBooks.addAll(it.value.`object`)
+                        initRvNowadays()
+                        binding!!.rvNow.adapter = nowadaysAdapter
+                        nowadaysAdapter.updateList(nowadaysBooks)
+                        with(rvNow){
+                            viewTreeObserver.addOnPreDrawListener(
+                                object : ViewTreeObserver.OnPreDrawListener {
+                                    override fun onPreDraw(): Boolean {
+                                        viewTreeObserver.removeOnPreDrawListener(this)
+                                        for (i in 0 until childCount) {
+                                            val v: View = getChildAt(i)
+                                            v.alpha = 0.0f
+                                            v.animate().alpha(1.0f)
+                                                .setDuration(1000)
+                                                .setStartDelay((i * 100).toLong())
+                                                .start()
+                                        }
+                                        return true
+                                    }
+                                })
+                        }
+                    }
+                    is UiState.Error -> {
+                        watchAnimation.visible(false)
+                        toast(it.message)
+                    }
+                }.exhaustive
+            })
+
+        }
 
     }
 
     private fun loadBestSeller() {
-        println("token -> ${prefs.token}")
         with(binding!!) {
-            lifecycleScope.launch {
-                viewModel.fetchBestSeller("Bearer ${prefs.token}").catch { it ->
-                    toast(it.message ?: "message == null")
-                }.collect { data ->
-                    val bestSeller = ArrayList<lars_lion.dev.o_harid.network.response.bestSeller.Object>()
+            viewModel.getBestSeller("Bearer ${prefs.token}")
+            viewModel.bestSeller.observe(viewLifecycleOwner, EventObserver {
+                when (it) {
+                    UiState.Loading -> progressBarBestseller.visible(true)
+                    is UiState.Success -> {
+                        progressBarBestseller.visible(false)
+                        val bestSeller =
+                            ArrayList<lars_lion.dev.o_harid.network.response.bestSeller.Object>()
 
-                    bestSeller.addAll(data.`object`)
-                    binding!!.rvBestseller.adapter = bestSellerAdapter
-                    bestSellerAdapter.updateList(bestSeller)
-
-//                    viewModel.getBestSeller(data)
-//                    viewModel.bestSeller.observe(viewLifecycleOwner, Observer {
-//                        println("werewrwerewrw -> $it")
-//
-//                        when (it) {
-//                            UiState.Loading -> progressBarBestseller.visible(true)
-//                            is UiState.Success -> {
-//                                println("status success")
-//                                progressBarBestseller.visible(false)
-//
-//                                it.value.`object`.forEach { data ->
-//                                    bestSeller.add(
-//                                        lars_lion.dev.o_harid.network.response.bestSeller.Object(
-//                                            data.author,
-//                                            data.description,
-//                                            data.file,
-//                                            data.foto,
-//                                            data.id,
-//                                            data.interested,
-//                                            data.language,
-//                                            data.like,
-//                                            data.name,
-//                                            data.page_size,
-//                                            data.price
-//                                        )
-//                                    )
-//                                }
-//
-//                                println("Data-> $bestSeller")
-//
-//
-//                            }
-//                            is UiState.Error -> {
-//                                progressBarBestseller.visible(false)
-//                                toast(it.message)
-//                            }
-//                        }.exhaustive
-//                    })
-                }
-            }
+                        bestSeller.addAll(it.value.`object`)
+                        initRv()
+                        binding!!.rvBestseller.adapter = bestSellerAdapter
+                        bestSellerAdapter.updateList(bestSeller)
+                        with(rvBestseller){
+                            viewTreeObserver.addOnPreDrawListener(
+                                object : ViewTreeObserver.OnPreDrawListener {
+                                    override fun onPreDraw(): Boolean {
+                                        viewTreeObserver.removeOnPreDrawListener(this)
+                                        for (i in 0 until childCount) {
+                                            val v: View = getChildAt(i)
+                                            v.alpha = 0.0f
+                                            v.animate().alpha(1.0f)
+                                                .setDuration(1000)
+                                                .setStartDelay((i * 50).toLong())
+                                                .start()
+                                        }
+                                        return true
+                                    }
+                                })
+                        }
+                    }
+                    is UiState.Error -> {
+                        progressBarBestseller.visible(false)
+                        toast(it.message)
+                    }
+                }.exhaustive
+            })
         }
 
     }
@@ -101,8 +176,26 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
     private fun initRv() {
         bestSellerAdapter = BestSellerAdapter(this)
         with(binding!!.rvBestseller) {
+
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            setHasFixedSize(true)
+        }
+    }
+
+   private fun initRvBookType() {
+       bookTypeAdapter = JanrAdapter(this)
+        with(binding!!.rvJanr) {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            setHasFixedSize(true)
+        }
+    }
+
+    private fun initRvNowadays() {
+        nowadaysAdapter = NowadaysBooksAdapter(this)
+        with(binding!!.rvNow) {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
         }
     }
@@ -111,7 +204,19 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
         position: Int,
         data: lars_lion.dev.o_harid.network.response.bestSeller.Object
     ) {
-            toast(position.toString())
+        toast(position.toString())
+    }
+
+    override fun onItemClick(position: Int, data: Object) {
+        toast(position.toString())
+
+    }
+
+    override fun onItemClick(
+        position: Int,
+        data: lars_lion.dev.o_harid.network.response.bookType.Object
+    ) {
+
     }
 
 }

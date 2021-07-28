@@ -1,7 +1,9 @@
 package lars_lion.dev.o_harid.network
 
 import lars_lion.dev.o_harid.network.response.bestSeller.BestSellerResponse
+import lars_lion.dev.o_harid.network.response.bookType.BookTypeResponse
 import lars_lion.dev.o_harid.network.response.login.LoginResponse
+import lars_lion.dev.o_harid.network.response.nowadays.NowadaysResponse
 import lars_lion.dev.o_harid.network.response.register.RegisterResponse
 import retrofit2.Response
 import retrofit2.http.*
@@ -27,6 +29,21 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Query("size") page: Int
     ): BestSellerResponse
+
+
+    @Headers("Content-Type: application/json")
+    @GET("api/book/latest/{size}")
+    suspend fun nowadaysBooks(
+        @Header("Authorization") token: String,
+        @Path("size") size: Int
+    ): NowadaysResponse
+
+
+    @Headers("Content-Type: application/json")
+    @GET("/api/bookType/get/all")
+    suspend fun bookType(
+        @Header("Authorization") token: String,
+    ): BookTypeResponse
 
 
 

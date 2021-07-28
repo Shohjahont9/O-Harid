@@ -13,4 +13,13 @@ class MainRepository @Inject constructor(
         emit(apiService.bestSeller(token, 10))
     }.flowOn(Dispatchers.IO)
 
+    suspend fun nowadaysBooks(token:String) = flow {
+        emit(apiService.nowadaysBooks(token, 10))
+    }.flowOn(Dispatchers.IO)
+
+    suspend fun janrBooks(token:String) = flow {
+        emit(apiService.bookType(token))
+    }.flowOn(Dispatchers.IO)
+
+
 }
