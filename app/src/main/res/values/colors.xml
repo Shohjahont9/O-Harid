@@ -10,6 +10,7 @@
 
     <color name="main_color">#FF3700B3</color>
     <color name="main_color_orange">#ff611c</color>
+    <color name="star">#EDB50B</color>
 
 
 </resources>
