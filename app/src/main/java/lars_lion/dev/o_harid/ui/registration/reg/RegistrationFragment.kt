@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.core.os.postDelayed
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
@@ -28,6 +29,9 @@ import com.google.firebase.ktx.Firebase
 import com.google.gson.JsonObject
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_registration.*
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import lars_lion.dev.o_harid.R
 import lars_lion.dev.o_harid.base.BaseFragment
 import lars_lion.dev.o_harid.databinding.FragmentRegistrationBinding
@@ -109,11 +113,17 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
                         startPhoneNumberVerification(number)
 
                     } else {
-                            val data = JsonObject()
-                            data.addProperty("name", et_name.text.toString().trim())
-                            data.addProperty("number", number)
-                            viewModel.registerUser(data.toString())
-                            observeUser()
+                        val data = JsonObject()
+                        data.addProperty("name", et_name.text.toString().trim())
+                        data.addProperty("number", number)
+                        lifecycleScope.launch {
+                            viewModel.fetchRegisterUser(data.toString()).catch { it ->
+                                toast(it.message ?: "message == null")
+                            }.collectLatest { data ->
+                                viewModel.registerUser(data)
+                                observeUser()
+                            }
+                        }
                     }
 
                 } else toast(getString(R.string.toliq_kirit))

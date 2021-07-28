@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">О-Харид</string>
-    <string name="qanaqa_kitob_izlayopsiz">Qanaqa kitob \nizlayopsiz?</string>
+    <string name="qanaqa_kitob_izlayopsiz">Qanaqa kitob \nizlayapsiz?</string>
     <string name="kitobni_izlash">Kitobni izlash ...</string>
     <string name="hozirda_o_qilmoqda">Hozirda o`qilmoqda</string>
     <string name="kunning_eng_yaxshilari">Kunning eng yaxshilari</string>

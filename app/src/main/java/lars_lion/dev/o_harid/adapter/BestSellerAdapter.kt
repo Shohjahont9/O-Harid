@@ -3,11 +3,15 @@ package lars_lion.dev.o_harid.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.request.ImageRequest
+import coil.request.ImageResult
 import coil.transform.CircleCropTransformation
 import lars_lion.dev.o_harid.R
 import lars_lion.dev.o_harid.databinding.ItemRvBinding
+import lars_lion.dev.o_harid.utils.visible
 import kotlin.collections.ArrayList
 
 @SuppressLint("SetTextI18n")
@@ -45,12 +49,29 @@ class BestSellerAdapter(
         private val binding: ItemRvBinding,
         private val listener: BestSellerAdapterListener
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data:lars_lion.dev.o_harid.network.response.bestSeller.Object ) {
+        fun bind(data: lars_lion.dev.o_harid.network.response.bestSeller.Object) {
             with(binding) {
                 imgItem.load(data.foto) {
                     crossfade(true)
-                    placeholder(R.drawable.ic_books)
-                    transformations(CircleCropTransformation())
+                    listener(object : ImageRequest.Listener {
+                        override fun onSuccess(
+                            request: ImageRequest,
+                            metadata: ImageResult.Metadata
+                        ) {
+                            super.onSuccess(request, metadata)
+                            watchAnimation.visible(false)
+                        }
+                    })
+                }
+
+                imgItem.scaleType = ImageView.ScaleType.FIT_XY
+
+                tvAuthor.text = data.author
+                tvTitle.text = data.name
+
+                imgItem.setOnClickListener {
+                    if (adapterPosition != RecyclerView.NO_POSITION)
+                        listener.onItemClick(adapterPosition, data)
                 }
             }
         }
@@ -58,7 +79,10 @@ class BestSellerAdapter(
 
 
     interface BestSellerAdapterListener {
-        fun onItemClick(position: Int, data: lars_lion.dev.o_harid.network.response.bestSeller.Object)
+        fun onItemClick(
+            position: Int,
+            data: lars_lion.dev.o_harid.network.response.bestSeller.Object
+        )
     }
 }
 

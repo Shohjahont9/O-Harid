@@ -1,13 +1,10 @@
 <resources>
     <string name="app_name">O-Harid</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="qanaqa_kitob_izlayopsiz">Qanaqa kitob \nizlayopsiz?</string>
+    <string name="qanaqa_kitob_izlayopsiz">Qanaqa kitob \nizlayapsiz?</string>
     <string name="kitobni_izlash">Kitobni izlash ...</string>
     <string name="hozirda_o_qilmoqda">Hozirda o`qilmoqda</string>
     <string name="kunning_eng_yaxshilari">Kunning eng yaxshilari</string>
     <string name="bestsellerlar">Bestsellerlar</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login">Tasdiqlash</string>
     <string name="xush_kelibsiz">Xush kelibsiz</string>
     <string name="ism_kiriting">Ism kiriting</string>

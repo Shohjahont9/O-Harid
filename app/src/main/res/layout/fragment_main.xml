@@ -197,58 +197,6 @@
 
 
         <TextView
-            android:id="@+id/tv_now"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_16sdp"
-            android:layout_marginLeft="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:fontFamily="@font/g_bold"
-            android:text="@string/hozirda_o_qilmoqda"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_15ssp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cv_search" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_now"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_16sdp"
-            android:clipToPadding="false"
-            android:nestedScrollingEnabled="false"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_now" />
-
-        <TextView
-            android:id="@+id/tv_now_best"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_16sdp"
-            android:layout_marginLeft="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:fontFamily="@font/g_bold"
-            android:text="@string/kunning_eng_yaxshilari"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_15ssp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_now" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_now_best"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_16sdp"
-            android:clipToPadding="false"
-            android:nestedScrollingEnabled="false"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_now_best" />
-
-        <TextView
             android:id="@+id/tv_bestseller"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -260,28 +208,46 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_15ssp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_now_best" />
+            app:layout_constraintTop_toBottomOf="@id/cv_search" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_bestseller"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_16sdp"
+            android:paddingStart="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
             android:clipToPadding="false"
             android:nestedScrollingEnabled="false"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_bestseller" />
 
-        <ProgressBar
-            android:id="@+id/progress_bar_bestseller"
+
+        <TextView
+            android:id="@+id/tv_now"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginLeft="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:fontFamily="@font/g_bold"
+            android:text="@string/hozirda_o_qilmoqda"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15ssp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_bestseller"
-            android:layout_marginTop="@dimen/_16sdp"/>
+            app:layout_constraintTop_toBottomOf="@id/rv_bestseller" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_now"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_now" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

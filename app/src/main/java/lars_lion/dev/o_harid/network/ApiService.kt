@@ -26,7 +26,8 @@ interface ApiService {
     suspend fun bestSeller(
         @Header("Authorization") token: String,
         @Query("size") page: Int
-    ): Response<BestSellerResponse>
+    ): BestSellerResponse
+
 
 
 }

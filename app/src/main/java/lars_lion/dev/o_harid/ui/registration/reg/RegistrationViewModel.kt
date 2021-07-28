@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import lars_lion.dev.o_harid.network.response.login.LoginResponse
 import lars_lion.dev.o_harid.network.response.register.RegisterResponse
 import lars_lion.dev.o_harid.utils.Event
 import lars_lion.dev.o_harid.utils.UiState
@@ -18,15 +19,14 @@ class RegistrationViewModel @Inject constructor(
     private val _register = MutableLiveData<Event<UiState<RegisterResponse>>>()
     val register: LiveData<Event<UiState<RegisterResponse>>> = _register
 
-    fun registerUser(body: String) = viewModelScope.launch {
+    fun registerUser(response: RegisterResponse) = viewModelScope.launch {
         _register.value = Event(UiState.Loading)
         try {
-            when (repository.register(body).status.code) {
-                200 -> _register.value = Event(UiState.Success(repository.register(body)))
-                202 -> _register.value = Event(UiState.Error("Bunday raqam mavjud!"))
-            }
+            _register.value = Event(UiState.Success(response))
         } catch (e: Exception) {
             _register.value = Event(UiState.Error("register User error -> ${e.message.toString()}"))
         }
     }
+
+    suspend fun fetchRegisterUser(body:String) = repository.register(body)
 }
