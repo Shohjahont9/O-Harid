@@ -127,6 +127,7 @@
             app:cardElevation="@dimen/_8sdp"
             app:layout_constraintCircleRadius="@dimen/_32sdp"
             app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
             tools:targetApi="p">

@@ -15,6 +15,8 @@
     <string name="toliq_kirit">Ma\'lumotlarni to`liq kiriting</string>
     <string name="janrlar">Janrlar</string>
     <string name="izoh">Izoh</string>
+    <string name="til">Til :</string>
+    <string name="varoq">Varoq :</string>
 
 
 </resources>

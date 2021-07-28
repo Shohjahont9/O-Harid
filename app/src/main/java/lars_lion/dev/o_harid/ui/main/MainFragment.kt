@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import lars_lion.dev.o_harid.R
 import lars_lion.dev.o_harid.adapter.BestSellerAdapter
 import lars_lion.dev.o_harid.adapter.JanrAdapter
 import lars_lion.dev.o_harid.adapter.NowadaysBooksAdapter
@@ -18,10 +20,10 @@ import lars_lion.dev.o_harid.preferences.PreferencesManager
 import lars_lion.dev.o_harid.utils.*
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(),
     BestSellerAdapter.BestSellerAdapterListener, NowadaysBooksAdapter.BestSellerAdapterListener ,JanrAdapter.BestSellerAdapterListener{
+
     lateinit var bestSellerAdapter: BestSellerAdapter
     lateinit var nowadaysAdapter: NowadaysBooksAdapter
     lateinit var bookTypeAdapter: JanrAdapter
@@ -176,7 +178,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
     private fun initRv() {
         bestSellerAdapter = BestSellerAdapter(this)
         with(binding!!.rvBestseller) {
-
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
@@ -204,12 +205,13 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
         position: Int,
         data: lars_lion.dev.o_harid.network.response.bestSeller.Object
     ) {
-        toast(position.toString())
+        prefs.bookId = data.id
+       findNavController().navigateSafe(R.id.action_mainFragment_to_bookDetailFragment)
     }
 
     override fun onItemClick(position: Int, data: Object) {
-        toast(position.toString())
-
+        prefs.bookId = data.id
+        findNavController().navigateSafe(R.id.action_mainFragment_to_bookDetailFragment)
     }
 
     override fun onItemClick(

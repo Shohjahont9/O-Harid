@@ -9,7 +9,11 @@
         android:id="@+id/mainFragment"
         android:name="lars_lion.dev.o_harid.ui.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_bookDetailFragment"
+            app:destination="@id/bookDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/audioFragment"
         android:name="lars_lion.dev.o_harid.ui.audio.AudioFragment"
@@ -25,4 +29,9 @@
         android:name="lars_lion.dev.o_harid.ui.favourite.FavouriteFragment"
         android:label="fragment_favourite"
         tools:layout="@layout/fragment_favourite" />
+    <fragment
+        android:id="@+id/bookDetailFragment"
+        android:name="lars_lion.dev.o_harid.ui.book_detail.BookDetailFragment"
+        android:label="fragment_book_detail"
+        tools:layout="@layout/fragment_book_detail" />
 </navigation>

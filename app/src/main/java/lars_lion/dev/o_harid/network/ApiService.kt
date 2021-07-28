@@ -1,7 +1,9 @@
 package lars_lion.dev.o_harid.network
 
 import lars_lion.dev.o_harid.network.response.bestSeller.BestSellerResponse
+import lars_lion.dev.o_harid.network.response.bookDetail.BookDetailResponse
 import lars_lion.dev.o_harid.network.response.bookType.BookTypeResponse
+import lars_lion.dev.o_harid.network.response.comments.CommentResponse
 import lars_lion.dev.o_harid.network.response.login.LoginResponse
 import lars_lion.dev.o_harid.network.response.nowadays.NowadaysResponse
 import lars_lion.dev.o_harid.network.response.register.RegisterResponse
@@ -30,7 +32,6 @@ interface ApiService {
         @Query("size") page: Int
     ): BestSellerResponse
 
-
     @Headers("Content-Type: application/json")
     @GET("api/book/latest/{size}")
     suspend fun nowadaysBooks(
@@ -38,13 +39,23 @@ interface ApiService {
         @Path("size") size: Int
     ): NowadaysResponse
 
-
     @Headers("Content-Type: application/json")
     @GET("/api/bookType/get/all")
     suspend fun bookType(
         @Header("Authorization") token: String,
     ): BookTypeResponse
 
+    @Headers("Content-Type: application/json")
+    @GET("/api/comment/2")
+    suspend fun comments(
+        @Header("Authorization") token: String,
+    ): CommentResponse
 
+    @Headers("Content-Type: application/json")
+    @GET("api/book/one/{id}")
+    suspend fun bookDetails(
+        @Header("Authorization") token: String,
+        @Path("id") id:Int
+    ): BookDetailResponse
 
 }
