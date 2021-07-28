@@ -21,8 +21,8 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/img_item"
-                    android:layout_width="@dimen/_120sdp"
-                    android:layout_height="@dimen/_140sdp" />
+                    android:layout_width="@dimen/_105sdp"
+                    android:layout_height="@dimen/_120sdp" />
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/watch_animation"

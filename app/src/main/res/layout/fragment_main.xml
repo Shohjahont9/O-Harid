@@ -209,33 +209,38 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cv_search" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_bestseller"
+        <RelativeLayout
+            android:id="@+id/rl_bestseller"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_210sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:clipToPadding="false"
-            android:layoutAnimation="@anim/layout_animation"
-            android:nestedScrollingEnabled="false"
-            android:paddingStart="@dimen/_16sdp"
-            android:paddingEnd="@dimen/_16sdp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_bestseller" />
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_bestseller">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/progress_bar_bestseller"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/tv_now"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_bestseller"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="loading.json"
-            app:lottie_loop="true"
-            app:lottie_speed="2" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_bestseller"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:clipToPadding="false"
+                android:layoutAnimation="@anim/layout_animation"
+                android:nestedScrollingEnabled="false"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_16sdp" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/progress_bar_bestseller"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginBottom="@dimen/_30sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="loading.json"
+                app:lottie_loop="true"
+                app:lottie_speed="2" />
+
+        </RelativeLayout>
 
 
         <TextView
@@ -249,7 +254,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_15ssp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_bestseller" />
+            app:layout_constraintTop_toBottomOf="@id/rl_bestseller" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_rv"
@@ -258,18 +263,18 @@
             android:layout_marginStart="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
             android:nestedScrollingEnabled="false"
             android:padding="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
             app:cardCornerRadius="@dimen/_10sdp"
             app:cardElevation="@dimen/_5sdp"
             app:layout_constraintTop_toBottomOf="@id/tv_now">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_now"
-                android:layout_marginBottom="@dimen/_8sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_8sdp"
                 android:clipToPadding="false"
                 android:layoutAnimation="@anim/layout_animation" />
 
@@ -305,44 +310,43 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
+                android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/tv_janr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_15ssp"
-                    android:textColor="@color/black"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:fontFamily="@font/g_bold"
                     android:text="@string/janrlar"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15ssp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_janr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_janr"
+                    android:layout_marginStart="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_8sdp"
-                android:id="@+id/tv_janr"
-                    android:layout_marginStart="@dimen/_8sdp"/>
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:clipToPadding="false"
+                    android:layoutAnimation="@anim/layout_animation" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_janr"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_janr"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:clipToPadding="false"
-                android:layoutAnimation="@anim/layout_animation" />
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/watch_animation_janr"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_30sdp"
-                android:layout_marginBottom="@dimen/_30sdp"
-                app:lottie_autoPlay="true"
-                app:lottie_fileName="loading.json"
-                app:lottie_loop="true"
-                app:lottie_speed="2" />
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/watch_animation_janr"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_centerInParent="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginBottom="@dimen/_30sdp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_fileName="loading.json"
+                    app:lottie_loop="true"
+                    app:lottie_speed="2" />
 
             </RelativeLayout>
 
