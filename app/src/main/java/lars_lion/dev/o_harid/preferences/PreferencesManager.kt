@@ -18,12 +18,14 @@ class PreferencesManager(
     var name by PreferencesDelegate(preferences, NAME, "empty")
     var token by PreferencesDelegate(preferences, TOKEN, "empty")
     var bookId by PreferencesDelegate(preferences, BOOK_ID, -1)
+    var language by PreferencesDelegate(preferences, LANGUAGE, "empty")
 
     companion object {
         private const val IS_AUTH_VERIFIED = "IS_AUTH_VERIFIED"
         private const val NAME = "NAME"
         private const val TOKEN = "TOKEN"
         private const val BOOK_ID = "Book_id"
+        private const val LANGUAGE = "LANGUAGE"
     }
 
 }

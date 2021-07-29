@@ -22,7 +22,8 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(),
-    BestSellerAdapter.BestSellerAdapterListener, NowadaysBooksAdapter.BestSellerAdapterListener ,JanrAdapter.BestSellerAdapterListener{
+    BestSellerAdapter.BestSellerAdapterListener, NowadaysBooksAdapter.BestSellerAdapterListener,
+    JanrAdapter.BestSellerAdapterListener {
 
     lateinit var bestSellerAdapter: BestSellerAdapter
     lateinit var nowadaysAdapter: NowadaysBooksAdapter
@@ -39,11 +40,41 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        prefsData()
+
         loadBestSeller()
 
         loadNowadaysBooks()
 
         loadBookType()
+
+        onClicks()
+    }
+
+    private fun prefsData() {
+        when (prefs.language) {
+            "en" -> uzbek()
+            "ru" -> kiril()
+        }
+    }
+
+    private fun uzbek() {
+        prefs.language = "en"
+    }
+
+    private fun kiril() {
+        prefs.language = "ru"
+    }
+
+    private fun onClicks() {
+        with(binding!!) {
+            tvName.text = prefs.name
+
+            cvProfile.setOnClickListener {
+                findNavController().navigateSafe(R.id.action_mainFragment_to_profileFragment)
+            }
+
+        }
     }
 
     private fun loadBookType() {
@@ -60,7 +91,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
                         initRvBookType()
                         binding!!.rvJanr.adapter = bookTypeAdapter
                         bookTypeAdapter.updateList(nowadaysBooks)
-                        with(rvJanr){
+                        with(rvJanr) {
                             viewTreeObserver.addOnPreDrawListener(
                                 object : ViewTreeObserver.OnPreDrawListener {
                                     override fun onPreDraw(): Boolean {
@@ -103,7 +134,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
                         initRvNowadays()
                         binding!!.rvNow.adapter = nowadaysAdapter
                         nowadaysAdapter.updateList(nowadaysBooks)
-                        with(rvNow){
+                        with(rvNow) {
                             viewTreeObserver.addOnPreDrawListener(
                                 object : ViewTreeObserver.OnPreDrawListener {
                                     override fun onPreDraw(): Boolean {
@@ -147,7 +178,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
                         initRv()
                         binding!!.rvBestseller.adapter = bestSellerAdapter
                         bestSellerAdapter.updateList(bestSeller)
-                        with(rvBestseller){
+                        with(rvBestseller) {
                             viewTreeObserver.addOnPreDrawListener(
                                 object : ViewTreeObserver.OnPreDrawListener {
                                     override fun onPreDraw(): Boolean {
@@ -184,8 +215,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
         }
     }
 
-   private fun initRvBookType() {
-       bookTypeAdapter = JanrAdapter(this)
+    private fun initRvBookType() {
+        bookTypeAdapter = JanrAdapter(this)
         with(binding!!.rvJanr) {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -196,7 +227,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
     private fun initRvNowadays() {
         nowadaysAdapter = NowadaysBooksAdapter(this)
         with(binding!!.rvNow) {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
         }
     }
@@ -206,7 +238,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
         data: lars_lion.dev.o_harid.network.response.bestSeller.Object
     ) {
         prefs.bookId = data.id
-       findNavController().navigateSafe(R.id.action_mainFragment_to_bookDetailFragment)
+        findNavController().navigateSafe(R.id.action_mainFragment_to_bookDetailFragment)
     }
 
     override fun onItemClick(position: Int, data: Object) {

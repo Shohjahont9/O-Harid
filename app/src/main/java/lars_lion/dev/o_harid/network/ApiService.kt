@@ -5,10 +5,12 @@ import lars_lion.dev.o_harid.network.response.bestSeller.BestSellerResponse
 import lars_lion.dev.o_harid.network.response.bookDetail.BookDetailResponse
 import lars_lion.dev.o_harid.network.response.bookType.BookTypeResponse
 import lars_lion.dev.o_harid.network.response.comments.CommentResponse
+import lars_lion.dev.o_harid.network.response.createCard.CreateCardResponse
 import lars_lion.dev.o_harid.network.response.favourite.FavouriteBookResponse
 import lars_lion.dev.o_harid.network.response.login.LoginResponse
 import lars_lion.dev.o_harid.network.response.nowadays.NowadaysResponse
 import lars_lion.dev.o_harid.network.response.register.RegisterResponse
+import lars_lion.dev.o_harid.network.response.verifyCode.VerifyCodeResponse
 import lars_lion.dev.o_harid.ui.favourite.FavouriteRepository
 import retrofit2.Response
 import retrofit2.http.*
@@ -73,5 +75,19 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id:Int
     ): AddFavouriteResponse
+
+    @Headers("Content-Type: application/json")
+    @POST("/api/payment/card/create")
+    suspend fun createCard(
+        @Header("Authorization") token: String,
+        @Body body:String
+    ): CreateCardResponse
+
+    @Headers("Content-Type: application/json")
+    @POST("/api/payment/verify/code")
+    suspend fun getVerifyCode(
+        @Header("Authorization") token: String,
+        @Query("code") code:String
+    ): VerifyCodeResponse
 
 }

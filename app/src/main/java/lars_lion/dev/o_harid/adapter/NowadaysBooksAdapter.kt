@@ -71,7 +71,7 @@ class NowadaysBooksAdapter(
                 tvTitle.text = data.name
                 tvPrice.text = "${data.price.toInt()} UZS"
 
-                root.setOnClickListener {
+                rlRoot.setOnClickListener {
                     if (adapterPosition != RecyclerView.NO_POSITION)
                         listener.onItemClick(adapterPosition, data)
                 }

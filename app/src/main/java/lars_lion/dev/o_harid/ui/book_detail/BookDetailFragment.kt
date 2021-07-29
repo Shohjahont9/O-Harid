@@ -96,6 +96,7 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
                         tvInterested.text = "${data.interested}\nQiziqish"
                         tvLanguage.text = data.language
                         tvPage.text = data.page_size.toString()
+                        imgBookBack.load(data.foto)
                         imgBook.load(data.foto) {
                             crossfade(true)
                             listener(object : ImageRequest.Listener {
@@ -108,6 +109,8 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
                                 }
                             })
                         }
+
+
                     }
                 }
                 is UiState.Error -> {

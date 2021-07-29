@@ -1,14 +1,11 @@
 package lars_lion.dev.o_harid.ui.favourite
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
-import lars_lion.dev.o_harid.R
 import lars_lion.dev.o_harid.base.BaseFragment
 import lars_lion.dev.o_harid.databinding.FragmentFavouriteBinding
 import lars_lion.dev.o_harid.preferences.PreferencesManager

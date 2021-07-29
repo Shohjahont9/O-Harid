@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_mainFragment_to_bookDetailFragment"
             app:destination="@id/bookDetailFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/audioFragment"
@@ -37,5 +40,38 @@
         <action
             android:id="@+id/action_bookDetailFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="lars_lion.dev.o_harid.ui.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_cardFragment"
+            app:destination="@id/cardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cardFragment"
+        android:name="lars_lion.dev.o_harid.ui.card.CardFragment"
+        android:label="fragment_card"
+        tools:layout="@layout/fragment_card" >
+        <action
+            android:id="@+id/action_cardFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_cardFragment_to_verifyCardFragment"
+            app:destination="@id/verifyCardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/verifyCardFragment"
+        android:name="lars_lion.dev.o_harid.ui.card.verifyCard.VerifyCardFragment"
+        android:label="fragment_verify_card"
+        tools:layout="@layout/fragment_verify_card" >
+        <action
+            android:id="@+id/action_verifyCardFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 </navigation>

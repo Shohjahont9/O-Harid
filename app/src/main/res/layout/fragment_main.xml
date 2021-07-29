@@ -13,6 +13,8 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_profile"
             android:layout_width="@dimen/_42sdp"
+            android:clickable="true"
+            android:focusable="true"
             android:layout_height="@dimen/_42sdp"
             android:layout_marginStart="@dimen/_16sdp"
             android:layout_marginLeft="@dimen/_16sdp"
@@ -27,9 +29,9 @@
                 android:layout_height="@dimen/_30sdp"
                 android:layout_gravity="center"
                 android:alpha="1"
-                android:backgroundTint="#FF611C"
-                android:outlineAmbientShadowColor="#FF5722"
-                android:outlineSpotShadowColor="#FF5722"
+                android:backgroundTint="@color/main_color"
+                android:outlineAmbientShadowColor="@color/main_color"
+                android:outlineSpotShadowColor="@color/main_color"
                 app:cardCornerRadius="9999dp"
                 app:cardElevation="@dimen/_3sdp"
                 tools:targetApi="p">
@@ -55,7 +57,8 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginLeft="@dimen/_16sdp"
             android:fontFamily="@font/g_regular"
-            android:text="Salom, Shohjahon"
+            android:id="@+id/tv_name"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"
             app:layout_constraintBottom_toBottomOf="@id/cv_profile"
@@ -65,6 +68,8 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_notification"
             android:layout_width="@dimen/_42sdp"
+            android:clickable="true"
+            android:focusable="true"
             android:layout_height="@dimen/_42sdp"
             android:layout_marginTop="@dimen/_44sdp"
             android:layout_marginEnd="@dimen/_16sdp"
@@ -93,7 +98,8 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_notification" />
+                        android:src="@drawable/ic_notification"
+                        app:tint="@color/main_color" />
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
@@ -124,7 +130,7 @@
             android:outlineAmbientShadowColor="#A9ACA4A2"
             android:outlineSpotShadowColor="#A9ACA4A2"
             app:cardCornerRadius="@dimen/_10sdp"
-            app:cardElevation="@dimen/_8sdp"
+            app:cardElevation="@dimen/_16sdp"
             app:layout_constraintCircleRadius="@dimen/_32sdp"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
             tools:targetApi="p">
@@ -153,11 +159,11 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="@dimen/_36sdp"
                     android:layout_height="@dimen/_36sdp"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/_8sdp"
-                    android:layout_marginRight="@dimen/_8sdp"
                     app:cardCornerRadius="9999dp"
                     app:cardElevation="@dimen/_5sdp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -182,7 +188,8 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/ic_search" />
+                                android:src="@drawable/ic_search"
+                                app:tint="@color/main_color" />
                         </RelativeLayout>
 
                     </com.google.android.material.card.MaterialCardView>

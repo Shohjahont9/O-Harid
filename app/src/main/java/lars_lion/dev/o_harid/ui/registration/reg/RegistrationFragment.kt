@@ -101,6 +101,7 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
             }
 
             loginButton.setOnClickListener {
+                loginButton.isClickable = false
                 if (etName.text.isNotEmpty() && etPhone.text.toString().isNotEmpty()) {
                     binding!!.progressBar.visible(true)
                     hideKeyBoard(it)
@@ -212,6 +213,7 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
                     }
                     is UiState.Error -> {
                         toast(it.message)
+                        loginButton.isClickable = true
                         progressBar.visible(false)
                     }
                 }.exhaustive

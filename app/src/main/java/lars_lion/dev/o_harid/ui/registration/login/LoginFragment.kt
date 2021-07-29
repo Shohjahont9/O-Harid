@@ -104,6 +104,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             }
 
             loginButton.setOnClickListener {
+                loginButton.isClickable = false
+
                 if (etPhone.text.toString().isNotEmpty()) {
                     hideKeyBoard(it)
                     number = "+998${etPhone.text.toString().substring(1, 3)}${
@@ -157,6 +159,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         }
                     }
                     is UiState.Error -> {
+                        loginButton.isClickable = true
                         toast(it.message)
                         progressBar.visible(false)
                     }

@@ -18,4 +18,22 @@
     <string name="varoq">Varoq :</string>
     <string name="sizda_javonga_qo_shilgan_kitob_yo_q">Sizda javonga qo`shilgan kitob yo`q</string>
     <string name="kitob_yoq">Sizda sotib olingan kitob yo`q</string>
+    <string name="balans">Balans</string>
+    <string name="hisobni_to_ldirish">Hisobni to`ldirish</string>
+    <string name="fikrlar">Fikrlar</string>
+    <string name="buyurtmalar">Buyurtmalar</string>
+    <string name="chiqish">Chiqish</string>
+    <string name="uzb">Uzb</string>
+    <string name="rus">Кирил</string>
+    <string name="karta_raqami">Karta raqami</string>
+    <string name="kartaning_amal_qilish_muddati">Kartaning amal qilish muddati</string>
+    <string name="kartaga_bog_langan_telefon_raqamini_kiriting">Kartaga bog`langan telefon raqamini kiriting</string>
+    <string name="miqdorni_kiriting">Miqdorni kiriting</string>
+    <string name="min_money">Eng kam miqdor 1000 so`m</string>
+    <string name="karta_raqam_error">Karta raqamini to`liq kiriting</string>
+    <string name="vse">Hamma ma\'lumotlarni to`liq kiriting</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tasdiqlash">Tasdiqlash</string>
+    <string name="kod_error">Kodni kiriting</string>
 </resources>

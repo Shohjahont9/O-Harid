@@ -1,24 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">О-Харид</string>
-    <string name="qanaqa_kitob_izlayopsiz">Qanaqa kitob \nizlayapsiz?</string>
-    <string name="kitobni_izlash">Kitobni izlash ...</string>
-    <string name="hozirda_o_qilmoqda">Hozirda o`qilmoqda</string>
-    <string name="kunning_eng_yaxshilari">Kunning eng yaxshilari</string>
-    <string name="bestsellerlar">Bestsellerlar</string>
-    <string name="login">Tasdiqlash</string>
-    <string name="xush_kelibsiz">Xush kelibsiz</string>
-    <string name="ism_kiriting">Ism kiriting</string>
+    <string name="qanaqa_kitob_izlayopsiz">Канака китоб \nизлаяпсиз?</string>
+    <string name="kitobni_izlash">Китобни излаш ...</string>
+    <string name="hozirda_o_qilmoqda">Хозирда укилмокда</string>
+    <string name="kunning_eng_yaxshilari">Куннинг энг яхшилари</string>
+    <string name="bestsellerlar">Бестселлерлар</string>
+    <string name="login">Тасдиклаш</string>
+    <string name="xush_kelibsiz">Хуш келибсиз</string>
+    <string name="ism_kiriting">Исм киритинг</string>
     <string name="login_text">Avval ro`yhatdan o`tganmisiz? Kirish!</string>
     <string name="reg">Ro`yhatdan o`tish</string>
     <string name="tv_login">Tizimga kirish</string>
     <string name="toliq_kirit">Ma\'lumotlarni to`liq kiriting</string>
-    <string name="janrlar">Janrlar</string>
-    <string name="izoh">Izoh</string>
-    <string name="til">Til :</string>
-    <string name="varoq">Varoq :</string>
-    <string name="sizda_javonga_qo_shilgan_kitob_yo_q">Sizda javonga qo`shilgan kitob yo`q</string>
-    <string name="kitob_yoq">Sizda sotib olingan kitob yo`q</string>
+    <string name="janrlar">Жанрлар</string>
+    <string name="izoh">Изох</string>
+    <string name="til">Тил :</string>
+    <string name="varoq">Варок :</string>
+    <string name="sizda_javonga_qo_shilgan_kitob_yo_q">Сизда жавонга кушилган китоб йук</string>
+    <string name="kitob_yoq">Сизда сотиб олинган китоб йук</string>
+    <string name="balans">Баланс</string>
+    <string name="hisobni_to_ldirish">Хисобни тулдириш</string>
+    <string name="fikrlar">Фикрлар</string>
+    <string name="buyurtmalar">Бюртмалар</string>
+    <string name="chiqish">Чикиш</string>
+    <string name="uzb">Узб</string>
+    <string name="rus">Кирил</string>
+    <string name="karta_raqami">Karta raqami</string>
+    <string name="kartaning_amal_qilish_muddati">Kartaning amal qilish muddati</string>
+    <string name="kartaga_bog_langan_telefon_raqamini_kiriting">Kartaga bog`langan telefon raqamini kiriting</string>
+    <string name="miqdorni_kiriting">Miqdorni kiriting</string>
+    <string name="min_money">Eng kam miqdor 1000 so`m</string>
+    <string name="karta_raqam_error">Karta raqamini to`liq kiriting</string>
+    <string name="vse">Hamma ma\'lumotlarni to`liq kiriting</string>
+    <string name="tasdiqlash">Tasdiqlash</string>
+    <string name="kod_error">Kodni kiriting</string>
 
 
 </resources>
