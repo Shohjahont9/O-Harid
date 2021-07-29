@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.yariksoffice.lingver.Lingver
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,7 +16,7 @@ import lars_lion.dev.o_harid.base.BaseFragment
 import lars_lion.dev.o_harid.databinding.FragmentProfileBinding
 import lars_lion.dev.o_harid.preferences.PreferencesManager
 import lars_lion.dev.o_harid.ui.MainActivity
-import lars_lion.dev.o_harid.utils.navigateSafe
+import lars_lion.dev.o_harid.utils.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -25,6 +25,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     @Inject
     lateinit var prefs: PreferencesManager
 
+    val viewModel: ProfileViewModel by viewModels()
 
     override fun setBinding(
         inflater: LayoutInflater,
@@ -50,7 +51,27 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
         onClicks()
 
+        getUserMoney()
+    }
 
+    private fun getUserMoney() {
+        with(binding!!){
+            viewModel.getUserMoney()
+            viewModel.userMoney.observe(viewLifecycleOwner, EventObserver{
+                when(it){
+                    UiState.Loading -> progressBar.visible(true)
+                    is UiState.Success -> {
+                        progressBar.visible(false)
+                        tvBalans.text= "${it.value.`object`.summa.toInt()/100} so`m"
+                    }
+                    is UiState.Error -> {
+                        progressBar.visible(false)
+                        println("error -> ${it.message}")
+                        root.snackbar(it.message)
+                    }
+                }.exhaustive
+            })
+        }
     }
 
     private fun onClicks() {
@@ -58,7 +79,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
             tvName.text = prefs.name
 
-            if (prefs.language=="ru") applyModeSwitch.toggle()
+            if (prefs.language == "ru") applyModeSwitch.toggle()
 
             cvBack.setOnClickListener {
                 findNavController().navigateSafe(R.id.action_profileFragment_to_mainFragment)

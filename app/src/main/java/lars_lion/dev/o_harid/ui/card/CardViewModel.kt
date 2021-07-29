@@ -30,6 +30,8 @@ class CardViewModel @Inject constructor(
             }.collectLatest { repos ->
                 if (repos.status.code == 200)
                     _createCard.value = Event(UiState.Success(repos))
+                else _createCard.value = Event(UiState.Error(repos.status.message))
+
             }
         } catch (e: Exception) {
             _createCard.value = Event(UiState.Error(e.message ?: "message==null"))

@@ -23,5 +23,9 @@ class BookDetailRepository @Inject constructor(
         emit(apiService.addFavouriteBook("Bearer ${prefs.token}", id))
     }.flowOn(Dispatchers.IO)
 
+ suspend fun buyBook(id:Int) = flow {
+        emit(apiService.buyBook("Bearer ${prefs.token}", id))
+    }.flowOn(Dispatchers.IO)
+
 
 }

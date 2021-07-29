@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import lars_lion.dev.o_harid.network.response.addFavourite.AddFavouriteResponse
 import lars_lion.dev.o_harid.network.response.bookDetail.BookDetailResponse
+import lars_lion.dev.o_harid.network.response.buyBook.BuyBookResponse
 import lars_lion.dev.o_harid.network.response.comments.CommentResponse
 import lars_lion.dev.o_harid.utils.Event
 import lars_lion.dev.o_harid.utils.UiState
@@ -71,6 +72,25 @@ class BookDetailViewModel @Inject constructor(
             }
         } catch (e: Exception) {
             _addFavouriteBook.value = Event(UiState.Error(e.message ?: "message==null"))
+        }
+    }
+
+    private val _buyBook = MutableLiveData<Event<UiState<BuyBookResponse>>>()
+    val buyBook: LiveData<Event<UiState<BuyBookResponse>>> = _buyBook
+
+    fun getBuyBook(id: Int) = viewModelScope.launch {
+        _buyBook.value = Event(UiState.Loading)
+        try {
+            repository.buyBook(id).catch { e ->
+                _buyBook.value = Event(UiState.Error(e.message ?: "message==null"))
+            }.collectLatest { repos ->
+                if (repos.status.code == 200)
+                    _buyBook.value = Event(UiState.Success(repos))
+                else
+                    _buyBook.value = Event(UiState.Error(repos.status.message))
+            }
+        } catch (e: Exception) {
+            _buyBook.value = Event(UiState.Error(e.message ?: "message==null"))
         }
     }
 

@@ -103,32 +103,32 @@
         app:mask="##/##" />
 
 
-    <TextView
-        android:id="@+id/tv_phone_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:fontFamily="@font/g_regular"
-        android:text="@string/kartaga_bog_langan_telefon_raqamini_kiriting"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/card_validation" />
+<!--    <TextView-->
+<!--        android:id="@+id/tv_phone_number"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="@dimen/_16sdp"-->
+<!--        android:layout_marginTop="@dimen/_16sdp"-->
+<!--        android:fontFamily="@font/g_regular"-->
+<!--        android:text="@string/kartaga_bog_langan_telefon_raqamini_kiriting"-->
+<!--        android:textColor="@color/black"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/card_validation" />-->
 
-    <br.com.sapereaude.maskedEditText.MaskedEditText
-        android:id="@+id/card_phone_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_16sdp"
-        android:background="@drawable/edittext_back"
-        android:hint="931234567"
-        android:inputType="phone"
-        android:padding="@dimen/_10sdp"
-        app:keep_hint="true"
-        app:layout_constraintTop_toBottomOf="@id/tv_phone_number"
-        app:mask="+998 ## ### ####" />
+<!--    <br.com.sapereaude.maskedEditText.MaskedEditText-->
+<!--        android:id="@+id/card_phone_number"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="@dimen/_16sdp"-->
+<!--        android:layout_marginTop="@dimen/_8sdp"-->
+<!--        android:layout_marginEnd="@dimen/_16sdp"-->
+<!--        android:background="@drawable/edittext_back"-->
+<!--        android:hint="931234567"-->
+<!--        android:inputType="phone"-->
+<!--        android:padding="@dimen/_10sdp"-->
+<!--        app:keep_hint="true"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/tv_phone_number"-->
+<!--        app:mask="+998 ## ### ####" />-->
 
     <TextView
         android:id="@+id/tv_money"
@@ -140,7 +140,7 @@
         android:text="@string/miqdorni_kiriting"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/card_phone_number" />
+        app:layout_constraintTop_toBottomOf="@id/card_validation" />
 
     <EditText
         android:id="@+id/et_money"

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/rooot"
     android:layout_height="match_parent"
     tools:context=".ui.card.verifyCard.VerifyCardFragment">
 
@@ -82,6 +83,8 @@
                 android:background="@drawable/edittext_back"
                 android:inputType="number"
                 android:paddingStart="@dimen/_8sdp"
+                android:maxLength="6"
+                android:gravity="center"
                 android:paddingTop="@dimen/_4sdp"
                 android:paddingEnd="@dimen/_8sdp"
                 android:paddingBottom="@dimen/_4sdp" />

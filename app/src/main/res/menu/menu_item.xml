@@ -12,12 +12,17 @@
 
     <item
         android:id="@+id/bookFragment"
-        android:title="Javon"
+        android:title="Sotib olingan"
         android:icon="@drawable/ic_study"/>
 
     <item
         android:id="@+id/favouriteFragment"
-        android:title="Marked books"
+        android:title="Javon"
         android:icon="@drawable/ic_marked_book"/>
+
+    <item
+        android:id="@+id/profileFragment"
+        android:title="Profile"
+        android:icon="@drawable/ic_profile"/>
 
 </menu>

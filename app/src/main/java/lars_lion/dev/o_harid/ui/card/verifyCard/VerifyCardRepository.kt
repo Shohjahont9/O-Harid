@@ -11,8 +11,7 @@ class VerifyCardRepository @Inject constructor(
     private val apiService: ApiService,
     private val prefs: PreferencesManager
 ) {
-
     suspend fun getCode(code: String) = flow {
-        emit(apiService.getVerifyCode(prefs.token, code))
+        emit(apiService.getVerifyCode("Bearer ${prefs.token}", code))
     }.flowOn(Dispatchers.IO)
 }

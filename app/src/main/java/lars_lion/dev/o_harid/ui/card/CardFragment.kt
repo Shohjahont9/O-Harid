@@ -15,11 +15,15 @@ import kotlinx.android.synthetic.main.fragment_card.*
 import lars_lion.dev.o_harid.R
 import lars_lion.dev.o_harid.base.BaseFragment
 import lars_lion.dev.o_harid.databinding.FragmentCardBinding
+import lars_lion.dev.o_harid.preferences.PreferencesManager
 import lars_lion.dev.o_harid.utils.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CardFragment : BaseFragment<FragmentCardBinding>() {
 
+    @Inject
+    lateinit var prefs:PreferencesManager
     val viewModel: CardViewModel by viewModels()
     private val backPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
@@ -40,7 +44,6 @@ class CardFragment : BaseFragment<FragmentCardBinding>() {
 
         onClicks()
 
-
     }
 
     private fun checkNumbers() {
@@ -56,8 +59,7 @@ class CardFragment : BaseFragment<FragmentCardBinding>() {
                         .toInt() < 1000
                 ) root.snackbar(getString(R.string.min_money))
                 else if (etMoney.text.isEmpty() || cardValidation.text.toString()
-                        .isEmpty() || card.text.toString()
-                        .isEmpty() || cardPhoneNumber.text.toString().isEmpty()
+                        .isEmpty() || card.text.toString().isEmpty()
                 ) root.snackbar(
                     getString(
                         R.string.vse
@@ -66,15 +68,13 @@ class CardFragment : BaseFragment<FragmentCardBinding>() {
                 else {
 
                     val data = JsonObject()
-                    data.addProperty("number", card.text.toString())
-                    data.addProperty(
-                        "expire",
-                        "${
-                            cardValidation.text.toString().substring(0, 2)
-                        }${cardValidation.text.toString().substring(3)}"
-                    )
-                    data.addProperty("amount", etMoney.text.toString())
+                    val cardNumber = card.text.toString().replace(" ","")
+                    data.addProperty("number", cardNumber)
+                    data.addProperty("expire", "${cardValidation.text.toString().substring(0, 2)}${cardValidation.text.toString().substring(3)}")
+                    data.addProperty("amount", "${etMoney.text}00")
 
+                    println("Data object-> $data")
+                    println("object-> ${prefs.token}")
                     viewModel.getCreateCard(data.toString())
                     viewModel.createCard.observe(viewLifecycleOwner, EventObserver {
                         with(binding!!) {

@@ -45,6 +45,10 @@ class VerifyCardFragment :BaseFragment<FragmentVerifyCardBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding!!){
+            rooot.setOnClickListener {
+                hideKeyBoard(it)
+            }
+
             cvHisob.setOnClickListener {
                 if (etCode.text.toString().isNotEmpty() && etCode.text.toString().length!=5){
                     viewModel.getVerifyCode(etCode.text.toString())

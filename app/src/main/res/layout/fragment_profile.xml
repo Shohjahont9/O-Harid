@@ -132,16 +132,39 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:fontFamily="@font/g_regular"
-                android:text="@string/balans"
-                android:textSize="@dimen/_13ssp" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:fontFamily="@font/g_regular"
+                    android:text="@string/balans"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="@dimen/_13ssp" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/progress_bar"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_gravity="center_vertical"
+                    android:visibility="gone"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_fileName="loading.json"
+                    app:lottie_loop="true"
+                    app:lottie_speed="2" />
+
+
+            </LinearLayout>
+
 
             <TextView
+                android:id="@+id/tv_balans"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8sdp"
@@ -186,123 +209,124 @@
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:layout_height="wrap_content"
-        android:text="@string/rus"
-        app:layout_constraintEnd_toStartOf="@id/applyModeSwitch"
-        app:layout_constraintTop_toBottomOf="@id/cv_balans"
         android:id="@+id/tv_rus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_26sdp"
+        android:text="@string/rus"
         android:textColor="@color/black"
-        android:textSize="@dimen/_13ssp"/>
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toStartOf="@id/applyModeSwitch"
+        app:layout_constraintTop_toBottomOf="@id/cv_balans" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/applyModeSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/tv_rus"
-        app:layout_constraintBottom_toBottomOf="@id/tv_rus"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_gravity="center_vertical"
         android:layout_marginEnd="4dp"
         android:checked="true"
         android:clickable="false"
         android:focusable="false"
         android:thumb="@drawable/thumb_selector"
+        app:layout_constraintBottom_toBottomOf="@id/tv_rus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_rus"
         app:track="@drawable/track_selector" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:layout_height="wrap_content"
-        android:text="@string/uzb"
-        android:layout_marginStart="@dimen/_26sdp"
-        app:layout_constraintStart_toEndOf="@id/applyModeSwitch"
-        app:layout_constraintTop_toBottomOf="@id/cv_balans"
         android:id="@+id/tv_uzb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_26sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:text="@string/uzb"
         android:textColor="@color/black"
-        android:textSize="@dimen/_13ssp"/>
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintStart_toEndOf="@id/applyModeSwitch"
+        app:layout_constraintTop_toBottomOf="@id/cv_balans" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/tv_rus"
-        android:layout_marginTop="@dimen/_8sdp">
+        app:layout_constraintTop_toBottomOf="@id/tv_rus">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_buyurtmalar"
-            android:layout_marginTop="@dimen/_8sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="@dimen/_5sdp"
-      android:focusable="true"
-            android:clickable="true"
             android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_16sdp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardCornerRadius="@dimen/_5sdp"
             app:cardElevation="@dimen/_2sdp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-               android:paddingStart="@dimen/_8sdp"
-               android:paddingEnd="@dimen/_8sdp"
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/_8sdp"
                 android:paddingTop="@dimen/_12sdp"
-                android:paddingBottom="@dimen/_12sdp"
-                android:layout_height="match_parent">
+                android:paddingEnd="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_12sdp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/g_regular"
-                    android:text="@string/buyurtmalar"/>
+                    android:text="@string/buyurtmalar" />
 
                 <ImageView
                     android:layout_width="@dimen/_12sdp"
                     android:layout_height="@dimen/_12sdp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_back"
-                    android:rotation="180"/>
+                    android:rotation="180"
+                    android:src="@drawable/ic_back" />
 
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_fikrlar"
-            android:layout_marginTop="@dimen/_8sdp"
             android:layout_width="match_parent"
-            android:focusable="true"
-            android:clickable="true"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="@dimen/_5sdp"
             android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_16sdp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardCornerRadius="@dimen/_5sdp"
             app:cardElevation="@dimen/_2sdp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:paddingStart="@dimen/_8sdp"
-                android:paddingEnd="@dimen/_8sdp"
                 android:paddingTop="@dimen/_12sdp"
-                android:paddingBottom="@dimen/_12sdp"                android:layout_height="match_parent">
+                android:paddingEnd="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_12sdp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/g_regular"
-                    android:text="@string/fikrlar"/>
+                    android:text="@string/fikrlar" />
 
                 <ImageView
                     android:layout_width="@dimen/_12sdp"
                     android:layout_height="@dimen/_12sdp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_back"
-                    android:rotation="180"/>
+                    android:rotation="180"
+                    android:src="@drawable/ic_back" />
 
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -310,38 +334,39 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_chiqish"
-            android:layout_marginTop="@dimen/_8sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="@dimen/_5sdp"
-            android:focusable="true"
-            android:clickable="true"
-            android:layout_marginBottom="@dimen/_8sdp"
             android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardCornerRadius="@dimen/_5sdp"
             app:cardElevation="@dimen/_2sdp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:paddingStart="@dimen/_8sdp"
-                android:paddingEnd="@dimen/_8sdp"
                 android:paddingTop="@dimen/_12sdp"
-                android:paddingBottom="@dimen/_12sdp"                android:layout_height="match_parent">
+                android:paddingEnd="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_12sdp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/g_regular"
-                    android:text="@string/chiqish"/>
+                    android:text="@string/chiqish" />
 
                 <ImageView
                     android:layout_width="@dimen/_12sdp"
                     android:layout_height="@dimen/_12sdp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_back"
-                    android:rotation="180"/>
+                    android:rotation="180"
+                    android:src="@drawable/ic_back" />
 
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>

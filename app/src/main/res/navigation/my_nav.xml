@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_bookDetailFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_bookDetailFragment_to_bookFragment"
+            app:destination="@id/bookFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"

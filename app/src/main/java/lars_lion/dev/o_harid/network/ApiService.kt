@@ -4,15 +4,15 @@ import lars_lion.dev.o_harid.network.response.addFavourite.AddFavouriteResponse
 import lars_lion.dev.o_harid.network.response.bestSeller.BestSellerResponse
 import lars_lion.dev.o_harid.network.response.bookDetail.BookDetailResponse
 import lars_lion.dev.o_harid.network.response.bookType.BookTypeResponse
+import lars_lion.dev.o_harid.network.response.buyBook.BuyBookResponse
 import lars_lion.dev.o_harid.network.response.comments.CommentResponse
 import lars_lion.dev.o_harid.network.response.createCard.CreateCardResponse
 import lars_lion.dev.o_harid.network.response.favourite.FavouriteBookResponse
+import lars_lion.dev.o_harid.network.response.getMoney.GetUserMoneyResponse
 import lars_lion.dev.o_harid.network.response.login.LoginResponse
 import lars_lion.dev.o_harid.network.response.nowadays.NowadaysResponse
 import lars_lion.dev.o_harid.network.response.register.RegisterResponse
 import lars_lion.dev.o_harid.network.response.verifyCode.VerifyCodeResponse
-import lars_lion.dev.o_harid.ui.favourite.FavouriteRepository
-import retrofit2.Response
 import retrofit2.http.*
 
 
@@ -73,21 +73,34 @@ interface ApiService {
     @POST("api/auth/add/library/{id}")
     suspend fun addFavouriteBook(
         @Header("Authorization") token: String,
-        @Path("id") id:Int
+        @Path("id") id: Int
     ): AddFavouriteResponse
 
     @Headers("Content-Type: application/json")
     @POST("/api/payment/card/create")
     suspend fun createCard(
         @Header("Authorization") token: String,
-        @Body body:String
+        @Body body: String
     ): CreateCardResponse
 
     @Headers("Content-Type: application/json")
     @POST("/api/payment/verify/code")
     suspend fun getVerifyCode(
         @Header("Authorization") token: String,
-        @Query("code") code:String
+        @Query("code") code: String
     ): VerifyCodeResponse
+
+    @Headers("Content-Type: application/json")
+    @GET("/api/auth")
+    suspend fun getUserMoney(
+        @Header("Authorization") token: String,
+    ): GetUserMoneyResponse
+
+    @Headers("Content-Type: application/json")
+    @POST("/api/auth/buy/{id}")
+    suspend fun buyBook(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int
+    ): BuyBookResponse
 
 }

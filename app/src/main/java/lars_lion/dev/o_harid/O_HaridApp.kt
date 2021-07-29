@@ -1,6 +1,5 @@
 package lars_lion.dev.o_harid
 
-import android.app.Application
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
 import com.yariksoffice.lingver.Lingver

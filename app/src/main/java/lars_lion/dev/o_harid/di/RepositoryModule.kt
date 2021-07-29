@@ -12,6 +12,7 @@ import lars_lion.dev.o_harid.ui.card.CardRepository
 import lars_lion.dev.o_harid.ui.card.verifyCard.VerifyCardRepository
 import lars_lion.dev.o_harid.ui.favourite.FavouriteRepository
 import lars_lion.dev.o_harid.ui.main.MainRepository
+import lars_lion.dev.o_harid.ui.profile.ProfileRepository
 import lars_lion.dev.o_harid.ui.registration.login.LoginRepository
 import lars_lion.dev.o_harid.ui.registration.reg.RegisstrationRepository
 
@@ -70,6 +71,14 @@ object RepositoryModule {
         apiService: ApiService,
         prefs: PreferencesManager
     ): VerifyCardRepository = VerifyCardRepository(apiService, prefs)
+
+
+    @Provides
+    @ViewModelScoped
+    fun provideProfileRepository(
+        apiService: ApiService,
+        prefs: PreferencesManager
+    ): ProfileRepository = ProfileRepository(apiService, prefs)
 
 
 }

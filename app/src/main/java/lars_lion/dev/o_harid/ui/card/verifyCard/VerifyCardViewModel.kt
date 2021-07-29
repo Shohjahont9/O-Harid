@@ -28,6 +28,7 @@ class VerifyCardViewModel @Inject constructor(
             }.collectLatest { repos ->
                 if (repos.status.code == 200)
                     _verifyCode.value = Event(UiState.Success(repos))
+                else _verifyCode.value = Event(UiState.Error(repos.status.message))
             }
         } catch (e: Exception) {
             _verifyCode.value = Event(UiState.Error(e.message ?: "message==null"))

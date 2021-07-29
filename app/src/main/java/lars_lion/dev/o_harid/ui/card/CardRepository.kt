@@ -12,7 +12,7 @@ class CardRepository @Inject constructor(
     private val prefs:PreferencesManager
 ) {
     suspend fun createCard(body:String) = flow {
-        emit(apiService.createCard(prefs.token, body))
+        emit(apiService.createCard("Bearer ${prefs.token}", body))
     }.flowOn(Dispatchers.IO)
 
 }

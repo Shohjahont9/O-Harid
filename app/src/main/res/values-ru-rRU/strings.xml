@@ -35,6 +35,10 @@
     <string name="vse">Hamma ma\'lumotlarni to`liq kiriting</string>
     <string name="tasdiqlash">Tasdiqlash</string>
     <string name="kod_error">Kodni kiriting</string>
+    <string name="buy">Sotib olish</string>
+    <string name="o_harid">O-Harid</string>
+    <string name="yo_q">Yo`q</string>
+    <string name="ha_sotib_olaman">Ha Sotib olaman</string>
 
 
 </resources>
