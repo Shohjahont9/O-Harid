@@ -22,4 +22,9 @@ class MainRepository @Inject constructor(
     }.flowOn(Dispatchers.IO)
 
 
+    suspend fun searchBooks(token: String,name:String) = flow {
+        emit(apiService.search(token, name))
+    }.flowOn(Dispatchers.IO)
+
+
 }

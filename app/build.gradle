@@ -129,5 +129,10 @@ dependencies {
 
     //masked edittext
     implementation 'ru.egslava:MaskedEditText:1.0.5'
+
+    compile 'com.koushikdutta.ion:ion:3.0.9'
+
+
+
 }
 

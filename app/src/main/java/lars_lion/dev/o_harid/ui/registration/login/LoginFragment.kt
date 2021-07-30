@@ -115,16 +115,24 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     }"
 
                     println("button clicked")
-
-                    val body = JsonObject()
-                    body.addProperty("number", number)
-                    lifecycleScope.launch {
-                        viewModel.fetchLoginUser(body.toString()).catch {it->
-                            toast(it.message ?: "message == null")  }.collectLatest { data ->
-                            viewModel.loginUser(data)
-                            observeUser()
-                        }
+                    if (!isCodeSend) {
+                        val body = JsonObject()
+                        body.addProperty("number", number)
+                        viewModel.loginUser(body.toString())
+                        observeUser()
+                    } else if (etParol.text.toString() == code) {
+                        Handler(Looper.myLooper()!!).postDelayed({
+                            prefs.isAuthVerified = true
+                            startActivity(
+                                Intent(
+                                    requireContext(),
+                                    MainActivity::class.java
+                                )
+                            )
+                            requireActivity().finish()
+                        }, 2000)
                     }
+
                 } else
                     toast(getString(R.string.toliq_kirit))
             }
@@ -140,23 +148,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     is UiState.Success -> {
                         prefs.token = it.value.`object`.accessToken
                         prefs.name = it.value.`object`.name
+                        binding!!.progressBar.visible(false)
+                        startPhoneNumberVerification(number)
 
-                        binding!!.progressBar.visible(true)
-                        if (!isCodeSend) {
-                            Handler(Looper.myLooper()!!).postDelayed({
-                                prefs.isAuthVerified = true
-                                startActivity(Intent(requireContext(), MainActivity::class.java))
-                                requireActivity().finish()
-                            }, 2000)
-//                          //  startPhoneNumberVerification(number)
-                            println("number - > $number")
-                        } else {
-                            println("etParol -> ${etParol.text}  code -> $code")
-                            if (etParol.text.toString() == code) {
-                                startActivity(Intent(requireContext(), MainActivity::class.java))
-                            } else {
-                            }
-                        }
                     }
                     is UiState.Error -> {
                         loginButton.isClickable = true

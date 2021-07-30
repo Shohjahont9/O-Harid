@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +14,7 @@ import lars_lion.dev.o_harid.R
 import lars_lion.dev.o_harid.adapter.BestSellerAdapter
 import lars_lion.dev.o_harid.adapter.JanrAdapter
 import lars_lion.dev.o_harid.adapter.NowadaysBooksAdapter
+import lars_lion.dev.o_harid.adapter.SearchBooksAdapter
 import lars_lion.dev.o_harid.base.BaseFragment
 import lars_lion.dev.o_harid.databinding.FragmentMainBinding
 import lars_lion.dev.o_harid.network.response.nowadays.Object
@@ -22,12 +24,14 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(),
+    androidx.appcompat.widget.SearchView.OnQueryTextListener,
     BestSellerAdapter.BestSellerAdapterListener, NowadaysBooksAdapter.BestSellerAdapterListener,
-    JanrAdapter.BestSellerAdapterListener {
+    JanrAdapter.BestSellerAdapterListener, SearchBooksAdapter.BestSellerAdapterListener {
 
     lateinit var bestSellerAdapter: BestSellerAdapter
     lateinit var nowadaysAdapter: NowadaysBooksAdapter
     lateinit var bookTypeAdapter: JanrAdapter
+    lateinit var searchAdapter: SearchBooksAdapter
 
     @Inject
     lateinit var prefs: PreferencesManager
@@ -40,7 +44,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         prefsData()
+
+        binding!!.etSearchPlaces.setOnQueryTextListener(this)
 
         loadBestSeller()
 
@@ -49,6 +56,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
         loadBookType()
 
         onClicks()
+
+        binding!!.rooot.setOnClickListener { it ->
+            binding!!.etSearchPlaces.clearFocus()
+            hideKeyBoard(it)
+        }
     }
 
     private fun prefsData() {
@@ -233,6 +245,15 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
         }
     }
 
+    private fun initRvSearch() {
+        searchAdapter = SearchBooksAdapter(this)
+        with(binding!!.rvSearch) {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            setHasFixedSize(true)
+        }
+    }
+
     override fun onItemClick(
         position: Int,
         data: lars_lion.dev.o_harid.network.response.bestSeller.Object
@@ -252,5 +273,46 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
     ) {
 
     }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        if (newText.toString().length >= 1) {
+            with(binding!!) {
+                rvSearch.visible(true)
+
+                viewModel.getSearchBook("Bearer ${prefs.token}", newText.toString())
+                viewModel.searchBook.observe(viewLifecycleOwner, EventObserver {
+                    when (it) {
+                        UiState.Loading -> {
+                        }
+                        is UiState.Success -> {
+                            val nowadaysBooks =
+                                ArrayList<lars_lion.dev.o_harid.network.response.search.Object>()
+                            nowadaysBooks.addAll(it.value.`object`)
+                            initRvSearch()
+                            binding!!.rvSearch.adapter = searchAdapter
+                            searchAdapter.updateList(nowadaysBooks)
+                        }
+                        is UiState.Error -> {
+                            root.snackbar(it.message)
+                        }
+                    }.exhaustive
+                })
+            }
+        } else binding!!.rvSearch.visible(false)
+        return true
+    }
+
+    override fun onItemClick(
+        position: Int,
+        data: lars_lion.dev.o_harid.network.response.search.Object
+    ) {
+        prefs.bookId = data.id
+        findNavController().navigateSafe(R.id.action_mainFragment_to_bookDetailFragment)
+    }
+
 
 }

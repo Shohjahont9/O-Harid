@@ -7,6 +7,7 @@ import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
 import lars_lion.dev.o_harid.network.ApiService
 import lars_lion.dev.o_harid.preferences.PreferencesManager
+import lars_lion.dev.o_harid.ui.book.BookRepository
 import lars_lion.dev.o_harid.ui.book_detail.BookDetailRepository
 import lars_lion.dev.o_harid.ui.card.CardRepository
 import lars_lion.dev.o_harid.ui.card.verifyCard.VerifyCardRepository
@@ -79,6 +80,13 @@ object RepositoryModule {
         apiService: ApiService,
         prefs: PreferencesManager
     ): ProfileRepository = ProfileRepository(apiService, prefs)
+
+    @Provides
+    @ViewModelScoped
+    fun provideBookRepository(
+        apiService: ApiService,
+        prefs: PreferencesManager
+    ): BookRepository = BookRepository(apiService, prefs)
 
 
 }

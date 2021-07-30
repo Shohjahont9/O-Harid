@@ -11,7 +11,9 @@ import lars_lion.dev.o_harid.network.response.favourite.FavouriteBookResponse
 import lars_lion.dev.o_harid.network.response.getMoney.GetUserMoneyResponse
 import lars_lion.dev.o_harid.network.response.login.LoginResponse
 import lars_lion.dev.o_harid.network.response.nowadays.NowadaysResponse
+import lars_lion.dev.o_harid.network.response.paidBooks.PaidBooksResponse
 import lars_lion.dev.o_harid.network.response.register.RegisterResponse
+import lars_lion.dev.o_harid.network.response.search.SearchResponse
 import lars_lion.dev.o_harid.network.response.verifyCode.VerifyCodeResponse
 import retrofit2.http.*
 
@@ -102,5 +104,18 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id: Int
     ): BuyBookResponse
+
+    @Headers("Content-Type: application/json")
+    @GET("/api/book/paid/books")
+    suspend fun paidBooks(
+        @Header("Authorization") token: String,
+    ): PaidBooksResponse
+
+    @Headers("Content-Type: application/json")
+    @GET("/api/book")
+    suspend fun search(
+        @Header("Authorization") token: String,
+        @Query("name") name:String
+    ): SearchResponse
 
 }

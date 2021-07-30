@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import lars_lion.dev.o_harid.network.response.login.LoginResponse
 import lars_lion.dev.o_harid.utils.Event
@@ -22,14 +23,20 @@ class LoginViewModel @Inject constructor(
     private val _login = MutableLiveData<Event<UiState<LoginResponse>>>()
     val login: LiveData<Event<UiState<LoginResponse>>> = _login
 
-    fun loginUser(response: LoginResponse) = viewModelScope.launch {
+    fun loginUser(body: String) = viewModelScope.launch {
         _login.value = Event(UiState.Loading)
         try {
-           _login.value = Event(UiState.Success(response))
+            repository.login(body).catch {e->
+                _login.value = Event(UiState.Error("login User error -> ${e.message.toString()}"))
+            }.collectLatest {response->
+                if (response.status.code==200)
+                    _login.value = Event(UiState.Success(response))
+                else
+                    _login.value = Event(UiState.Error(response.status.message))
+            }
         } catch (e: Exception) {
             _login.value = Event(UiState.Error("login User error -> ${e.message.toString()}"))
         }
     }
 
-    suspend fun fetchLoginUser(body:String) = repository.login(body)
 }

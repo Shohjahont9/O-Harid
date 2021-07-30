@@ -8,17 +8,18 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:id="@+id/rooot"
         android:layout_height="match_parent">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_profile"
             android:layout_width="@dimen/_42sdp"
-            android:clickable="true"
-            android:focusable="true"
             android:layout_height="@dimen/_42sdp"
             android:layout_marginStart="@dimen/_16sdp"
             android:layout_marginLeft="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_44sdp"
+            android:clickable="true"
+            android:focusable="true"
             app:cardCornerRadius="9999dp"
             app:cardElevation="@dimen/_5sdp"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,12 +53,12 @@
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
+            android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginLeft="@dimen/_16sdp"
             android:fontFamily="@font/g_regular"
-            android:id="@+id/tv_name"
             android:text=""
             android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"
@@ -68,12 +69,12 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_notification"
             android:layout_width="@dimen/_42sdp"
-            android:clickable="true"
-            android:focusable="true"
             android:layout_height="@dimen/_42sdp"
             android:layout_marginTop="@dimen/_44sdp"
             android:layout_marginEnd="@dimen/_16sdp"
             android:layout_marginRight="@dimen/_16sdp"
+            android:clickable="true"
+            android:focusable="true"
             app:cardCornerRadius="9999dp"
             app:cardElevation="@dimen/_5sdp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -135,20 +136,20 @@
             app:layout_constraintTop_toBottomOf="@id/tv_title"
             tools:targetApi="p">
 
-            <RelativeLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:paddingBottom="@dimen/_4sdp"
                 android:layout_height="match_parent">
 
-                <EditText
+                <androidx.appcompat.widget.SearchView
                     android:id="@+id/et_search_places"
                     android:layout_width="match_parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     android:layout_height="@dimen/_40sdp"
-                    android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_marginBottom="@dimen/_4sdp"
-                    android:background="@color/white"
                     android:fontFamily="@font/g_regular"
                     android:hint="@string/kitobni_izlash"
                     android:inputType="textPersonName"
@@ -156,18 +157,19 @@
                     android:padding="@dimen/_5sdp"
                     android:textColorHint="#6E7D91" />
 
+
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="@dimen/_36sdp"
                     android:layout_height="@dimen/_36sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
                     android:clickable="true"
                     android:focusable="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="@dimen/_8sdp"
                     app:cardCornerRadius="9999dp"
                     app:cardElevation="@dimen/_5sdp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintBottom_toBottomOf="@id/et_search_places"
+                    app:layout_constraintTop_toTopOf="@id/et_search_places">
 
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="@dimen/_24sdp"
@@ -196,7 +198,19 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-            </RelativeLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_search_places"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:id="@+id/rv_search"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingEnd="@dimen/_16sdp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         </androidx.cardview.widget.CardView>
 

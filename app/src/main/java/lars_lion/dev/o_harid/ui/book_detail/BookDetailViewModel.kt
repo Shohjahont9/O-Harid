@@ -32,6 +32,8 @@ class BookDetailViewModel @Inject constructor(
             }.collectLatest { repos ->
                 if (repos.status.code == 200)
                     _comments.value = Event(UiState.Success(repos))
+                else
+                    _comments.value = Event(UiState.Error(repos.status.message))
             }
         } catch (e: Exception) {
             _comments.value = Event(UiState.Error(e.message ?: "message==null"))
@@ -50,6 +52,8 @@ class BookDetailViewModel @Inject constructor(
             }.collectLatest { repos ->
                 if (repos.status.code == 200)
                     _bookDetail.value = Event(UiState.Success(repos))
+                else
+                    _bookDetail.value = Event(UiState.Error(repos.status.message))
             }
         } catch (e: Exception) {
             _bookDetail.value = Event(UiState.Error(e.message ?: "message==null"))

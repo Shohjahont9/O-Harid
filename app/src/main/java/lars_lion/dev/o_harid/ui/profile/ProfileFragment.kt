@@ -62,7 +62,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                     UiState.Loading -> progressBar.visible(true)
                     is UiState.Success -> {
                         progressBar.visible(false)
-                        tvBalans.text= "${it.value.`object`.summa.toInt()/100} so`m"
+                        tvBalans.text= "${it.value.`object`.summa.toInt()} so`m"
                     }
                     is UiState.Error -> {
                         progressBar.visible(false)

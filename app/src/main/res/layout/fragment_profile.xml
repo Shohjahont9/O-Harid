@@ -92,7 +92,8 @@
         android:layout_height="@dimen/_96sdp"
         android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_16sdp"
-        android:src="@drawable/profile"
+        android:src="@drawable/ic_user"
+        android:padding="@dimen/_10sdp"
         app:civ_border_color="#FF000000"
         app:civ_border_width="0.1dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -214,6 +215,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_26sdp"
+        android:visibility="gone"
         android:text="@string/rus"
         android:textColor="@color/black"
         android:textSize="@dimen/_13ssp"
@@ -223,6 +225,7 @@
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/applyModeSwitch"
         android:layout_width="wrap_content"
+        android:visibility="gone"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginEnd="4dp"
@@ -241,6 +244,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_26sdp"
+        android:visibility="gone"
         android:layout_marginTop="@dimen/_16sdp"
         android:text="@string/uzb"
         android:textColor="@color/black"
@@ -253,7 +257,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_8sdp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/tv_rus">
+        app:layout_constraintTop_toBottomOf="@id/cv_balans">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_buyurtmalar"

@@ -3,10 +3,8 @@
     <string name="qanaqa_kitob_izlayopsiz">Qanaqa kitob \nizlayapsiz?</string>
     <string name="kitobni_izlash">Kitobni izlash ...</string>
     <string name="hozirda_o_qilmoqda">Hozirda o`qilmoqda</string>
-    <string name="kunning_eng_yaxshilari">Kunning eng yaxshilari</string>
     <string name="bestsellerlar">Bestsellerlar</string>
     <string name="login">Tasdiqlash</string>
-    <string name="xush_kelibsiz">Xush kelibsiz</string>
     <string name="ism_kiriting">Ism kiriting</string>
     <string name="login_text">Avval ro`yhatdan o`tganmisiz? Kirish!</string>
     <string name="reg">Ro`yhatdan o`tish</string>
@@ -27,17 +25,16 @@
     <string name="rus">Кирил</string>
     <string name="karta_raqami">Karta raqami</string>
     <string name="kartaning_amal_qilish_muddati">Kartaning amal qilish muddati</string>
-    <string name="kartaga_bog_langan_telefon_raqamini_kiriting">Kartaga bog`langan telefon raqamini kiriting</string>
     <string name="miqdorni_kiriting">Miqdorni kiriting</string>
     <string name="min_money">Eng kam miqdor 1000 so`m</string>
     <string name="karta_raqam_error">Karta raqamini to`liq kiriting</string>
     <string name="vse">Hamma ma\'lumotlarni to`liq kiriting</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tasdiqlash">Tasdiqlash</string>
     <string name="kod_error">Kodni kiriting</string>
     <string name="buy">Sotib olish</string>
     <string name="o_harid">O-Harid</string>
     <string name="yo_q">Yo`q</string>
     <string name="ha_sotib_olaman">Ha Sotib olaman</string>
+    <string name="xozircha_audio_kitoblar_yo_q">Xozircha audio kitoblar yo`q</string>
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/rooot"
     tools:context=".ui.book.BookFragment">
 
     <androidx.cardview.widget.CardView
@@ -21,20 +22,20 @@
         app:layout_constraintCircleRadius="@dimen/_32sdp"
         tools:targetApi="p">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:paddingBottom="@dimen/_4sdp"
             android:layout_height="match_parent">
 
-            <EditText
+            <androidx.appcompat.widget.SearchView
                 android:id="@+id/et_search_places"
                 android:layout_width="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
                 android:layout_height="@dimen/_40sdp"
-                android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:layout_marginEnd="@dimen/_8sdp"
                 android:layout_marginBottom="@dimen/_4sdp"
-                android:background="@color/white"
                 android:fontFamily="@font/g_regular"
                 android:hint="@string/kitobni_izlash"
                 android:inputType="textPersonName"
@@ -42,18 +43,19 @@
                 android:padding="@dimen/_5sdp"
                 android:textColorHint="#6E7D91" />
 
+
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="@dimen/_36sdp"
                 android:layout_height="@dimen/_36sdp"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/_8sdp"
-                android:layout_marginRight="@dimen/_8sdp"
+                android:clickable="true"
+                android:focusable="true"
                 app:cardCornerRadius="9999dp"
                 app:cardElevation="@dimen/_5sdp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintBottom_toBottomOf="@id/et_search_places"
+                app:layout_constraintTop_toTopOf="@id/et_search_places">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="@dimen/_24sdp"
@@ -82,7 +84,19 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-        </RelativeLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/et_search_places"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:id="@+id/rv_search"
+                android:layout_marginBottom="@dimen/_4sdp"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_16sdp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.cardview.widget.CardView>
 
@@ -92,6 +106,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_centerInParent="true"
+        android:visibility="gone"
         android:layout_marginTop="@dimen/_30sdp"
         android:layout_marginBottom="@dimen/_30sdp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -105,6 +120,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/progress_bar_bestseller"
@@ -118,5 +134,31 @@
         android:gravity="center"
         android:id="@+id/tv_empty"
         />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/progress_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="loading.json"
+        app:lottie_loop="true"
+        app:lottie_speed="2" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_book"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/_44sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/_16sdp"
+        android:paddingEnd="@dimen/_16sdp"
+        app:layout_constraintTop_toBottomOf="@id/cv_search"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

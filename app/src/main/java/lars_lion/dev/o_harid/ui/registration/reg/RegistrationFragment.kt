@@ -95,7 +95,6 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
         }
 
         with(binding!!) {
-
             root.setOnClickListener {
                 hideKeyBoard(it)
             }
@@ -112,19 +111,8 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
                             etPhone.text.toString().substring(8, 10)
                         }${etPhone.text.toString().substring(11)}"
                         startPhoneNumberVerification(number)
-
                     } else {
-                        val data = JsonObject()
-                        data.addProperty("name", et_name.text.toString().trim())
-                        data.addProperty("number", number)
-                        lifecycleScope.launch {
-                            viewModel.fetchRegisterUser(data.toString()).catch { it ->
-                                toast(it.message ?: "message == null")
-                            }.collectLatest { data ->
-                                viewModel.registerUser(data)
-                                observeUser()
-                            }
-                        }
+
                     }
 
                 } else toast(getString(R.string.toliq_kirit))
@@ -183,8 +171,36 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
                     binding!!.progressBar.visible(false)
                     binding!!.cvCode.visible(true)
                     binding!!.etParol.setText(credential.smsCode)
+                    val data = JsonObject()
+                    data.addProperty("name", et_name.text.toString().trim())
+                    data.addProperty("number", number)
+                    viewModel.registerUser(data.toString())
+                    viewModel.register.observe(viewLifecycleOwner, EventObserver {
+                        when (it) {
+                            UiState.Loading -> binding!!.progressBar.visible(true)
+                            is UiState.Success -> {
+                                binding!!.progressBar.visible(false)
+                                prefs.token = it.value.`object`.accessToken
+                                prefs.name = binding!!.etName.text.toString()
+                                Handler(Looper.myLooper()!!).postDelayed({
+                                    prefs.isAuthVerified = true
+                                    startActivity(
+                                        Intent(
+                                            requireContext(),
+                                            MainActivity::class.java
+                                        )
+                                    )
+                                    requireActivity().finish()
+                                }, 1000)
+                            }
+                            is UiState.Error -> {
+                                binding!!.progressBar.visible(false)
+                                binding!!.loginButton.isClickable = true
+                                root.snackbar(it.message)
+                            }
+                        }.exhaustive
+                    })
 
-                    val user = task.result?.user
                 } else {
                     // Sign in failed, display a message and update the UI
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
@@ -195,32 +211,6 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
                 }
             }
     }
-
-    private fun observeUser() {
-        with(binding!!) {
-            viewModel.register.observe(viewLifecycleOwner, EventObserver {
-                when (it) {
-                    UiState.Loading -> progressBar.visible(true)
-                    is UiState.Success -> {
-                        progressBar.visible(false)
-                        prefs.token = it.value.`object`.accessToken
-                        prefs.name = etName.text.toString()
-                        Handler(Looper.myLooper()!!).postDelayed({
-                            prefs.isAuthVerified = true
-                            startActivity(Intent(requireContext(), MainActivity::class.java))
-                            requireActivity().finish()
-                        }, 2000)
-                    }
-                    is UiState.Error -> {
-                        toast(it.message)
-                        loginButton.isClickable = true
-                        progressBar.visible(false)
-                    }
-                }.exhaustive
-            })
-        }
-    }
-
 
     companion object {
         private const val TAG = "PhoneAuthActivity"
