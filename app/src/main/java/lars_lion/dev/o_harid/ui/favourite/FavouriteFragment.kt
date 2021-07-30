@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import lars_lion.dev.o_harid.R
 import lars_lion.dev.o_harid.adapter.FavouriteBooksAdapter
 import lars_lion.dev.o_harid.adapter.SearchBooksAdapter
 import lars_lion.dev.o_harid.base.BaseFragment
@@ -47,6 +49,11 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>(),
         binding!!.etSearchPlaces.setOnQueryTextListener(this)
 
         binding!!.rooot.setOnClickListener { it ->
+            binding!!.etSearchPlaces.clearFocus()
+            hideKeyBoard(it)
+        }
+
+        binding!!.rvFavourite.setOnClickListener { it->
             binding!!.etSearchPlaces.clearFocus()
             hideKeyBoard(it)
         }
@@ -115,7 +122,8 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>(),
         position: Int,
         data: lars_lion.dev.o_harid.network.response.search.Object
     ) {
-
+        prefs.bookId = data.id
+        findNavController().navigateSafe(R.id.action_favouriteFragment_to_bookDetailFragment)
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
