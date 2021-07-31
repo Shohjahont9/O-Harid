@@ -155,7 +155,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="@dimen/_44sdp"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:paddingTop="@dimen/_8sdp"
         android:clipToPadding="false"
         android:paddingStart="@dimen/_16sdp"
         android:paddingEnd="@dimen/_16sdp"

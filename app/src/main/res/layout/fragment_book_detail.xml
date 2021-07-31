@@ -177,6 +177,39 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cv_image" />
 
+            <com.sasank.roundedhorizontalprogress.RoundedHorizontalProgressBar
+                android:id="@+id/horizontal_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="false"
+                android:maxHeight="3dp"
+                android:minHeight="3dp"
+                android:progress="0"
+                android:layout_marginStart="@dimen/_32sdp"
+                android:visibility="invisible"
+                android:layout_marginEnd="@dimen/_32sdp"
+                app:backgroundColor="#23575656"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_price"
+                app:layout_constraintBottom_toBottomOf="@id/tv_price"
+                app:progressColor="@color/main_color" />
+
+            <TextView
+                android:id="@+id/tv_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:fontFamily="@font/g_regular"
+                android:gravity="center"
+                android:layout_marginBottom="@dimen/_4sdp"
+                android:text="0%"
+                android:visibility="invisible"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/_11ssp"
+                app:layout_constraintEnd_toEndOf="@id/horizontal_progress"
+                app:layout_constraintBottom_toTopOf="@id/horizontal_progress"/>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cv_buy"
