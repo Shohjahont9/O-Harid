@@ -8,6 +8,7 @@ import lars_lion.dev.o_harid.network.response.buyBook.BuyBookResponse
 import lars_lion.dev.o_harid.network.response.comments.CommentResponse
 import lars_lion.dev.o_harid.network.response.createCard.CreateCardResponse
 import lars_lion.dev.o_harid.network.response.favourite.FavouriteBookResponse
+import lars_lion.dev.o_harid.network.response.getBookByBookType.GetBookByBookTypeResponse
 import lars_lion.dev.o_harid.network.response.getMoney.GetUserMoneyResponse
 import lars_lion.dev.o_harid.network.response.login.LoginResponse
 import lars_lion.dev.o_harid.network.response.nowadays.NowadaysResponse
@@ -117,5 +118,14 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Query("name") name:String
     ): SearchResponse
+
+    @Headers("Content-Type: application/json")
+    @GET("/api/book/get/by/type")
+    suspend fun getBookByBookType(
+        @Header("Authorization") token: String,
+        @Query("typeId") type:String
+    ): GetBookByBookTypeResponse
+
+
 
 }

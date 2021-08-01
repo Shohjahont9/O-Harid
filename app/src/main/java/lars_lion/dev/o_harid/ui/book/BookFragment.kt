@@ -32,7 +32,6 @@ class BookFragment : BaseFragment<FragmentBookBinding>(),
     val viewModelMain: MainViewModel by viewModels()
     lateinit var searchAdapter: SearchBooksAdapter
     val viewModel: BookViewModel by viewModels()
-
     override fun setBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentBookBinding =
         FragmentBookBinding.inflate(layoutInflater)
 
@@ -41,7 +40,6 @@ class BookFragment : BaseFragment<FragmentBookBinding>(),
 
 
         initRvNowadays()
-
 
         loadNowadaysBooks()
 
@@ -131,7 +129,8 @@ class BookFragment : BaseFragment<FragmentBookBinding>(),
     private fun initRvSearch() {
         searchAdapter = SearchBooksAdapter(this)
         with(binding!!.rvSearch) {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
         }
     }
