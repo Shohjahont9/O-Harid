@@ -271,7 +271,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
         position: Int,
         data: lars_lion.dev.o_harid.network.response.bookType.Object
     ) {
-
+        prefs.bookType = data.id
+        findNavController().navigateSafe(R.id.action_mainFragment_to_getBookByTypeFragment)
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {

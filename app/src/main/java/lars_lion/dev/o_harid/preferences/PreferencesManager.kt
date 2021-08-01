@@ -18,6 +18,7 @@ class PreferencesManager(
     var name by PreferencesDelegate(preferences, NAME, "empty")
     var token by PreferencesDelegate(preferences, TOKEN, "empty")
     var bookId by PreferencesDelegate(preferences, BOOK_ID, -1)
+    var bookType by PreferencesDelegate(preferences, BOOK_TYPE, -1)
     var language by PreferencesDelegate(preferences, LANGUAGE, "empty")
 
     companion object {
@@ -25,6 +26,7 @@ class PreferencesManager(
         private const val NAME = "NAME"
         private const val TOKEN = "TOKEN"
         private const val BOOK_ID = "Book_id"
+        private const val BOOK_TYPE = "Book_type"
         private const val LANGUAGE = "LANGUAGE"
     }
 

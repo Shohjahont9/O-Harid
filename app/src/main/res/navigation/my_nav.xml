@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_mainFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_getBookByTypeFragment"
+            app:destination="@id/getBookByTypeFragment" />
     </fragment>
     <fragment
         android:id="@+id/audioFragment"
@@ -84,5 +87,17 @@
         <action
             android:id="@+id/action_verifyCardFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/getBookByTypeFragment"
+        android:name="lars_lion.dev.o_harid.ui.getBookByType.GetBookByTypeFragment"
+        android:label="fragment_get_book_by_type"
+        tools:layout="@layout/fragment_get_book_by_type" >
+        <action
+            android:id="@+id/action_getBookByTypeFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_getBookByTypeFragment_to_bookDetailFragment"
+            app:destination="@id/bookDetailFragment" />
     </fragment>
 </navigation>
