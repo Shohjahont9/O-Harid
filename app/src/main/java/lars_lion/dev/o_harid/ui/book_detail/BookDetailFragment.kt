@@ -131,11 +131,12 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
                 val ratingRate = dialogView.findViewById<MaterialRatingBar>(R.id.ratingRate)
                 dialogView.findViewById<ImageView>(R.id.img_book).load(bookImgUrl)
 
-                ratingRate.onRatingChangeListener = object : MaterialRatingBar.OnRatingChangeListener {
-                    override fun onRatingChanged(ratingBar: MaterialRatingBar?, rating: Float) {
-                    }
+                ratingRate.onRatingChangeListener =
+                    object : MaterialRatingBar.OnRatingChangeListener {
+                        override fun onRatingChanged(ratingBar: MaterialRatingBar?, rating: Float) {
+                        }
 
-                }
+                    }
 
                 dialogView.findViewById<ConstraintLayout>(R.id.rooot).setOnClickListener {
                     hideKeyBoard(it)
@@ -148,22 +149,39 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
                     alertDialog.dismiss()
                 }
 
-                dialogView.findViewById<MaterialCardView>(R.id.cv_fikr).setOnClickListener {view->
-                    if (etMessage.text.toString().isNotEmpty() && ratingRate.rating!=0f){
+                dialogView.findViewById<MaterialCardView>(R.id.cv_fikr).setOnClickListener { view ->
+                    if (etMessage.text.toString().isNotEmpty() && ratingRate.rating != 0f) {
                         view.isClickable = false
                         hideKeyBoard(view)
-                        viewModel.getAddComment(etMessage.text.toString().trim(), prefs.bookId.toString(), ratingRate.rating.toString())
-                        viewModel.addComment.observe(viewLifecycleOwner, EventObserver{
-                            when(it){
-                                UiState.Loading -> {}
+                        viewModel.getAddComment(
+                            etMessage.text.toString().trim(),
+                            prefs.bookId.toString(),
+                            ratingRate.rating.toString()
+                        )
+                        viewModel.addComment.observe(viewLifecycleOwner, EventObserver {
+                            when (it) {
+                                UiState.Loading -> {
+                                }
                                 is UiState.Success -> {
                                     val date = Date()
                                     val formatter = SimpleDateFormat("yyyy-MM-dd")
                                     val strDate: String = formatter.format(date)
-                                    commentsList.add(0,Comment(prefs.bookId,null, prefs.name, null,etMessage.text.toString(),strDate, ratingRate.rating.toDouble(),0))
+                                    commentsList.add(
+                                        0,
+                                        Comment(
+                                            prefs.bookId,
+                                            null,
+                                            prefs.name,
+                                            null,
+                                            etMessage.text.toString(),
+                                            strDate,
+                                            ratingRate.rating.toDouble(),
+                                            0
+                                        )
+                                    )
                                     commentsAdapter.updateList(commentsList)
                                     etMessage.clearFocus()
-                                    ratingRate.rating=0f
+                                    ratingRate.rating = 0f
                                     etMessage.setText("")
                                     toast("Commentingiz qo`shildi")
                                     view.isClickable = true
@@ -176,7 +194,7 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
                                 }
                             }.exhaustive
                         })
-                    }else toast("Baholang, comment qo`shing")
+                    } else toast("Baholang, comment qo`shing")
                 }
 
             }
