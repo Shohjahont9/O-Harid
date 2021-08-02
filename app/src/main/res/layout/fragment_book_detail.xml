@@ -7,15 +7,16 @@
     tools:context=".ui.book_detail.BookDetailFragment">
 
     <ImageView
+        android:id="@+id/img_book_back"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/img_book_back"
         android:alpha="0.05"
-        android:scaleType="fitXY"/>
+        android:scaleType="fitXY" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -24,12 +25,12 @@
                 android:id="@+id/cv_back"
                 android:layout_width="@dimen/_36sdp"
                 android:layout_height="@dimen/_36sdp"
-                android:focusable="true"
-                android:clickable="true"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/_16sdp"
                 android:layout_marginTop="@dimen/_44sdp"
+                android:clickable="true"
+                android:focusable="true"
                 app:cardCornerRadius="9999dp"
                 app:cardElevation="@dimen/_5sdp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -104,13 +105,13 @@
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
                 android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
                 android:fontFamily="@font/g_bold"
                 android:gravity="center"
                 android:paddingStart="@dimen/_16sdp"
                 android:paddingEnd="@dimen/_16sdp"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:layout_marginEnd="@dimen/_16sdp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_18ssp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -121,11 +122,11 @@
                 android:id="@+id/tv_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
                 android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
                 android:fontFamily="@font/g_medium"
                 android:gravity="center"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:layout_marginEnd="@dimen/_16sdp"
                 android:paddingStart="@dimen/_16sdp"
                 android:paddingEnd="@dimen/_16sdp"
                 android:textSize="@dimen/_13ssp"
@@ -182,18 +183,18 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_32sdp"
+                android:layout_marginEnd="@dimen/_32sdp"
                 android:indeterminate="false"
                 android:maxHeight="3dp"
                 android:minHeight="3dp"
                 android:progress="0"
-                android:layout_marginStart="@dimen/_32sdp"
                 android:visibility="invisible"
-                android:layout_marginEnd="@dimen/_32sdp"
                 app:backgroundColor="#23575656"
+                app:layout_constraintBottom_toBottomOf="@id/tv_price"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tv_price"
-                app:layout_constraintBottom_toBottomOf="@id/tv_price"
                 app:progressColor="@color/main_color" />
 
             <TextView
@@ -201,26 +202,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginBottom="@dimen/_4sdp"
                 android:fontFamily="@font/g_regular"
                 android:gravity="center"
-                android:layout_marginBottom="@dimen/_4sdp"
                 android:text="0%"
-                android:visibility="invisible"
                 android:textColor="@color/main_color"
                 android:textSize="@dimen/_11ssp"
-                app:layout_constraintEnd_toEndOf="@id/horizontal_progress"
-                app:layout_constraintBottom_toTopOf="@id/horizontal_progress"/>
+                android:visibility="invisible"
+                app:layout_constraintBottom_toTopOf="@id/horizontal_progress"
+                app:layout_constraintEnd_toEndOf="@id/horizontal_progress" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cv_buy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tv_price"
                 android:layout_margin="@dimen/_16sdp"
                 android:clickable="true"
                 android:focusable="true"
                 app:cardCornerRadius="@dimen/_10sdp"
-                app:cardElevation="@dimen/_1sdp">
+                app:cardElevation="@dimen/_1sdp"
+                app:layout_constraintTop_toBottomOf="@id/tv_price">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -427,11 +428,11 @@
                 android:id="@+id/rv_comments"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
                 android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginBottom="@dimen/_52sdp"
+                android:nestedScrollingEnabled="false"
                 android:paddingStart="@dimen/_8sdp"
                 android:paddingEnd="@dimen/_8sdp"
-                android:layout_marginBottom="@dimen/_52sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cv_desc" />
 
@@ -458,10 +459,61 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="@dimen/_52sdp"
-        >
+        app:layout_constraintBottom_toBottomOf="parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_5sdp">
+
+            <TextView
+                android:id="@+id/tv_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:text="@string/baholang"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                android:id="@+id/ratingRate"
+                style="@style/Widget.MaterialRatingBar.RatingBar"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="@dimen/_22ssp"
+                android:layout_marginStart="@dimen/_8sdp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_rate"
+                app:layout_constraintStart_toEndOf="@id/tv_rate"
+                app:layout_constraintTop_toTopOf="@id/tv_rate" />
+
+            <EditText
+                android:id="@+id/et_message"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:background="@color/white"
+                android:hint="Comments..."
+                android:padding="@dimen/_8sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/img_send"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ratingRate" />
+
+            <ImageView
+                android:id="@+id/img_send"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:padding="@dimen/_8sdp"
+                android:src="@drawable/ic_send"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/main_color" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

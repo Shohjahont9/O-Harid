@@ -35,6 +35,7 @@ import lars_lion.dev.o_harid.databinding.FragmentBookDetailBinding
 import lars_lion.dev.o_harid.model.Comment
 import lars_lion.dev.o_harid.preferences.PreferencesManager
 import lars_lion.dev.o_harid.utils.*
+import me.zhanghai.android.materialratingbar.MaterialRatingBar
 import java.io.File
 import javax.inject.Inject
 
@@ -90,6 +91,7 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
                 else
                     findNavController().navigateSafe(R.id.action_bookDetailFragment_to_getBookByTypeFragment)
             }
+
             cvLib.setOnClickListener {
                 viewModel.addFavBook(prefs.bookId)
                 viewModel.addFavouriteBook.observe(viewLifecycleOwner, EventObserver {
@@ -108,6 +110,12 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
                 showBottomSheet()
             }
 
+            ratingRate.onRatingChangeListener = object : MaterialRatingBar.OnRatingChangeListener {
+                override fun onRatingChanged(ratingBar: MaterialRatingBar?, rating: Float) {
+                    toast(rating.toString())
+                }
+
+            }
         }
     }
 

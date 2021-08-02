@@ -40,5 +40,6 @@
     <string name="kitoblar_qo_shilmagan">Kitoblar qo`shilmagan</string>
     <string name="sotib_olingan_kitoblar">Sotib olingan kitoblar</string>
     <string name="javon">Javon</string>
+    <string name="baholang">Baholang:</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
