@@ -128,7 +128,7 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
                         when(it){
                             UiState.Loading -> {}
                             is UiState.Success -> {
-                                commentsList.add(Comment(prefs.bookId,null, prefs.name, null,etMessage.text.toString(),Date().toString(), ratingRate.rating.toDouble(),0))
+                                commentsList.add(0,Comment(prefs.bookId,null, prefs.name, null,etMessage.text.toString(),Date().toString(), ratingRate.rating.toDouble(),0))
                                 commentsAdapter.updateList(commentsList)
                                 etMessage.clearFocus()
                                 ratingRate.rating=0f
