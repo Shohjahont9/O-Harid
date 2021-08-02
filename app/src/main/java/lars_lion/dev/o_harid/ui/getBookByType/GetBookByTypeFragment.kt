@@ -4,13 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_card.*
-import kotlinx.android.synthetic.main.fragment_login.*
 import lars_lion.dev.o_harid.R
 import lars_lion.dev.o_harid.adapter.BookTypeAdapter
 import lars_lion.dev.o_harid.adapter.SearchBooksAdapter

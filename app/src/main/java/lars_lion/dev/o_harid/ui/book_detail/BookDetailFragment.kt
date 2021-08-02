@@ -2,15 +2,20 @@ package lars_lion.dev.o_harid.ui.book_detail
 
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
+import lars_lion.dev.o_harid.R
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -27,8 +32,8 @@ import com.sasank.roundedhorizontalprogress.RoundedHorizontalProgressBar
 import com.tonyodev.fetch2.*
 import com.tonyodev.fetch2core.DownloadBlock
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.dialog_add_comment.view.*
 import kotlinx.android.synthetic.main.fragment_login.*
-import lars_lion.dev.o_harid.R
 import lars_lion.dev.o_harid.adapter.CommentsAdapter
 import lars_lion.dev.o_harid.base.BaseFragment
 import lars_lion.dev.o_harid.databinding.FragmentBookDetailBinding
@@ -37,6 +42,7 @@ import lars_lion.dev.o_harid.preferences.PreferencesManager
 import lars_lion.dev.o_harid.utils.*
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
 import java.io.File
+import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -49,6 +55,7 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
     lateinit var commentsAdapter: CommentsAdapter
     var url = ""
     val commentsList = ArrayList<Comment>()
+    var bookImgUrl = ""
 
     @Inject
     lateinit var prefs: PreferencesManager
@@ -85,6 +92,7 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
 
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun onClicks() {
 
         with(binding!!) {
@@ -113,37 +121,64 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
                 showBottomSheet()
             }
 
-            ratingRate.onRatingChangeListener = object : MaterialRatingBar.OnRatingChangeListener {
-                override fun onRatingChanged(ratingBar: MaterialRatingBar?, rating: Float) {
+            cvComment.setOnClickListener {
+                val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                val inflater: LayoutInflater = requireActivity().layoutInflater
+                val dialogView: View = inflater.inflate(R.layout.dialog_add_comment, null)
+                dialogBuilder.setView(dialogView)
+
+                val etMessage = dialogView.findViewById<EditText>(R.id.et_message)
+                val ratingRate = dialogView.findViewById<MaterialRatingBar>(R.id.ratingRate)
+                dialogView.findViewById<ImageView>(R.id.img_book).load(bookImgUrl)
+
+                ratingRate.onRatingChangeListener = object : MaterialRatingBar.OnRatingChangeListener {
+                    override fun onRatingChanged(ratingBar: MaterialRatingBar?, rating: Float) {
+                    }
+
                 }
 
-            }
+                dialogView.findViewById<ConstraintLayout>(R.id.rooot).setOnClickListener {
+                    hideKeyBoard(it)
+                }
 
-            imgSend.setOnClickListener {view->
-                if (etMessage.text.toString().isNotEmpty() && ratingRate.rating!=0f){
-                    view.isClickable = false
-                    hideKeyBoard(view)
-                    viewModel.getAddComment(etMessage.text.toString().trim(), prefs.bookId.toString(), ratingRate.rating.toString())
-                    viewModel.addComment.observe(viewLifecycleOwner, EventObserver{
-                        when(it){
-                            UiState.Loading -> {}
-                            is UiState.Success -> {
-                                commentsList.add(0,Comment(prefs.bookId,null, prefs.name, null,etMessage.text.toString(),Date().toString(), ratingRate.rating.toDouble(),0))
-                                commentsAdapter.updateList(commentsList)
-                                etMessage.clearFocus()
-                                ratingRate.rating=0f
-                                etMessage.setText("")
-                                binding!!.root.snackbar("Commentingiz qo`shildi")
-                                view.isClickable = true
+                val alertDialog: AlertDialog = dialogBuilder.create()
+                alertDialog.show()
 
-                            }
-                            is UiState.Error -> {
-                                view.isClickable = true
-                                binding!!.root.snackbar(it.message)
-                            }
-                        }.exhaustive
-                    })
-                }else binding!!.root.snackbar("Baholang, comment qo`shing")
+                dialogView.findViewById<MaterialCardView>(R.id.cv_dismiss).setOnClickListener {
+                    alertDialog.dismiss()
+                }
+
+                dialogView.findViewById<MaterialCardView>(R.id.cv_fikr).setOnClickListener {view->
+                    if (etMessage.text.toString().isNotEmpty() && ratingRate.rating!=0f){
+                        view.isClickable = false
+                        hideKeyBoard(view)
+                        viewModel.getAddComment(etMessage.text.toString().trim(), prefs.bookId.toString(), ratingRate.rating.toString())
+                        viewModel.addComment.observe(viewLifecycleOwner, EventObserver{
+                            when(it){
+                                UiState.Loading -> {}
+                                is UiState.Success -> {
+                                    val date = Date()
+                                    val formatter = SimpleDateFormat("yyyy-MM-dd")
+                                    val strDate: String = formatter.format(date)
+                                    commentsList.add(0,Comment(prefs.bookId,null, prefs.name, null,etMessage.text.toString(),strDate, ratingRate.rating.toDouble(),0))
+                                    commentsAdapter.updateList(commentsList)
+                                    etMessage.clearFocus()
+                                    ratingRate.rating=0f
+                                    etMessage.setText("")
+                                    toast("Commentingiz qo`shildi")
+                                    view.isClickable = true
+                                    alertDialog.dismiss()
+
+                                }
+                                is UiState.Error -> {
+                                    view.isClickable = true
+                                    toast(it.message)
+                                }
+                            }.exhaustive
+                        })
+                    }else toast("Baholang, comment qo`shing")
+                }
+
             }
         }
     }
@@ -372,6 +407,7 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
                     binding!!.tvLanguage.text = data.language
                     binding!!.tvPage.text = data.page_size.toString()
                     binding!!.imgBookBack.load(data.foto)
+                    bookImgUrl = data.foto
                     binding!!.imgBook.load(data.foto) {
                         crossfade(true)
                         listener(object : ImageRequest.Listener {
