@@ -14,7 +14,7 @@ class GetBookTypeRepository @Inject constructor(
 
     suspend fun getBookType(typeId:String) = flow {
         emit(apiService.getBookByBookType("Bearer ${prefs.token}", typeId))
-    }
+    }.flowOn(Dispatchers.IO)
 
     suspend fun addFavouriteBook(id:Int) = flow {
         emit(apiService.addFavouriteBook("Bearer ${prefs.token}", id))

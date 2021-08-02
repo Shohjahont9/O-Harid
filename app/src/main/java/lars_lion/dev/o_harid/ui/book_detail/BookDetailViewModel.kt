@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import lars_lion.dev.o_harid.network.response.addComment.AddCommentResponse
 import lars_lion.dev.o_harid.network.response.addFavourite.AddFavouriteResponse
 import lars_lion.dev.o_harid.network.response.bookDetail.BookDetailResponse
 import lars_lion.dev.o_harid.network.response.buyBook.BuyBookResponse
@@ -24,10 +25,10 @@ class BookDetailViewModel @Inject constructor(
     private val _comments = MutableLiveData<Event<UiState<CommentResponse>>>()
     val comments: LiveData<Event<UiState<CommentResponse>>> = _comments
 
-    fun getComment() = viewModelScope.launch {
+    fun getComment(bookId:String) = viewModelScope.launch {
         _comments.value = Event(UiState.Loading)
         try {
-            repository.comments().catch { e ->
+            repository.comments(bookId).catch { e ->
                 _comments.value = Event(UiState.Error(e.message ?: "message==null"))
             }.collectLatest { repos ->
                 if (repos.status.code == 200)
@@ -95,6 +96,25 @@ class BookDetailViewModel @Inject constructor(
             }
         } catch (e: Exception) {
             _buyBook.value = Event(UiState.Error(e.message ?: "message==null"))
+        }
+    }
+
+   private val _addComment = MutableLiveData<Event<UiState<AddCommentResponse>>>()
+    val addComment: LiveData<Event<UiState<AddCommentResponse>>> = _addComment
+
+    fun getAddComment(text:String, bookId: String, evaluate:String) = viewModelScope.launch {
+        _addComment.value = Event(UiState.Loading)
+        try {
+            repository.addComment(text, bookId, evaluate).catch { e ->
+                _addComment.value = Event(UiState.Error(e.message ?: "message==null"))
+            }.collectLatest { repos ->
+                if (repos.status.code == 200)
+                    _addComment.value = Event(UiState.Success(repos))
+                else
+                    _addComment.value = Event(UiState.Error(repos.status.message))
+            }
+        } catch (e: Exception) {
+            _addComment.value = Event(UiState.Error(e.message ?: "message==null"))
         }
     }
 

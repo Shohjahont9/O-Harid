@@ -11,8 +11,8 @@ class BookDetailRepository @Inject constructor(
     private val apiService: ApiService,
     private val prefs: PreferencesManager
 ) {
-    suspend fun comments() = flow {
-        emit(apiService.comments("Bearer ${prefs.token}"))
+    suspend fun comments(bookId:String) = flow {
+        emit(apiService.comments("Bearer ${prefs.token}", bookId))
     }.flowOn(Dispatchers.IO)
 
     suspend fun bookDetail(id:Int) = flow {
@@ -25,6 +25,11 @@ class BookDetailRepository @Inject constructor(
 
  suspend fun buyBook(id:Int) = flow {
         emit(apiService.buyBook("Bearer ${prefs.token}", id))
+    }.flowOn(Dispatchers.IO)
+
+
+ suspend fun addComment(text:String, id:String, evaluate:String) = flow {
+        emit(apiService.addComment("Bearer ${prefs.token}", text, id, evaluate))
     }.flowOn(Dispatchers.IO)
 
 

@@ -1,5 +1,6 @@
 package lars_lion.dev.o_harid.network
 
+import lars_lion.dev.o_harid.network.response.addComment.AddCommentResponse
 import lars_lion.dev.o_harid.network.response.addFavourite.AddFavouriteResponse
 import lars_lion.dev.o_harid.network.response.bestSeller.BestSellerResponse
 import lars_lion.dev.o_harid.network.response.bookDetail.BookDetailResponse
@@ -55,9 +56,10 @@ interface ApiService {
     ): BookTypeResponse
 
     @Headers("Content-Type: application/json")
-    @GET("/api/comment/2")
+    @GET("/api/comment/{bookId}")
     suspend fun comments(
         @Header("Authorization") token: String,
+        @Path("bookId") bookId: String
     ): CommentResponse
 
     @Headers("Content-Type: application/json")
@@ -134,6 +136,16 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("bookId") bookId:String
     ): DeleteBookFromLibResponse
+
+
+    @Headers("Content-Type: application/json")
+    @POST("/api/comment")
+    suspend fun addComment(
+        @Header("Authorization") token: String,
+        @Query("text") commentText:String,
+        @Query("bookId") bookId:String,
+        @Query("evaluate") evaluate:String
+    ): AddCommentResponse
 
 
 

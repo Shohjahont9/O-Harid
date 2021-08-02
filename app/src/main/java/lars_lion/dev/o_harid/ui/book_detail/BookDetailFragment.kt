@@ -37,7 +37,9 @@ import lars_lion.dev.o_harid.preferences.PreferencesManager
 import lars_lion.dev.o_harid.utils.*
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
 import java.io.File
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 
 @AndroidEntryPoint
@@ -46,6 +48,7 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
 
     lateinit var commentsAdapter: CommentsAdapter
     var url = ""
+    val commentsList = ArrayList<Comment>()
 
     @Inject
     lateinit var prefs: PreferencesManager
@@ -115,6 +118,26 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
                     toast(rating.toString())
                 }
 
+            }
+
+            imgSend.setOnClickListener {
+                if (etMessage.text.toString().isNotEmpty() && ratingRate.rating!=0f){
+                    viewModel.getAddComment(etMessage.text.toString().trim(), prefs.bookId.toString(), ratingRate.rating.toString())
+                    viewModel.addComment.observe(viewLifecycleOwner, EventObserver{
+                        when(it){
+                            UiState.Loading -> {}
+                            is UiState.Success -> {
+                                commentsList.add(Comment(prefs.bookId,null, prefs.name, null,etMessage.text.toString(),Date().toString(), ratingRate.rating.toDouble(),0))
+                                commentsAdapter.updateList(commentsList)
+                                binding!!.root.snackbar("Commentingiz qo`shildi")
+
+                            }
+                            is UiState.Error -> {
+                                binding!!.root.snackbar(it.message)
+                            }
+                        }.exhaustive
+                    })
+                }else binding!!.root.snackbar("Baholang, comment qo`shing")
             }
         }
     }
@@ -365,13 +388,12 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
 
     private fun loadComments() {
         with(binding!!) {
-            viewModel.getComment()
+            viewModel.getComment(prefs.bookId.toString())
             viewModel.comments.observe(viewLifecycleOwner, EventObserver {
                 when (it) {
                     UiState.Loading -> progressBar.visible(true)
                     is UiState.Success -> {
                         progressBar.visible(false)
-                        val commentsList = ArrayList<Comment>()
                         it.value.`object`.comments.forEach { data ->
                             commentsList.add(
                                 Comment(
