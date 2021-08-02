@@ -288,7 +288,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
             with(binding!!) {
                 rvSearch.visible(true)
 
-                viewModel.getSearchBook("Bearer ${prefs.token}", newText.toString())
+                viewModel.getSearchBook("Bearer ${prefs.token}",newText.toString().toLowerCase())
                 viewModel.searchBook.observe(viewLifecycleOwner, EventObserver {
                     when (it) {
                         UiState.Loading -> {

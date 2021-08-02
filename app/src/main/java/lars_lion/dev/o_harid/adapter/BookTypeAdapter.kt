@@ -67,6 +67,9 @@ class BookTypeAdapter(
                     })
                 }
 
+                if (data.like)
+                    imgStar.setImageResource(R.drawable.ic_marked)
+
                 tvAuthor.text = data.author
                 tvTitle.text = data.name
                 tvPrice.text = "${data.price.toInt()} UZS"
@@ -74,6 +77,7 @@ class BookTypeAdapter(
                 rating.rating = data.interested.toFloat()
                 tvType.text = data.language
                 imgStar.setOnClickListener {
+                    imgStar.setImageResource(R.drawable.ic_marked)
                     if (adapterPosition != RecyclerView.NO_POSITION)
                         listener.onFavouriteClick(adapterPosition, data)
                 }

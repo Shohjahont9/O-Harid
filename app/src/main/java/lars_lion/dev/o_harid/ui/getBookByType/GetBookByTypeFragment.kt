@@ -178,7 +178,7 @@ class GetBookByTypeFragment : BaseFragment<FragmentGetBookByTypeBinding>(),
             with(binding!!) {
                 rvSearch.visible(true)
 
-                viewModelMain.getSearchBook("Bearer ${prefs.token}", newText.toString())
+                viewModelMain.getSearchBook("Bearer ${prefs.token}", newText.toString().toLowerCase())
                 viewModelMain.searchBook.observe(viewLifecycleOwner, EventObserver {
                     when (it) {
                         UiState.Loading -> {

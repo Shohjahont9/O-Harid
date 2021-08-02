@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import lars_lion.dev.o_harid.network.response.deleteBookFromLib.DeleteBookFromLibResponse
 import lars_lion.dev.o_harid.network.response.favourite.FavouriteBookResponse
 import lars_lion.dev.o_harid.utils.Event
 import lars_lion.dev.o_harid.utils.UiState
@@ -32,6 +33,23 @@ class FavouriteViewModel @Inject constructor(
             }
         }catch (e:Exception){
             _favouriteBook.value = Event(UiState.Error(e.message ?: "message == null"))
+        }
+    }
+
+    private val _deleteBook = MutableLiveData<Event<UiState<DeleteBookFromLibResponse>>>()
+    val deleteBook: LiveData<Event<UiState<DeleteBookFromLibResponse>>> = _deleteBook
+
+    fun getDeleteBook(bookId:String) = viewModelScope.launch {
+        _deleteBook.value = Event(UiState.Loading)
+        try {
+            repository.deleteBook(bookId).catch {e->
+                _deleteBook.value = Event(UiState.Error(e.message ?: "message == null"))
+            }.collectLatest {response->
+                if (response.status.code == 200)
+                    _deleteBook.value = Event(UiState.Success(response))
+            }
+        }catch (e:Exception){
+            _deleteBook.value = Event(UiState.Error(e.message ?: "message == null"))
         }
     }
 

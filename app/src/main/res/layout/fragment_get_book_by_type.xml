@@ -186,7 +186,7 @@
         android:textColor="@color/black"
         android:paddingEnd="@dimen/_16sdp"
         android:paddingStart="@dimen/_16sdp"
-        android:text="@string/sizda_javonga_qo_shilgan_kitob_yo_q"
+        android:text="@string/kitoblar_qo_shilmagan"
         android:fontFamily="@font/g_regular"
         android:textSize="@dimen/_20ssp"
         android:gravity="center"

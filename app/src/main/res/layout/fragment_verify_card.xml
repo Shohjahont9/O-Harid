@@ -114,7 +114,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
-        android:layout_marginBottom="@dimen/_44sdp"
+        android:layout_marginBottom="@dimen/_52sdp"
         android:clickable="true"
         android:focusable="true"
         app:cardCornerRadius="@dimen/_10sdp"

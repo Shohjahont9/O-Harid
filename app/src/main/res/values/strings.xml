@@ -37,6 +37,8 @@
     <string name="ha_sotib_olaman">Ha Sotib olaman</string>
     <string name="xozircha_audio_kitoblar_yo_q">Xozircha audio kitoblar yo`q</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="kitoblar_qo_shilmagan">Kitoblar qo`shilmagan</string>
+    <string name="sotib_olingan_kitoblar">Sotib olingan kitoblar</string>
+    <string name="javon">Javon</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

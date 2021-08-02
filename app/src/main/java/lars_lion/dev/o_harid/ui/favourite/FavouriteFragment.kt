@@ -28,6 +28,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>(),
 
     @Inject
     lateinit var prefs: PreferencesManager
+    val nowadaysBooks = ArrayList<Object>()
 
     val viewModel: FavouriteViewModel by viewModels()
     val viewModelMain: MainViewModel by viewModels()
@@ -73,7 +74,6 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>(),
                             progressBarBestseller.visible(true)
                             tvEmpty.visible(true)
                         }
-                        val nowadaysBooks = ArrayList<Object>()
                         nowadaysBooks.addAll(it.value.`object`)
                         println("size -> ${nowadaysBooks.size}")
 
@@ -114,7 +114,21 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>(),
     }
 
     override fun onDeleteItem(position: Int, data: Object) {
-        toast("Delete " + position.toString())
+        viewModel.getDeleteBook(data.id.toString())
+        viewModel.deleteBook.observe(viewLifecycleOwner, EventObserver{
+            when(it){
+                UiState.Loading ->{}
+                is UiState.Success -> {
+                    nowadaysBooks.removeAt(position)
+                    favouriteAdapter.updateList(nowadaysBooks)
+                    binding!!.root.snackbar("${data.name} kitobi o`chirildi")
+                }
+                is UiState.Error -> {
+                    binding!!.root.snackbar(it.message)
+
+                }
+            }.exhaustive
+        })
 
     }
 
@@ -144,7 +158,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>(),
             with(binding!!) {
                 rvSearch.visible(true)
 
-                viewModelMain.getSearchBook("Bearer ${prefs.token}", newText.toString())
+                viewModelMain.getSearchBook("Bearer ${prefs.token}", newText.toString().toLowerCase())
                 viewModelMain.searchBook.observe(viewLifecycleOwner, EventObserver {
                     when (it) {
                         UiState.Loading -> {

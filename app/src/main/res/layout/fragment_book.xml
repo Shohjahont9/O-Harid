@@ -7,13 +7,26 @@
     android:id="@+id/rooot"
     tools:context=".ui.book.BookFragment">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_44sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/tv_title"
+        android:fontFamily="@font/g_bold"
+        android:text="@string/sotib_olingan_kitoblar"
+        android:textSize="@dimen/_18ssp"
+        android:textColor="@color/black"/>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_search"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        android:layout_marginTop="@dimen/_8sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_44sdp"
         android:layout_marginEnd="@dimen/_16sdp"
         android:outlineAmbientShadowColor="#A9ACA4A2"
         android:outlineSpotShadowColor="#A9ACA4A2"
@@ -21,6 +34,7 @@
         app:cardElevation="@dimen/_8sdp"
         app:layout_constraintCircleRadius="@dimen/_32sdp"
         tools:targetApi="p">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -154,7 +168,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="@dimen/_44sdp"
+        android:layout_marginBottom="@dimen/_52sdp"
         android:layout_marginTop="@dimen/_8sdp"
         android:clipToPadding="false"
         android:paddingStart="@dimen/_16sdp"

@@ -16,4 +16,7 @@ class FavouriteRepository @Inject constructor(
         emit(apiService.favouriteBook("Bearer ${prefs.token}"))
     }.flowOn(Dispatchers.IO)
 
+    suspend fun deleteBook(bookId:String) = flow {
+        emit(apiService.deleteBookFromLibrary("Bearer ${prefs.token}", bookId))
+    }
 }

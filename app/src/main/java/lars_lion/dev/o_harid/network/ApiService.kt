@@ -7,6 +7,7 @@ import lars_lion.dev.o_harid.network.response.bookType.BookTypeResponse
 import lars_lion.dev.o_harid.network.response.buyBook.BuyBookResponse
 import lars_lion.dev.o_harid.network.response.comments.CommentResponse
 import lars_lion.dev.o_harid.network.response.createCard.CreateCardResponse
+import lars_lion.dev.o_harid.network.response.deleteBookFromLib.DeleteBookFromLibResponse
 import lars_lion.dev.o_harid.network.response.favourite.FavouriteBookResponse
 import lars_lion.dev.o_harid.network.response.getBookByBookType.GetBookByBookTypeResponse
 import lars_lion.dev.o_harid.network.response.getMoney.GetUserMoneyResponse
@@ -125,6 +126,14 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Query("typeId") type:String
     ): GetBookByBookTypeResponse
+
+
+    @Headers("Content-Type: application/json")
+    @POST("/api/auth/remove/from/library/{bookId}")
+    suspend fun deleteBookFromLibrary(
+        @Header("Authorization") token: String,
+        @Path("bookId") bookId:String
+    ): DeleteBookFromLibResponse
 
 
 

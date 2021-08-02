@@ -7,13 +7,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.favourite.FavouriteFragment">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_44sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/tv_title"
+        android:fontFamily="@font/g_bold"
+        android:text="@string/javon"
+        android:textSize="@dimen/_18ssp"
+        android:textColor="@color/black"/>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_search"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        android:layout_marginTop="@dimen/_8sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_44sdp"
         android:layout_marginEnd="@dimen/_16sdp"
         android:outlineAmbientShadowColor="#A9ACA4A2"
         android:outlineSpotShadowColor="#A9ACA4A2"
