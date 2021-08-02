@@ -52,7 +52,11 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
 
     private val backPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            findNavController().navigateSafe(R.id.action_bookDetailFragment_to_mainFragment)
+            if (!prefs.isGetBookTypeFragment)
+                findNavController().navigateSafe(R.id.action_bookDetailFragment_to_mainFragment)
+            else
+                findNavController().navigateSafe(R.id.action_bookDetailFragment_to_getBookByTypeFragment)
+
         }
     }
 
@@ -81,7 +85,10 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
 
         with(binding!!) {
             cvBack.setOnClickListener {
-                findNavController().navigateSafe(R.id.action_bookDetailFragment_to_mainFragment)
+                if (!prefs.isGetBookTypeFragment)
+                    findNavController().navigateSafe(R.id.action_bookDetailFragment_to_mainFragment)
+                else
+                    findNavController().navigateSafe(R.id.action_bookDetailFragment_to_getBookByTypeFragment)
             }
             cvLib.setOnClickListener {
                 viewModel.addFavBook(prefs.bookId)
@@ -197,12 +204,19 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
             tvProgress.visible(true)
             horizontalProgress.visible(true)
 
-            downloadFile(url, horizontalProgress, tvProgress)
+            downloadFile(
+                url, horizontalProgress, tvProgress
+
+            )
         }
     }
 
     var file: File? = null
-    private fun downloadFile(url: String, progressBar: RoundedHorizontalProgressBar, textView: TextView) {
+    private fun downloadFile(
+        url: String,
+        progressBar: RoundedHorizontalProgressBar,
+        textView: TextView
+    ) {
         println("url -> $url")
         val config = FetchConfiguration.Builder(context = requireContext()).build()
         val downloader = Fetch.Impl.getInstance(config)
@@ -219,7 +233,10 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
         downloader.addListener(downloaderListener(progressBar, textView))
     }
 
-    private fun downloaderListener(progressBar: RoundedHorizontalProgressBar, textView:TextView): FetchListener {
+    private fun downloaderListener(
+        progressBar: RoundedHorizontalProgressBar,
+        textView: TextView
+    ): FetchListener {
         return object : FetchListener {
             override fun onAdded(download: Download) {
                 println("Download method -> onAdded")
@@ -332,7 +349,7 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
                     }
                 }
                 is UiState.Error -> {
-                    root.snackbar(it.message)
+                    binding!!.root.snackbar(it.message)
                 }
             }.exhaustive
         })

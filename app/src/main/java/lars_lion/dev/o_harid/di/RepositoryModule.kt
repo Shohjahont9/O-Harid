@@ -12,6 +12,7 @@ import lars_lion.dev.o_harid.ui.book_detail.BookDetailRepository
 import lars_lion.dev.o_harid.ui.card.CardRepository
 import lars_lion.dev.o_harid.ui.card.verifyCard.VerifyCardRepository
 import lars_lion.dev.o_harid.ui.favourite.FavouriteRepository
+import lars_lion.dev.o_harid.ui.getBookByType.GetBookTypeRepository
 import lars_lion.dev.o_harid.ui.main.MainRepository
 import lars_lion.dev.o_harid.ui.profile.ProfileRepository
 import lars_lion.dev.o_harid.ui.registration.login.LoginRepository
@@ -87,6 +88,14 @@ object RepositoryModule {
         apiService: ApiService,
         prefs: PreferencesManager
     ): BookRepository = BookRepository(apiService, prefs)
+
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetBookTypeRepository(
+        apiService: ApiService,
+        prefs: PreferencesManager
+    ): GetBookTypeRepository = GetBookTypeRepository(apiService, prefs)
 
 
 }

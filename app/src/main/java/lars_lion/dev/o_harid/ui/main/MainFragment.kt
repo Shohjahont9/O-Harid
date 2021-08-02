@@ -259,11 +259,13 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
         data: lars_lion.dev.o_harid.network.response.bestSeller.Object
     ) {
         prefs.bookId = data.id
+        prefs.isGetBookTypeFragment = false
         findNavController().navigateSafe(R.id.action_mainFragment_to_bookDetailFragment)
     }
 
     override fun onItemClick(position: Int, data: Object) {
         prefs.bookId = data.id
+        prefs.isGetBookTypeFragment = false
         findNavController().navigateSafe(R.id.action_mainFragment_to_bookDetailFragment)
     }
 
@@ -272,6 +274,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
         data: lars_lion.dev.o_harid.network.response.bookType.Object
     ) {
         prefs.bookType = data.id
+        prefs.isGetBookTypeFragment = false
+        prefs.bookTypeName = data.name
         findNavController().navigateSafe(R.id.action_mainFragment_to_getBookByTypeFragment)
     }
 
@@ -312,6 +316,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
         data: lars_lion.dev.o_harid.network.response.search.Object
     ) {
         prefs.bookId = data.id
+        prefs.isGetBookTypeFragment = false
         findNavController().navigateSafe(R.id.action_mainFragment_to_bookDetailFragment)
     }
 

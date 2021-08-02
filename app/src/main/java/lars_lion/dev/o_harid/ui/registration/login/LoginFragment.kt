@@ -99,7 +99,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
         with(binding!!) {
 
-            root.setOnClickListener {
+            rooot.setOnClickListener {
                 hideKeyBoard(it)
             }
 

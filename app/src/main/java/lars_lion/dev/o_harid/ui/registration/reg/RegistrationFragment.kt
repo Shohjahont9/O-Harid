@@ -95,7 +95,7 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
         }
 
         with(binding!!) {
-            root.setOnClickListener {
+            rooot.setOnClickListener {
                 hideKeyBoard(it)
             }
 
@@ -196,7 +196,7 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
                             is UiState.Error -> {
                                 binding!!.progressBar.visible(false)
                                 binding!!.loginButton.isClickable = true
-                                root.snackbar(it.message)
+                                binding!!.root.snackbar(it.message)
                             }
                         }.exhaustive
                     })

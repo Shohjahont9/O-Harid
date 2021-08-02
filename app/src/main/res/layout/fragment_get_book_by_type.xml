@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rooot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.getBookByType.GetBookByTypeFragment">
@@ -157,6 +158,40 @@
         android:id="@+id/tv_type"
         />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/progress_bar_bestseller"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_30sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="empty_book.json"
+        app:lottie_loop="true"
+        android:visibility="gone"
+        app:lottie_repeatCount="3"
+        app:lottie_speed="1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/progress_bar_bestseller"
+        android:layout_marginBottom="@dimen/_90sdp"
+        android:textColor="@color/black"
+        android:paddingEnd="@dimen/_16sdp"
+        android:paddingStart="@dimen/_16sdp"
+        android:text="@string/sizda_javonga_qo_shilgan_kitob_yo_q"
+        android:fontFamily="@font/g_regular"
+        android:textSize="@dimen/_20ssp"
+        android:gravity="center"
+        android:id="@+id/tv_empty"
+        />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/progress_bar"

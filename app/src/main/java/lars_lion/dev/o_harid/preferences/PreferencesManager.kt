@@ -19,7 +19,9 @@ class PreferencesManager(
     var token by PreferencesDelegate(preferences, TOKEN, "empty")
     var bookId by PreferencesDelegate(preferences, BOOK_ID, -1)
     var bookType by PreferencesDelegate(preferences, BOOK_TYPE, -1)
+    var bookTypeName by PreferencesDelegate(preferences, BOOK_TYPE_NAME, "empty")
     var language by PreferencesDelegate(preferences, LANGUAGE, "empty")
+    var isGetBookTypeFragment by PreferencesDelegate(preferences, IS_GET_BOOK_TYPE_FRAGMENT, false)
 
     companion object {
         private const val IS_AUTH_VERIFIED = "IS_AUTH_VERIFIED"
@@ -27,7 +29,9 @@ class PreferencesManager(
         private const val TOKEN = "TOKEN"
         private const val BOOK_ID = "Book_id"
         private const val BOOK_TYPE = "Book_type"
+        private const val BOOK_TYPE_NAME = "Book_type_name"
         private const val LANGUAGE = "LANGUAGE"
+        private const val IS_GET_BOOK_TYPE_FRAGMENT = "IS_GET_BOOK_TYPE_FRAGMENT"
     }
 
 }
