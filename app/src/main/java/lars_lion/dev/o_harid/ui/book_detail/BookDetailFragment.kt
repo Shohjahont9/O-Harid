@@ -115,13 +115,14 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
 
             ratingRate.onRatingChangeListener = object : MaterialRatingBar.OnRatingChangeListener {
                 override fun onRatingChanged(ratingBar: MaterialRatingBar?, rating: Float) {
-                    toast(rating.toString())
                 }
 
             }
 
-            imgSend.setOnClickListener {
+            imgSend.setOnClickListener {view->
                 if (etMessage.text.toString().isNotEmpty() && ratingRate.rating!=0f){
+                    view.isClickable = false
+                    hideKeyBoard(view)
                     viewModel.getAddComment(etMessage.text.toString().trim(), prefs.bookId.toString(), ratingRate.rating.toString())
                     viewModel.addComment.observe(viewLifecycleOwner, EventObserver{
                         when(it){
@@ -129,10 +130,15 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
                             is UiState.Success -> {
                                 commentsList.add(Comment(prefs.bookId,null, prefs.name, null,etMessage.text.toString(),Date().toString(), ratingRate.rating.toDouble(),0))
                                 commentsAdapter.updateList(commentsList)
+                                etMessage.clearFocus()
+                                ratingRate.rating=0f
+                                etMessage.setText("")
                                 binding!!.root.snackbar("Commentingiz qo`shildi")
+                                view.isClickable = true
 
                             }
                             is UiState.Error -> {
+                                view.isClickable = true
                                 binding!!.root.snackbar(it.message)
                             }
                         }.exhaustive
