@@ -242,7 +242,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:clipToPadding="false"
-                android:layoutAnimation="@anim/layout_animation"
+                android:layoutAnimation="@anim/layout_animation_horizontal"
                 android:nestedScrollingEnabled="false"
                 android:paddingStart="@dimen/_16sdp"
                 android:paddingEnd="@dimen/_16sdp" />
@@ -296,8 +296,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_8sdp"
+                android:nestedScrollingEnabled="false"
                 android:clipToPadding="false"
-                android:layoutAnimation="@anim/layout_animation" />
+                android:layoutAnimation="@anim/layout_animation"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"  />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/watch_animation"

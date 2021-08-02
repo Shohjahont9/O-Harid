@@ -1,11 +1,12 @@
 package lars_lion.dev.o_harid.ui.main
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import android.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +21,7 @@ import lars_lion.dev.o_harid.databinding.FragmentMainBinding
 import lars_lion.dev.o_harid.network.response.nowadays.Object
 import lars_lion.dev.o_harid.preferences.PreferencesManager
 import lars_lion.dev.o_harid.utils.*
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -46,6 +48,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
 
 
         prefsData()
+
+        initRvBookType()
+
+        initRvSearch()
 
         binding!!.etSearchPlaces.setOnQueryTextListener(this)
 
@@ -100,26 +106,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
                         val nowadaysBooks =
                             ArrayList<lars_lion.dev.o_harid.network.response.bookType.Object>()
                         nowadaysBooks.addAll(it.value.`object`)
-                        initRvBookType()
                         binding!!.rvJanr.adapter = bookTypeAdapter
                         bookTypeAdapter.updateList(nowadaysBooks)
-                        with(rvJanr) {
-                            viewTreeObserver.addOnPreDrawListener(
-                                object : ViewTreeObserver.OnPreDrawListener {
-                                    override fun onPreDraw(): Boolean {
-                                        viewTreeObserver.removeOnPreDrawListener(this)
-                                        for (i in 0 until childCount) {
-                                            val v: View = getChildAt(i)
-                                            v.alpha = 0.0f
-                                            v.animate().alpha(1.0f)
-                                                .setDuration(1000)
-                                                .setStartDelay((i * 100).toLong())
-                                                .start()
-                                        }
-                                        return true
-                                    }
-                                })
-                        }
+
                     }
                     is UiState.Error -> {
                         watchAnimationJanr.visible(false)
@@ -140,29 +129,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
                     UiState.Loading -> watchAnimation.visible(true)
                     is UiState.Success -> {
                         watchAnimation.visible(false)
-                        val nowadaysBooks =
-                            ArrayList<Object>()
+                        val nowadaysBooks = ArrayList<Object>()
                         nowadaysBooks.addAll(it.value.`object`)
-                        initRvNowadays()
-                        binding!!.rvNow.adapter = nowadaysAdapter
-                        nowadaysAdapter.updateList(nowadaysBooks)
-                        with(rvNow) {
-                            viewTreeObserver.addOnPreDrawListener(
-                                object : ViewTreeObserver.OnPreDrawListener {
-                                    override fun onPreDraw(): Boolean {
-                                        viewTreeObserver.removeOnPreDrawListener(this)
-                                        for (i in 0 until childCount) {
-                                            val v: View = getChildAt(i)
-                                            v.alpha = 0.0f
-                                            v.animate().alpha(1.0f)
-                                                .setDuration(1000)
-                                                .setStartDelay((i * 100).toLong())
-                                                .start()
-                                        }
-                                        return true
-                                    }
-                                })
-                        }
+                        initRvNowadays(nowadaysBooks)
                     }
                     is UiState.Error -> {
                         watchAnimation.visible(false)
@@ -185,28 +154,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
                         progressBarBestseller.visible(false)
                         val bestSeller =
                             ArrayList<lars_lion.dev.o_harid.network.response.bestSeller.Object>()
-
                         bestSeller.addAll(it.value.`object`)
-                        initRv()
-                        binding!!.rvBestseller.adapter = bestSellerAdapter
-                        bestSellerAdapter.updateList(bestSeller)
-                        with(rvBestseller) {
-                            viewTreeObserver.addOnPreDrawListener(
-                                object : ViewTreeObserver.OnPreDrawListener {
-                                    override fun onPreDraw(): Boolean {
-                                        viewTreeObserver.removeOnPreDrawListener(this)
-                                        for (i in 0 until childCount) {
-                                            val v: View = getChildAt(i)
-                                            v.alpha = 0.0f
-                                            v.animate().alpha(1.0f)
-                                                .setDuration(1000)
-                                                .setStartDelay((i * 50).toLong())
-                                                .start()
-                                        }
-                                        return true
-                                    }
-                                })
-                        }
+                        initRv(bestSeller)
                     }
                     is UiState.Error -> {
                         progressBarBestseller.visible(false)
@@ -218,12 +167,17 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
 
     }
 
-    private fun initRv() {
+    private fun initRv(dataList: ArrayList<lars_lion.dev.o_harid.network.response.bestSeller.Object>) {
         bestSellerAdapter = BestSellerAdapter(this)
-        with(binding!!.rvBestseller) {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding!!.rvBestseller.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            OverScrollDecoratorHelper.setUpOverScroll(
+                this, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL
+            )
             setHasFixedSize(true)
+            adapter = bestSellerAdapter
+            bestSellerAdapter.updateList(dataList)
+            scheduleLayoutAnimation()
         }
     }
 
@@ -233,15 +187,21 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
+            scheduleLayoutAnimation()
         }
     }
 
-    private fun initRvNowadays() {
+    private fun initRvNowadays(dataList: ArrayList<Object>) {
         nowadaysAdapter = NowadaysBooksAdapter(this)
-        with(binding!!.rvNow) {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding!!.rvNow.apply {
+            OverScrollDecoratorHelper.setUpOverScroll(
+                this,
+                OverScrollDecoratorHelper.ORIENTATION_VERTICAL
+            )
             setHasFixedSize(true)
+            adapter = nowadaysAdapter
+            nowadaysAdapter.updateList(dataList)
+            scheduleLayoutAnimation()
         }
     }
 
@@ -251,6 +211,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
+            scheduleLayoutAnimation()
         }
     }
 
@@ -288,7 +249,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
             with(binding!!) {
                 rvSearch.visible(true)
 
-                viewModel.getSearchBook("Bearer ${prefs.token}",newText.toString().toLowerCase())
+                viewModel.getSearchBook("Bearer ${prefs.token}", newText.toString().toLowerCase())
                 viewModel.searchBook.observe(viewLifecycleOwner, EventObserver {
                     when (it) {
                         UiState.Loading -> {
@@ -297,7 +258,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
                             val nowadaysBooks =
                                 ArrayList<lars_lion.dev.o_harid.network.response.search.Object>()
                             nowadaysBooks.addAll(it.value.`object`)
-                            initRvSearch()
                             binding!!.rvSearch.adapter = searchAdapter
                             searchAdapter.updateList(nowadaysBooks)
                         }
