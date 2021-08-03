@@ -10,13 +10,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import lars_lion.dev.o_harid.R
 import lars_lion.dev.o_harid.adapter.BookTypeAdapter
+import lars_lion.dev.o_harid.adapter.CommentsAdapter
 import lars_lion.dev.o_harid.adapter.SearchBooksAdapter
 import lars_lion.dev.o_harid.base.BaseFragment
 import lars_lion.dev.o_harid.databinding.FragmentGetBookByTypeBinding
+import lars_lion.dev.o_harid.model.Comment
 import lars_lion.dev.o_harid.network.response.getBookByBookType.Object
 import lars_lion.dev.o_harid.preferences.PreferencesManager
 import lars_lion.dev.o_harid.ui.main.MainViewModel
 import lars_lion.dev.o_harid.utils.*
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -44,8 +47,6 @@ class GetBookByTypeFragment : BaseFragment<FragmentGetBookByTypeBinding>(),
         super.onViewCreated(view, savedInstanceState)
 
         binding!!.tvType.text = prefs.bookTypeName
-
-        initRvNowadays()
 
         loadNowadaysBooks()
 
@@ -91,11 +92,7 @@ class GetBookByTypeFragment : BaseFragment<FragmentGetBookByTypeBinding>(),
                         }
                         val nowadaysBooks = ArrayList<Object>()
                         nowadaysBooks.addAll(it.value.`object`)
-                        println("size -> ${nowadaysBooks.size}")
-
-                        binding!!.rvBook.adapter = mAdapter
-                        mAdapter.updateList(nowadaysBooks)
-                        println(nowadaysBooks)
+                        initRvBookType(nowadaysBooks)
                     }
                     is UiState.Error -> {
                         progressBar.visible(false)
@@ -113,16 +110,17 @@ class GetBookByTypeFragment : BaseFragment<FragmentGetBookByTypeBinding>(),
 
     }
 
-    private fun initRvNowadays() {
+    private fun initRvBookType(dataList: ArrayList<Object>) {
         mAdapter = BookTypeAdapter(this)
-        with(binding!!.rvBook) {
-            layoutManager =
-                LinearLayoutManager(
-                    requireContext(),
-                    LinearLayoutManager.VERTICAL,
-                    false
-                )
+        binding!!.rvBook.apply {
+            OverScrollDecoratorHelper.setUpOverScroll(
+                this,
+                OverScrollDecoratorHelper.ORIENTATION_VERTICAL
+            )
             setHasFixedSize(true)
+            adapter = mAdapter
+            mAdapter.updateList(dataList)
+            scheduleLayoutAnimation()
         }
     }
 
@@ -175,7 +173,10 @@ class GetBookByTypeFragment : BaseFragment<FragmentGetBookByTypeBinding>(),
             with(binding!!) {
                 rvSearch.visible(true)
 
-                viewModelMain.getSearchBook("Bearer ${prefs.token}", newText.toString().toLowerCase())
+                viewModelMain.getSearchBook(
+                    "Bearer ${prefs.token}",
+                    newText.toString().toLowerCase()
+                )
                 viewModelMain.searchBook.observe(viewLifecycleOwner, EventObserver {
                     when (it) {
                         UiState.Loading -> {

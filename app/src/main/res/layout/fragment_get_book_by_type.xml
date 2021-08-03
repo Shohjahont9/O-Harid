@@ -212,6 +212,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layoutAnimation="@anim/layout_animation"
         android:layout_marginBottom="@dimen/_52sdp"
         android:layout_marginTop="@dimen/_8sdp"
         android:clipToPadding="false"

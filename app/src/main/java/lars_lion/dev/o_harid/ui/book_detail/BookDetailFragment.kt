@@ -35,11 +35,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.dialog_add_comment.view.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import lars_lion.dev.o_harid.adapter.CommentsAdapter
+import lars_lion.dev.o_harid.adapter.PaidBooksAdapter
 import lars_lion.dev.o_harid.base.BaseFragment
 import lars_lion.dev.o_harid.databinding.FragmentBookDetailBinding
 import lars_lion.dev.o_harid.model.Comment
 import lars_lion.dev.o_harid.preferences.PreferencesManager
 import lars_lion.dev.o_harid.utils.*
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
 import java.io.File
 import java.text.SimpleDateFormat
@@ -469,26 +471,7 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
                             )
                         }
 
-                        initComments()
-                        binding!!.rvComments.adapter = commentsAdapter
-                        commentsAdapter.updateList(commentsList)
-                        with(rvComments) {
-                            viewTreeObserver.addOnPreDrawListener(
-                                object : ViewTreeObserver.OnPreDrawListener {
-                                    override fun onPreDraw(): Boolean {
-                                        viewTreeObserver.removeOnPreDrawListener(this)
-                                        for (i in 0 until childCount) {
-                                            val v: View = getChildAt(i)
-                                            v.alpha = 0.0f
-                                            v.animate().alpha(1.0f)
-                                                .setDuration(1000)
-                                                .setStartDelay((i * 100).toLong())
-                                                .start()
-                                        }
-                                        return true
-                                    }
-                                })
-                        }
+                        initRvComments(commentsList)
                     }
                     is UiState.Error -> {
                         progressBar.visible(false)
@@ -501,16 +484,17 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
 
     }
 
-    private fun initComments() {
+    private fun initRvComments(dataList: ArrayList<Comment>) {
         commentsAdapter = CommentsAdapter(this)
-        with(binding!!.rvComments) {
-            layoutManager =
-                LinearLayoutManager(
-                    requireContext(),
-                    LinearLayoutManager.VERTICAL,
-                    false
-                )
+        binding!!.rvComments.apply {
+            OverScrollDecoratorHelper.setUpOverScroll(
+                this,
+                OverScrollDecoratorHelper.ORIENTATION_VERTICAL
+            )
             setHasFixedSize(true)
+            adapter = commentsAdapter
+            commentsAdapter.updateList(dataList)
+            scheduleLayoutAnimation()
         }
     }
 
