@@ -25,7 +25,6 @@
         app:labelVisibilityMode="unlabeled"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
-        android:paddingBottom="@dimen/_8sdp"
         app:menu="@menu/menu_item"
         android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"

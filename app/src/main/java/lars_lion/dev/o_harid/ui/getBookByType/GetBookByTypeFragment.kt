@@ -1,5 +1,6 @@
 package lars_lion.dev.o_harid.ui.getBookByType
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -47,6 +48,9 @@ class GetBookByTypeFragment : BaseFragment<FragmentGetBookByTypeBinding>(),
         super.onViewCreated(view, savedInstanceState)
 
         binding!!.tvType.text = prefs.bookTypeName
+        binding!!.etSearchPlaces.setIconifiedByDefault(false)
+        val v: View =  binding!!.etSearchPlaces.findViewById(R.id.search_plate)
+        v.setBackgroundColor(Color.WHITE)
 
         loadNowadaysBooks()
 

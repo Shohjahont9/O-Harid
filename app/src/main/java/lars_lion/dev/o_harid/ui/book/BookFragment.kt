@@ -1,5 +1,6 @@
 package lars_lion.dev.o_harid.ui.book
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,6 +45,9 @@ class BookFragment : BaseFragment<FragmentBookBinding>(),
         loadNowadaysBooks()
 
         binding!!.etSearchPlaces.setOnQueryTextListener(this)
+        binding!!.etSearchPlaces.setIconifiedByDefault(false)
+        val v: View =  binding!!.etSearchPlaces.findViewById(R.id.search_plate)
+        v.setBackgroundColor(Color.WHITE)
 
         binding!!.rooot.setOnClickListener { it ->
             binding!!.etSearchPlaces.clearFocus()

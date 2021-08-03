@@ -1,12 +1,10 @@
 package lars_lion.dev.o_harid.ui.main
 
+import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -54,6 +52,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
         initRvSearch()
 
         binding!!.etSearchPlaces.setOnQueryTextListener(this)
+        binding!!.etSearchPlaces.setIconifiedByDefault(false)
+        val v: View =  binding!!.etSearchPlaces.findViewById(R.id.search_plate)
+        v.setBackgroundColor(Color.WHITE)
 
         loadBestSeller()
 

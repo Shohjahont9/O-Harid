@@ -1,5 +1,6 @@
 package lars_lion.dev.o_harid.ui.favourite
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -47,6 +48,9 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>(),
         loadNowadaysBooks()
 
         binding!!.etSearchPlaces.setOnQueryTextListener(this)
+        binding!!.etSearchPlaces.setIconifiedByDefault(false)
+        val v: View =  binding!!.etSearchPlaces.findViewById(R.id.search_plate)
+        v.setBackgroundColor(Color.WHITE)
 
         binding!!.rooot.setOnClickListener { it ->
             binding!!.etSearchPlaces.clearFocus()
