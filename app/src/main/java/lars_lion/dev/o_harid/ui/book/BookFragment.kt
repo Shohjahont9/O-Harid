@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import lars_lion.dev.o_harid.R
+import lars_lion.dev.o_harid.adapter.NowadaysBooksAdapter
 import lars_lion.dev.o_harid.adapter.PaidBooksAdapter
 import lars_lion.dev.o_harid.adapter.SearchBooksAdapter
 import lars_lion.dev.o_harid.base.BaseFragment
@@ -17,6 +18,7 @@ import lars_lion.dev.o_harid.network.response.search.Object
 import lars_lion.dev.o_harid.preferences.PreferencesManager
 import lars_lion.dev.o_harid.ui.main.MainViewModel
 import lars_lion.dev.o_harid.utils.*
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 import javax.inject.Inject
 
 
@@ -38,8 +40,6 @@ class BookFragment : BaseFragment<FragmentBookBinding>(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        initRvNowadays()
 
         loadNowadaysBooks()
 
@@ -74,9 +74,7 @@ class BookFragment : BaseFragment<FragmentBookBinding>(),
                         val nowadaysBooks =
                             ArrayList<lars_lion.dev.o_harid.network.response.paidBooks.Object>()
                         nowadaysBooks.addAll(it.value.`object`)
-                        binding!!.rvBook.adapter = paidBooksAdapter
-                        paidBooksAdapter.updateList(nowadaysBooks)
-
+                       initRvNowadays(nowadaysBooks)
                     }
                     is UiState.Error -> {
                         progressBar.visible(false)
@@ -93,12 +91,17 @@ class BookFragment : BaseFragment<FragmentBookBinding>(),
 
     }
 
-    private fun initRvNowadays() {
+    private fun initRvNowadays(dataList: ArrayList<lars_lion.dev.o_harid.network.response.paidBooks.Object>) {
         paidBooksAdapter = PaidBooksAdapter(this)
-        with(binding!!.rvBook) {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding!!.rvBook.apply {
+            OverScrollDecoratorHelper.setUpOverScroll(
+                this,
+                OverScrollDecoratorHelper.ORIENTATION_VERTICAL
+            )
             setHasFixedSize(true)
+            adapter = paidBooksAdapter
+            paidBooksAdapter.updateList(dataList)
+            scheduleLayoutAnimation()
         }
     }
 

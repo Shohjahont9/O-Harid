@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import lars_lion.dev.o_harid.R
 import lars_lion.dev.o_harid.adapter.FavouriteBooksAdapter
+import lars_lion.dev.o_harid.adapter.PaidBooksAdapter
 import lars_lion.dev.o_harid.adapter.SearchBooksAdapter
 import lars_lion.dev.o_harid.base.BaseFragment
 import lars_lion.dev.o_harid.databinding.FragmentFavouriteBinding
@@ -17,6 +18,7 @@ import lars_lion.dev.o_harid.network.response.favourite.Object
 import lars_lion.dev.o_harid.preferences.PreferencesManager
 import lars_lion.dev.o_harid.ui.main.MainViewModel
 import lars_lion.dev.o_harid.utils.*
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -41,9 +43,6 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        initRvNowadays()
-
 
         loadNowadaysBooks()
 
@@ -77,9 +76,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>(),
                         nowadaysBooks.addAll(it.value.`object`)
                         println("size -> ${nowadaysBooks.size}")
 
-                        binding!!.rvFavourite.adapter = favouriteAdapter
-                        favouriteAdapter.updateList(nowadaysBooks)
-                        println(nowadaysBooks)
+                        initRvNowadays(nowadaysBooks)
                     }
                     is UiState.Error -> {
                         progressBar.visible(false)
@@ -97,12 +94,17 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>(),
 
     }
 
-    private fun initRvNowadays() {
+    private fun initRvNowadays(dataList: ArrayList<Object>) {
         favouriteAdapter = FavouriteBooksAdapter(this)
-        with(binding!!.rvFavourite) {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding!!.rvFavourite.apply {
+            OverScrollDecoratorHelper.setUpOverScroll(
+                this,
+                OverScrollDecoratorHelper.ORIENTATION_VERTICAL
+            )
             setHasFixedSize(true)
+            adapter = favouriteAdapter
+            favouriteAdapter.updateList(dataList)
+            scheduleLayoutAnimation()
         }
     }
 
