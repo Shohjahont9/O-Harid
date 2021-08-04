@@ -16,6 +16,7 @@ import lars_lion.dev.o_harid.base.BaseFragment
 import lars_lion.dev.o_harid.databinding.FragmentProfileBinding
 import lars_lion.dev.o_harid.preferences.PreferencesManager
 import lars_lion.dev.o_harid.ui.MainActivity
+import lars_lion.dev.o_harid.ui.registration.RegistrationActivity
 import lars_lion.dev.o_harid.utils.*
 import javax.inject.Inject
 
@@ -55,14 +56,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     }
 
     private fun getUserMoney() {
-        with(binding!!){
+        with(binding!!) {
             viewModel.getUserMoney()
-            viewModel.userMoney.observe(viewLifecycleOwner, EventObserver{
-                when(it){
+            viewModel.userMoney.observe(viewLifecycleOwner, EventObserver {
+                when (it) {
                     UiState.Loading -> progressBar.visible(true)
                     is UiState.Success -> {
                         progressBar.visible(false)
-                        tvBalans.text= "${it.value.`object`.summa.toInt()} so`m"
+                        tvBalans.text = "${it.value.`object`.summa.toInt()} so`m"
                     }
                     is UiState.Error -> {
                         progressBar.visible(false)
@@ -97,6 +98,21 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
             cvHisob.setOnClickListener {
                 findNavController().navigateSafe(R.id.action_profileFragment_to_cardFragment)
+            }
+
+            cvChiqish.setOnClickListener {
+                prefs.token = ""
+                prefs.isAuthVerified = false
+                startActivity(Intent(requireContext(), RegistrationActivity::class.java))
+                requireActivity().finishAffinity()
+            }
+
+            cvFikrlar.setOnClickListener {
+                root.snackbar("Xozirda bu qismda texnik ishlar olib borilmoqda")
+            }
+
+            cvBuyurtmalar.setOnClickListener {
+                root.snackbar("InshaAlloh tez kunlarda ishga tushadi")
             }
         }
     }
