@@ -4,17 +4,14 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.request.ImageRequest
 import coil.request.ImageResult
-import coil.transform.CircleCropTransformation
-import lars_lion.dev.o_harid.R
+import com.sasank.roundedhorizontalprogress.RoundedHorizontalProgressBar
 import lars_lion.dev.o_harid.databinding.ItemNowadaysBinding
-import lars_lion.dev.o_harid.databinding.ItemRvBinding
-import lars_lion.dev.o_harid.network.response.nowadays.Object
 import lars_lion.dev.o_harid.utils.visible
-import kotlin.collections.ArrayList
 
 @SuppressLint("SetTextI18n")
 class PaidBooksAdapter(
@@ -75,7 +72,7 @@ class PaidBooksAdapter(
 
                 rlRoot.setOnClickListener {
                     if (adapterPosition != RecyclerView.NO_POSITION)
-                        listener.onItemClick(adapterPosition, data)
+                        listener.onItemClick(adapterPosition, data, horizontalProgress, tvProgress)
                 }
             }
         }
@@ -84,8 +81,7 @@ class PaidBooksAdapter(
 
     interface BestSellerAdapterListener {
         fun onItemClick(
-            position: Int, data:
-            lars_lion.dev.o_harid.network.response.paidBooks.Object        )
+            position: Int, data:lars_lion.dev.o_harid.network.response.paidBooks.Object , horizontalProgressBar: RoundedHorizontalProgressBar, textView: TextView       )
 
         fun onDeleteItem(position: Int, data: lars_lion.dev.o_harid.network.response.paidBooks.Object)
     }

@@ -144,5 +144,8 @@ dependencies {
     //ratingBar
     implementation 'me.zhanghai.android.materialratingbar:library:1.4.0'
 
+    implementation "com.folioreader:folioreader:0.5.4"
+
+
 }
 

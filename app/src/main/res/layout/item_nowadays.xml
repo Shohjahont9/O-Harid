@@ -79,6 +79,41 @@
             app:layout_constraintStart_toEndOf="@id/cv_img"
             app:layout_constraintTop_toBottomOf="@id/tv_author" />
 
+        <com.sasank.roundedhorizontalprogress.RoundedHorizontalProgressBar
+            android:id="@+id/horizontal_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:indeterminate="false"
+            android:maxHeight="3dp"
+            android:minHeight="3dp"
+            android:progress="0"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/cv_img"
+            app:backgroundColor="#23575656"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintTop_toBottomOf="@id/tv_price"
+            app:layout_constraintStart_toEndOf="@id/cv_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:progressColor="@color/main_color" />
+
+        <TextView
+            android:id="@+id/tv_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:fontFamily="@font/g_regular"
+            android:gravity="center"
+            android:text="0%"
+            android:textColor="@color/main_color"
+            android:textSize="@dimen/_11ssp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/horizontal_progress"
+            app:layout_constraintEnd_toEndOf="@id/horizontal_progress" />
+
         <ImageView
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"

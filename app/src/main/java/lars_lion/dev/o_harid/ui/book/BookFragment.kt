@@ -1,13 +1,21 @@
 package lars_lion.dev.o_harid.ui.book
 
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.folioreader.FolioReader
+import com.folioreader.ui.activity.FolioActivity
+import com.sasank.roundedhorizontalprogress.RoundedHorizontalProgressBar
+import com.tonyodev.fetch2.*
+import com.tonyodev.fetch2core.DownloadBlock
 import dagger.hilt.android.AndroidEntryPoint
 import lars_lion.dev.o_harid.R
 import lars_lion.dev.o_harid.adapter.NowadaysBooksAdapter
@@ -20,6 +28,8 @@ import lars_lion.dev.o_harid.preferences.PreferencesManager
 import lars_lion.dev.o_harid.ui.main.MainViewModel
 import lars_lion.dev.o_harid.utils.*
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
+import java.io.File
+import java.io.FileWriter
 import javax.inject.Inject
 
 
@@ -29,6 +39,7 @@ class BookFragment : BaseFragment<FragmentBookBinding>(),
     androidx.appcompat.widget.SearchView.OnQueryTextListener {
 
     lateinit var paidBooksAdapter: PaidBooksAdapter
+    lateinit var folioReader: FolioReader
 
     @Inject
     lateinit var prefs: PreferencesManager
@@ -41,12 +52,13 @@ class BookFragment : BaseFragment<FragmentBookBinding>(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        folioReader = FolioReader.get()
 
         loadNowadaysBooks()
 
         binding!!.etSearchPlaces.setOnQueryTextListener(this)
         binding!!.etSearchPlaces.setIconifiedByDefault(false)
-        val v: View =  binding!!.etSearchPlaces.findViewById(R.id.search_plate)
+        val v: View = binding!!.etSearchPlaces.findViewById(R.id.search_plate)
         v.setBackgroundColor(Color.WHITE)
 
         binding!!.rooot.setOnClickListener { it ->
@@ -78,7 +90,7 @@ class BookFragment : BaseFragment<FragmentBookBinding>(),
                         val nowadaysBooks =
                             ArrayList<lars_lion.dev.o_harid.network.response.paidBooks.Object>()
                         nowadaysBooks.addAll(it.value.`object`)
-                       initRvNowadays(nowadaysBooks)
+                        initRvNowadays(nowadaysBooks)
                     }
                     is UiState.Error -> {
                         progressBar.visible(false)
@@ -111,11 +123,134 @@ class BookFragment : BaseFragment<FragmentBookBinding>(),
 
     override fun onItemClick(
         position: Int,
-        data: lars_lion.dev.o_harid.network.response.paidBooks.Object
+        data: lars_lion.dev.o_harid.network.response.paidBooks.Object,
+        horizontalProgressBar: RoundedHorizontalProgressBar,
+        textView: TextView
     ) {
-        toast(position.toString())
+        val file = File(requireContext().getExternalFilesDir(null), "${data.file.substring(35)}")
+
+
+        println("Path -> ${file.absoluteFile}")
+        folioReader.openBook(file.absolutePath)
+
+        if (file.exists()) {
+            println("Path -> ${file.absoluteFile}.epub")
+//            folioReader.openBook("${file.absolutePath}.epub")
+        } else {
+            downloadFile(data.file, horizontalProgressBar, textView)
+        }
 
     }
+
+    var file: File? = null
+    private fun downloadFile(
+        url: String,
+        progressBar: RoundedHorizontalProgressBar,
+        textView: TextView
+    ) {
+        println("url -> $url")
+        val config = FetchConfiguration.Builder(context = requireContext()).build()
+        val downloader = Fetch.Impl.getInstance(config)
+        file = File(requireContext().getExternalFilesDir(null), "${url.substring(35)}")
+
+        val request = Request(url, file!!.absolutePath)
+        request.priority = Priority.HIGH
+        request.networkType = NetworkType.ALL
+        downloader.enqueue(request, { updatedRequest ->
+            println("Download success -> ${updatedRequest.fileUri}")
+
+            toast("Yuklash boshlandi.")
+        }) { error ->
+            println("Download error -> ${error.throwable}")
+        }
+        downloader.addListener(downloaderListener(progressBar, textView))
+    }
+
+    private fun downloaderListener(
+        progressBar: RoundedHorizontalProgressBar,
+        textView: TextView
+    ): FetchListener {
+        return object : FetchListener {
+            override fun onAdded(download: Download) {
+                println("Download method -> onAdded")
+            }
+
+            override fun onCancelled(download: Download) {
+                println("Download method -> onCancelled")
+            }
+
+            override fun onCompleted(download: Download) {
+                if (file != null && file!!.exists()) {
+//                    encryptedFile(file!!.absolutePath)
+//                    viewModel.updateDownloadedUrl(mUuid, file!!.absolutePath)
+                    progressBar.visible(false)
+                    textView.visible(false)
+                    toast("Download Successfully")
+//                    toast("Bu kitob sotib olingan kitoblar ro`yhatiga kiritildi!")
+                    file = null
+                }
+            }
+
+            override fun onDeleted(download: Download) {
+                println("Download method -> onDeleted")
+            }
+
+            override fun onDownloadBlockUpdated(
+                download: Download,
+                downloadBlock: DownloadBlock,
+                totalBlocks: Int
+            ) {
+                println("Download method -> onDownloadBlockUpdated")
+
+            }
+
+            override fun onError(download: Download, error: Error, throwable: Throwable?) {
+                println("Download method -> onError")
+            }
+
+            override fun onPaused(download: Download) {
+                println("Download method -> onPaused")
+            }
+
+            override fun onProgress(
+                download: Download,
+                etaInMilliSeconds: Long,
+                downloadedBytesPerSecond: Long
+            ) {
+                println("Download method -> onProgress")
+                println("downloadedBytesPerSecond -> $downloadedBytesPerSecond Mb/s")
+                progressBar.progress = download.progress
+                textView.text = "${download.progress}%"
+            }
+
+            override fun onQueued(download: Download, waitingOnNetwork: Boolean) {
+                println("Download method -> onQueued")
+            }
+
+            override fun onRemoved(download: Download) {
+                println("Download method -> onRemoved")
+            }
+
+            override fun onResumed(download: Download) {
+                println("Download method -> onResumed")
+            }
+
+            override fun onStarted(
+                download: Download,
+                downloadBlocks: List<DownloadBlock>,
+                totalBlocks: Int
+            ) {
+                progressBar.visible(true)
+                textView.visible(true)
+                println("Download method -> onStarted")
+            }
+
+            override fun onWaitingNetwork(download: Download) {
+                println("Download method -> onWaitingNetwork")
+            }
+        }
+    }
+
 
     override fun onDeleteItem(
         position: Int,
@@ -147,7 +282,10 @@ class BookFragment : BaseFragment<FragmentBookBinding>(),
             with(binding!!) {
                 rvSearch.visible(true)
 
-                viewModelMain.getSearchBook("Bearer ${prefs.token}", newText.toString().toLowerCase())
+                viewModelMain.getSearchBook(
+                    "Bearer ${prefs.token}",
+                    newText.toString().toLowerCase()
+                )
                 viewModelMain.searchBook.observe(viewLifecycleOwner, EventObserver {
                     when (it) {
                         UiState.Loading -> {
