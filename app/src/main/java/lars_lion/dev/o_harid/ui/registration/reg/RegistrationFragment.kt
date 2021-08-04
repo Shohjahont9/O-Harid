@@ -101,6 +101,8 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
 
             loginButton.setOnClickListener {
                 loginButton.isClickable = false
+                root.snackbar("Sizga tasdiqlash kodi yuboriladi sabr qiling!")
+
                 if (etName.text.isNotEmpty() && etPhone.text.toString().isNotEmpty()) {
                     binding!!.progressBar.visible(true)
                     hideKeyBoard(it)

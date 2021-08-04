@@ -150,7 +150,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         prefs.name = it.value.`object`.name
                         binding!!.progressBar.visible(false)
                         startPhoneNumberVerification(number)
-
+                        root.snackbar("Sizga tasdiqlash kodi yuboriladi sabr qiling!")
 //                        Handler(Looper.myLooper()!!).postDelayed({
 //                            prefs.isAuthVerified = true
 //                            startActivity(Intent(requireContext(), MainActivity::class.java))
