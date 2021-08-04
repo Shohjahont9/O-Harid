@@ -149,13 +149,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         prefs.token = it.value.`object`.accessToken
                         prefs.name = it.value.`object`.name
                         binding!!.progressBar.visible(false)
-//                        startPhoneNumberVerification(number)
+                        startPhoneNumberVerification(number)
 
-                        Handler(Looper.myLooper()!!).postDelayed({
-                            prefs.isAuthVerified = true
-                            startActivity(Intent(requireContext(), MainActivity::class.java))
-                            requireActivity().finish()
-                        }, 2000)
+//                        Handler(Looper.myLooper()!!).postDelayed({
+//                            prefs.isAuthVerified = true
+//                            startActivity(Intent(requireContext(), MainActivity::class.java))
+//                            requireActivity().finish()
+//                        }, 2000)
                     }
                     is UiState.Error -> {
                         loginButton.isClickable = true
