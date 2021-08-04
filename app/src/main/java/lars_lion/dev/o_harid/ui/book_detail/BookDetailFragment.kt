@@ -312,7 +312,7 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
         println("url -> $url")
         val config = FetchConfiguration.Builder(context = requireContext()).build()
         val downloader = Fetch.Impl.getInstance(config)
-        file = File(requireContext().getExternalFilesDir(null), "." + "O-Harid$url/$url")
+        file = File(requireContext().getExternalFilesDir(null), "${url.substring(35)}.epub")
         val request = Request(url, file!!.absolutePath)
         request.priority = Priority.HIGH
         request.networkType = NetworkType.ALL

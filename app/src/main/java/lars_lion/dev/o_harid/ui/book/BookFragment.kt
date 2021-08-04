@@ -1,9 +1,7 @@
 package lars_lion.dev.o_harid.ui.book
 
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +10,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.folioreader.FolioReader
-import com.folioreader.ui.activity.FolioActivity
 import com.sasank.roundedhorizontalprogress.RoundedHorizontalProgressBar
 import com.tonyodev.fetch2.*
 import com.tonyodev.fetch2core.DownloadBlock
 import dagger.hilt.android.AndroidEntryPoint
 import lars_lion.dev.o_harid.R
-import lars_lion.dev.o_harid.adapter.NowadaysBooksAdapter
 import lars_lion.dev.o_harid.adapter.PaidBooksAdapter
 import lars_lion.dev.o_harid.adapter.SearchBooksAdapter
 import lars_lion.dev.o_harid.base.BaseFragment
@@ -29,9 +25,7 @@ import lars_lion.dev.o_harid.ui.main.MainViewModel
 import lars_lion.dev.o_harid.utils.*
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 import java.io.File
-import java.io.FileWriter
 import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class BookFragment : BaseFragment<FragmentBookBinding>(),
@@ -127,15 +121,15 @@ class BookFragment : BaseFragment<FragmentBookBinding>(),
         horizontalProgressBar: RoundedHorizontalProgressBar,
         textView: TextView
     ) {
-        val file = File(requireContext().getExternalFilesDir(null), "${data.file.substring(35)}")
+        val file = File(requireContext().getExternalFilesDir(null), "${data.file.substring(35)}.epub")
 
 
         println("Path -> ${file.absoluteFile}")
-        folioReader.openBook(file.absolutePath)
+   //     folioReader.openBook(file.absolutePath)
 
         if (file.exists()) {
-            println("Path -> ${file.absoluteFile}.epub")
-//            folioReader.openBook("${file.absolutePath}.epub")
+            println("Path -> ${file.absoluteFile}")
+            folioReader.openBook("${file.absolutePath}")
         } else {
             downloadFile(data.file, horizontalProgressBar, textView)
         }
@@ -151,7 +145,7 @@ class BookFragment : BaseFragment<FragmentBookBinding>(),
         println("url -> $url")
         val config = FetchConfiguration.Builder(context = requireContext()).build()
         val downloader = Fetch.Impl.getInstance(config)
-        file = File(requireContext().getExternalFilesDir(null), "${url.substring(35)}")
+        file = File(requireContext().getExternalFilesDir(null), "${url.substring(35)}.epub")
 
         val request = Request(url, file!!.absolutePath)
         request.priority = Priority.HIGH
@@ -271,8 +265,7 @@ class BookFragment : BaseFragment<FragmentBookBinding>(),
     private fun initRvSearch() {
         searchAdapter = SearchBooksAdapter(this)
         with(binding!!.rvSearch) {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
         }
     }
