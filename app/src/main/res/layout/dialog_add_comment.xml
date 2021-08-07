@@ -55,7 +55,7 @@
         android:layout_width="@dimen/_180sdp"
         android:layout_height="@dimen/_45ssp"
         android:layout_marginStart="@dimen/_8sdp"
-        android:progressTint="#FFC107"
+        android:progressTint="#009688"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_t"

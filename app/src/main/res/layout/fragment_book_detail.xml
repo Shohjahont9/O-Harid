@@ -91,9 +91,10 @@
                         android:padding="@dimen/_4sdp">
 
                         <ImageView
+                            android:id="@+id/img_lib"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:src="@drawable/ic_marked_book"
+                            android:src="@drawable/ic_not_marked"
                             app:tint="@color/main_color" />
                     </RelativeLayout>
 

@@ -56,6 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="?android:attr/ratingBarStyleSmall"
+                android:progressTint="#009688"
                 app:layout_constraintStart_toEndOf="@id/tv_date"
                 app:layout_constraintTop_toTopOf="@id/tv_date"
                 app:layout_constraintBottom_toBottomOf="@id/tv_date"

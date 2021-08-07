@@ -5,12 +5,13 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.view.LayoutInflater
-import lars_lion.dev.o_harid.R
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -20,11 +21,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import coil.request.ImageRequest
 import coil.request.ImageResult
 import com.airbnb.lottie.LottieAnimationView
+import com.airbnb.lottie.LottieProperty
+import com.airbnb.lottie.model.KeyPath
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.card.MaterialCardView
@@ -32,10 +34,7 @@ import com.sasank.roundedhorizontalprogress.RoundedHorizontalProgressBar
 import com.tonyodev.fetch2.*
 import com.tonyodev.fetch2core.DownloadBlock
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.dialog_add_comment.view.*
-import kotlinx.android.synthetic.main.fragment_login.*
 import lars_lion.dev.o_harid.adapter.CommentsAdapter
-import lars_lion.dev.o_harid.adapter.PaidBooksAdapter
 import lars_lion.dev.o_harid.base.BaseFragment
 import lars_lion.dev.o_harid.databinding.FragmentBookDetailBinding
 import lars_lion.dev.o_harid.model.Comment
@@ -48,7 +47,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
-
+import lars_lion.dev.o_harid.R
 
 @AndroidEntryPoint
 class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
@@ -100,6 +99,12 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
 
     @SuppressLint("SimpleDateFormat")
     private fun onClicks() {
+        val animationView: LottieAnimationView = binding!!.commentBar
+        animationView.addValueCallback(
+            KeyPath("**"),
+            LottieProperty.COLOR_FILTER,
+            { PorterDuffColorFilter(Color.parseColor("#009688"), PorterDuff.Mode.SRC_ATOP) }
+        )
 
         with(binding!!) {
             cvBack.setOnClickListener {
@@ -116,6 +121,7 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
                         UiState.Loading -> {
                         }
                         is UiState.Success -> {
+                            binding!!.imgLib.setImageResource(R.drawable.ic_marked)
                             root.snackbar("Bu kitob javonga qo`shildi")
                         }
                         is UiState.Error -> root.snackbar(it.message)
@@ -422,6 +428,8 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
                     val data = it.value.`object`
                     println("data-> $data")
                     url = data.file
+                    if(it.value.`object`.like)
+                        binding!!.imgLib.setImageResource(R.drawable.ic_marked)
 
                     binding!!.tvPrice.text = "${data.price} so`m"
                     binding!!.tvAuthor.text = data.author
