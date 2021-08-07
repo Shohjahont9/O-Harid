@@ -92,7 +92,7 @@
         android:layout_height="@dimen/_96sdp"
         android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_16sdp"
-        android:src="@drawable/ic_user"
+        android:src="@drawable/ic_profile"
         android:padding="@dimen/_10sdp"
         app:civ_border_color="#FF000000"
         app:civ_border_width="0.1dp"
