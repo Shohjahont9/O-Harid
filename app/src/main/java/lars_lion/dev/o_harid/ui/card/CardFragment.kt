@@ -25,15 +25,20 @@ class CardFragment : BaseFragment<FragmentCardBinding>() {
     @Inject
     lateinit var prefs:PreferencesManager
     val viewModel: CardViewModel by viewModels()
-    private val backPressedCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-            findNavController().navigateSafe(R.id.action_cardFragment_to_profileFragment)
-        }
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        requireActivity().onBackPressedDispatcher.addCallback(backPressedCallback)
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true)
+            {
+                override fun handleOnBackPressed() {
+                        findNavController().navigateSafe(R.id.action_cardFragment_to_profileFragment)
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this,
+            callback
+        )
+
     }
 
     override fun setBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentCardBinding =

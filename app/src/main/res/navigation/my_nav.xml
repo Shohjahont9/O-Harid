@@ -90,6 +90,9 @@
         <action
             android:id="@+id/action_verifyCardFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_verifyCardFragment_to_cardFragment"
+            app:destination="@id/cardFragment" />
     </fragment>
     <fragment
         android:id="@+id/getBookByTypeFragment"

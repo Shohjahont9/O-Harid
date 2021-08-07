@@ -24,17 +24,21 @@ class VerifyCardFragment :BaseFragment<FragmentVerifyCardBinding>() {
 
     val viewModel: VerifyCardViewModel by viewModels()
 
-    private val backPressedCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-            findNavController().navigateSafe(R.id.action_cardFragment_to_profileFragment)
-        }
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        requireActivity().onBackPressedDispatcher.addCallback(backPressedCallback)
-    }
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true)
+        {
+            override fun handleOnBackPressed() {
+                findNavController().navigateSafe(R.id.action_verifyCardFragment_to_cardFragment)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this,
+            callback
+        )
 
+    }
 
     override fun setBinding(
         inflater: LayoutInflater,

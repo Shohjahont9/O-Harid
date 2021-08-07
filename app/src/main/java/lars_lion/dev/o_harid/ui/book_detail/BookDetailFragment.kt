@@ -63,19 +63,23 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
     lateinit var prefs: PreferencesManager
     val viewModel: BookDetailViewModel by viewModels()
 
-    private val backPressedCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-            if (!prefs.isGetBookTypeFragment)
-                findNavController().navigateSafe(R.id.action_bookDetailFragment_to_mainFragment)
-            else
-                findNavController().navigateSafe(R.id.action_bookDetailFragment_to_getBookByTypeFragment)
-
-        }
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        requireActivity().onBackPressedDispatcher.addCallback(backPressedCallback)
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true)
+            {
+                override fun handleOnBackPressed() {
+                    if (!prefs.isGetBookTypeFragment)
+                        findNavController().navigateSafe(R.id.action_bookDetailFragment_to_mainFragment)
+                    else
+                        findNavController().navigateSafe(R.id.action_bookDetailFragment_to_getBookByTypeFragment)
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this,
+            callback
+        )
+
     }
 
     override fun setBinding(

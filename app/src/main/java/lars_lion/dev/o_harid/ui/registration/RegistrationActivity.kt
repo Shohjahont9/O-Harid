@@ -26,7 +26,7 @@ class RegistrationActivity : AppCompatActivity() {
 
         if (prefs.isAuthVerified) {
             startActivity(Intent(applicationContext, MainActivity::class.java))
-            finish()
+            finishAffinity()
         }
     }
 

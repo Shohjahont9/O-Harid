@@ -33,15 +33,21 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         container: ViewGroup?
     ): FragmentProfileBinding = FragmentProfileBinding.inflate(layoutInflater)
 
-    private val backPressedCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-            findNavController().navigateSafe(R.id.action_profileFragment_to_mainFragment)
-        }
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        requireActivity().onBackPressedDispatcher.addCallback(backPressedCallback)
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true)
+            {
+                override fun handleOnBackPressed() {
+                    findNavController().navigateSafe(R.id.action_profileFragment_to_mainFragment)
+
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this,
+            callback
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
