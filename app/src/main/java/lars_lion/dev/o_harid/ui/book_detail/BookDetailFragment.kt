@@ -65,8 +65,7 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
     override fun onAttach(context: Context) {
         super.onAttach(context)
         val callback: OnBackPressedCallback =
-            object : OnBackPressedCallback(true)
-            {
+            object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     if (!prefs.isGetBookTypeFragment)
                         findNavController().navigateSafe(R.id.action_bookDetailFragment_to_mainFragment)
@@ -241,8 +240,8 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
                         progress.visible(false)
                         dialog.dismiss()
 
-                        if (isAlreadyPermission()) downloadBook()
-                        else checkPersmission()
+                        findNavController().navigateSafe(R.id.action_bookDetailFragment_to_bookFragment)
+                        downloadBook()
                     }
                     is UiState.Error -> {
                         progress.visible(false)
@@ -354,7 +353,6 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
 //                    viewModel.updateDownloadedUrl(mUuid, file!!.absolutePath)
                     toast("Download Successfully")
 //                    toast("Bu kitob sotib olingan kitoblar ro`yhatiga kiritildi!")
-                    findNavController().navigateSafe(R.id.action_bookDetailFragment_to_bookFragment)
                     file = null
                 }
             }
@@ -428,7 +426,7 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(),
                     val data = it.value.`object`
                     println("data-> $data")
                     url = data.file
-                    if(it.value.`object`.like)
+                    if (it.value.`object`.like)
                         binding!!.imgLib.setImageResource(R.drawable.ic_marked)
 
                     binding!!.tvPrice.text = "${data.price} so`m"

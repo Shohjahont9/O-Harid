@@ -111,10 +111,10 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_hisob"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_35sdp"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
-        android:layout_marginBottom="@dimen/_52sdp"
+        android:layout_marginBottom="@dimen/_60sdp"
         android:clickable="true"
         android:focusable="true"
         app:cardCornerRadius="@dimen/_10sdp"

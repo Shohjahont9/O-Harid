@@ -216,7 +216,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cv_buy"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_35sdp"
                 android:layout_margin="@dimen/_16sdp"
                 android:clickable="true"
                 android:focusable="true"
