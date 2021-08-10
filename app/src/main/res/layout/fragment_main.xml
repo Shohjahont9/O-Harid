@@ -201,6 +201,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_view"
+        android:overScrollMode="never"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -349,6 +350,7 @@
                         android:layout_below="@id/tv_janr"
                         android:layout_marginStart="@dimen/_8sdp"
                         android:layout_marginTop="@dimen/_8sdp"
+                        android:overScrollMode="never"
                         android:layout_marginEnd="@dimen/_8sdp"
                         android:clipToPadding="false"
                         android:layoutAnimation="@anim/layout_animation" />

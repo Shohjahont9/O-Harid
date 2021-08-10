@@ -10,7 +10,7 @@
         android:id="@+id/img_book_back"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.05"
+        android:alpha="0.1"
         android:scaleType="fitXY" />
 
     <androidx.core.widget.NestedScrollView
