@@ -48,7 +48,7 @@
                     app:lottie_speed="2"
                     android:layout_gravity="center"
                     app:lottie_fileName="loading.json"
-                    app:lottie_loop="true"/>
+                    app:lottie_loop="true" />
 
             </com.google.android.material.card.MaterialCardView>
 

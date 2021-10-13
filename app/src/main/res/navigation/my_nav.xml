@@ -9,7 +9,7 @@
         android:id="@+id/mainFragment"
         android:name="lars_lion.dev.o_harid.ui.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_bookDetailFragment"
             app:destination="@id/bookDetailFragment" />
@@ -29,7 +29,7 @@
         android:id="@+id/bookFragment"
         android:name="lars_lion.dev.o_harid.ui.book.BookFragment"
         android:label="fragment_book"
-        tools:layout="@layout/fragment_book" >
+        tools:layout="@layout/fragment_book">
         <action
             android:id="@+id/action_bookFragment_to_bookDetailFragment"
             app:destination="@id/bookDetailFragment" />
@@ -38,7 +38,7 @@
         android:id="@+id/favouriteFragment"
         android:name="lars_lion.dev.o_harid.ui.favourite.FavouriteFragment"
         android:label="fragment_favourite"
-        tools:layout="@layout/fragment_favourite" >
+        tools:layout="@layout/fragment_favourite">
         <action
             android:id="@+id/action_favouriteFragment_to_bookDetailFragment"
             app:destination="@id/bookDetailFragment" />
@@ -47,7 +47,7 @@
         android:id="@+id/bookDetailFragment"
         android:name="lars_lion.dev.o_harid.ui.book_detail.BookDetailFragment"
         android:label="fragment_book_detail"
-        tools:layout="@layout/fragment_book_detail" >
+        tools:layout="@layout/fragment_book_detail">
         <action
             android:id="@+id/action_bookDetailFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
@@ -62,7 +62,7 @@
         android:id="@+id/profileFragment"
         android:name="lars_lion.dev.o_harid.ui.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
@@ -74,7 +74,7 @@
         android:id="@+id/cardFragment"
         android:name="lars_lion.dev.o_harid.ui.card.CardFragment"
         android:label="fragment_card"
-        tools:layout="@layout/fragment_card" >
+        tools:layout="@layout/fragment_card">
         <action
             android:id="@+id/action_cardFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
@@ -86,7 +86,7 @@
         android:id="@+id/verifyCardFragment"
         android:name="lars_lion.dev.o_harid.ui.card.verifyCard.VerifyCardFragment"
         android:label="fragment_verify_card"
-        tools:layout="@layout/fragment_verify_card" >
+        tools:layout="@layout/fragment_verify_card">
         <action
             android:id="@+id/action_verifyCardFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
@@ -98,7 +98,7 @@
         android:id="@+id/getBookByTypeFragment"
         android:name="lars_lion.dev.o_harid.ui.getBookByType.GetBookByTypeFragment"
         android:label="fragment_get_book_by_type"
-        tools:layout="@layout/fragment_get_book_by_type" >
+        tools:layout="@layout/fragment_get_book_by_type">
         <action
             android:id="@+id/action_getBookByTypeFragment_to_mainFragment"
             app:destination="@id/mainFragment" />

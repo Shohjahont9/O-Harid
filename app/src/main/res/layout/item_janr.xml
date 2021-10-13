@@ -14,7 +14,7 @@
         android:textColor="@color/black"
         android:fontFamily="@font/g_regular"
         android:text="asd"
-        android:id="@+id/tv_janr"/>
+        android:id="@+id/tv_janr" />
 
     <View
         android:id="@+id/view"
@@ -24,6 +24,6 @@
         app:layout_constraintTop_toBottomOf="@id/tv_janr"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_8sdp"/>
+        android:layout_marginTop="@dimen/_8sdp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -40,7 +40,7 @@ class ScrollAwareFABBehavior extends CoordinatorLayout.Behavior<FloatingActionBu
             Log.d("Scrolling", "Up");
             CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) child.getLayoutParams();
             int fab_bottomMargin = layoutParams.bottomMargin;
-            child.animate().translationY(child.getHeight() + fab_bottomMargin+10f).setInterpolator(new LinearInterpolator()).start();
+            child.animate().translationY(child.getHeight() + fab_bottomMargin + 10f).setInterpolator(new LinearInterpolator()).start();
         } else if (dyConsumed < -10) {
             Log.d("Scrolling", "down");
             child.animate().translationY(0).setInterpolator(new LinearInterpolator()).start();

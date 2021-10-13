@@ -16,22 +16,22 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val repository: ProfileRepository
-):ViewModel(){
+) : ViewModel() {
 
     private val _userMoney = MutableLiveData<Event<UiState<GetUserMoneyResponse>>>()
-    val userMoney : LiveData<Event<UiState<GetUserMoneyResponse>>> = _userMoney
+    val userMoney: LiveData<Event<UiState<GetUserMoneyResponse>>> = _userMoney
 
-    fun getUserMoney()= viewModelScope.launch {
+    fun getUserMoney() = viewModelScope.launch {
         _userMoney.value = Event(UiState.Loading)
         try {
-            repository.getUserMoney().catch {e->
+            repository.getUserMoney().catch { e ->
                 Event(UiState.Error("main error ->${e.message}"))
-            }.collectLatest {response->
-                if (response.status.code==200)
+            }.collectLatest { response ->
+                if (response.status.code == 200)
                     _userMoney.value = Event(UiState.Success(response))
-                else             _userMoney.value = Event(UiState.Error(response.status.message.toString()))
+                else _userMoney.value = Event(UiState.Error(response.status.message.toString()))
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             _userMoney.value = Event(UiState.Error("main error ->${e.message}"))
         }
     }

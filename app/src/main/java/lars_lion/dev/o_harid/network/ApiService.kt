@@ -119,14 +119,14 @@ interface ApiService {
     @GET("/api/book")
     suspend fun search(
         @Header("Authorization") token: String,
-        @Query("name") name:String
+        @Query("name") name: String
     ): SearchResponse
 
     @Headers("Content-Type: application/json")
     @GET("/api/book/get/by/type")
     suspend fun getBookByBookType(
         @Header("Authorization") token: String,
-        @Query("typeId") type:String
+        @Query("typeId") type: String
     ): GetBookByBookTypeResponse
 
 
@@ -134,7 +134,7 @@ interface ApiService {
     @POST("/api/auth/remove/from/library/{bookId}")
     suspend fun deleteBookFromLibrary(
         @Header("Authorization") token: String,
-        @Path("bookId") bookId:String
+        @Path("bookId") bookId: String
     ): DeleteBookFromLibResponse
 
 
@@ -142,11 +142,10 @@ interface ApiService {
     @POST("/api/comment")
     suspend fun addComment(
         @Header("Authorization") token: String,
-        @Query("text") commentText:String,
-        @Query("bookId") bookId:String,
-        @Query("evaluate") evaluate:String
+        @Query("text") commentText: String,
+        @Query("bookId") bookId: String,
+        @Query("evaluate") evaluate: String
     ): AddCommentResponse
-
 
 
 }

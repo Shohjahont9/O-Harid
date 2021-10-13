@@ -467,11 +467,10 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/_8sdp"
                         android:textSize="@dimen/_13ssp"
-                        android:text="@string/fikr_bildirish"/>
+                        android:text="@string/fikr_bildirish" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
-
 
 
             <androidx.recyclerview.widget.RecyclerView

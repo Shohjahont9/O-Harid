@@ -23,17 +23,16 @@ import javax.inject.Inject
 class CardFragment : BaseFragment<FragmentCardBinding>() {
 
     @Inject
-    lateinit var prefs:PreferencesManager
+    lateinit var prefs: PreferencesManager
     val viewModel: CardViewModel by viewModels()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true)
-            {
-                override fun handleOnBackPressed() {
-                        findNavController().navigateSafe(R.id.action_cardFragment_to_profileFragment)
-                }
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigateSafe(R.id.action_cardFragment_to_profileFragment)
             }
+        }
         requireActivity().onBackPressedDispatcher.addCallback(
             this,
             callback
@@ -73,9 +72,14 @@ class CardFragment : BaseFragment<FragmentCardBinding>() {
                 else {
 
                     val data = JsonObject()
-                    val cardNumber = card.text.toString().replace(" ","")
+                    val cardNumber = card.text.toString().replace(" ", "")
                     data.addProperty("number", cardNumber)
-                    data.addProperty("expire", "${cardValidation.text.toString().substring(0, 2)}${cardValidation.text.toString().substring(3)}")
+                    data.addProperty(
+                        "expire",
+                        "${
+                            cardValidation.text.toString().substring(0, 2)
+                        }${cardValidation.text.toString().substring(3)}"
+                    )
                     data.addProperty("amount", "${etMoney.text}00")
 
                     println("Data object-> $data")

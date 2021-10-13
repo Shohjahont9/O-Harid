@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FavouriteViewModel @Inject constructor(
     private val repository: FavouriteRepository
-):ViewModel(){
+) : ViewModel() {
 
     private val _favouriteBook = MutableLiveData<Event<UiState<FavouriteBookResponse>>>()
     val favouriteBook: LiveData<Event<UiState<FavouriteBookResponse>>> = _favouriteBook
@@ -25,13 +25,13 @@ class FavouriteViewModel @Inject constructor(
     fun getFavouriteBook() = viewModelScope.launch {
         _favouriteBook.value = Event(UiState.Loading)
         try {
-            repository.favouriteBook().catch {e->
+            repository.favouriteBook().catch { e ->
                 _favouriteBook.value = Event(UiState.Error(e.message ?: "message == null"))
-            }.collectLatest {response->
+            }.collectLatest { response ->
                 if (response.status.code == 200)
                     _favouriteBook.value = Event(UiState.Success(response))
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             _favouriteBook.value = Event(UiState.Error(e.message ?: "message == null"))
         }
     }
@@ -39,16 +39,16 @@ class FavouriteViewModel @Inject constructor(
     private val _deleteBook = MutableLiveData<Event<UiState<DeleteBookFromLibResponse>>>()
     val deleteBook: LiveData<Event<UiState<DeleteBookFromLibResponse>>> = _deleteBook
 
-    fun getDeleteBook(bookId:String) = viewModelScope.launch {
+    fun getDeleteBook(bookId: String) = viewModelScope.launch {
         _deleteBook.value = Event(UiState.Loading)
         try {
-            repository.deleteBook(bookId).catch {e->
+            repository.deleteBook(bookId).catch { e ->
                 _deleteBook.value = Event(UiState.Error(e.message ?: "message == null"))
-            }.collectLatest {response->
+            }.collectLatest { response ->
                 if (response.status.code == 200)
                     _deleteBook.value = Event(UiState.Success(response))
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             _deleteBook.value = Event(UiState.Error(e.message ?: "message == null"))
         }
     }

@@ -35,7 +35,7 @@
                 android:layout_gravity="center"
                 app:lottie_speed="2"
                 app:lottie_fileName="loading.json"
-                app:lottie_loop="true"/>
+                app:lottie_loop="true" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -129,10 +129,7 @@
             app:tint="@android:color/holo_red_dark" />
 
 
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 </RelativeLayout>

@@ -26,10 +26,10 @@ class LoginViewModel @Inject constructor(
     fun loginUser(body: String) = viewModelScope.launch {
         _login.value = Event(UiState.Loading)
         try {
-            repository.login(body).catch {e->
+            repository.login(body).catch { e ->
                 _login.value = Event(UiState.Error("login User error -> ${e.message.toString()}"))
-            }.collectLatest {response->
-                if (response.status.code==200)
+            }.collectLatest { response ->
+                if (response.status.code == 200)
                     _login.value = Event(UiState.Success(response))
                 else
                     _login.value = Event(UiState.Error(response.status.message))

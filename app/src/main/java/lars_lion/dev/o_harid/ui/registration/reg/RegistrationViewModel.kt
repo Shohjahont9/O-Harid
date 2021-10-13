@@ -21,14 +21,15 @@ class RegistrationViewModel @Inject constructor(
     private val _register = MutableLiveData<Event<UiState<RegisterResponse>>>()
     val register: LiveData<Event<UiState<RegisterResponse>>> = _register
 
-    fun registerUser(body:String) = viewModelScope.launch {
+    fun registerUser(body: String) = viewModelScope.launch {
         _register.value = Event(UiState.Loading)
         try {
-            repository.register(body).catch {e->
-                _register.value = Event(UiState.Error("register User error -> ${e.message.toString()}"))
-            }.collectLatest {response->
-                if (response.status.code==200)
-                _register.value = Event(UiState.Success(response))
+            repository.register(body).catch { e ->
+                _register.value =
+                    Event(UiState.Error("register User error -> ${e.message.toString()}"))
+            }.collectLatest { response ->
+                if (response.status.code == 200)
+                    _register.value = Event(UiState.Success(response))
                 else
                     _register.value = Event(UiState.Error(response.status.message))
             }

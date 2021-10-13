@@ -17,18 +17,17 @@ import lars_lion.dev.o_harid.utils.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class VerifyCardFragment :BaseFragment<FragmentVerifyCardBinding>() {
+class VerifyCardFragment : BaseFragment<FragmentVerifyCardBinding>() {
 
     @Inject
-    lateinit var prefs:PreferencesManager
+    lateinit var prefs: PreferencesManager
 
     val viewModel: VerifyCardViewModel by viewModels()
 
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true)
-        {
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 findNavController().navigateSafe(R.id.action_verifyCardFragment_to_cardFragment)
             }
@@ -48,17 +47,17 @@ class VerifyCardFragment :BaseFragment<FragmentVerifyCardBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(binding!!){
+        with(binding!!) {
             rooot.setOnClickListener {
                 hideKeyBoard(it)
             }
 
             cvHisob.setOnClickListener {
-                if (etCode.text.toString().isNotEmpty() && etCode.text.toString().length!=5){
+                if (etCode.text.toString().isNotEmpty() && etCode.text.toString().length != 5) {
                     viewModel.getVerifyCode(etCode.text.toString())
-                    viewModel.verifyCode.observe(viewLifecycleOwner, EventObserver{
-                        when(it){
-                            UiState.Loading ->progressBar.visible(true)
+                    viewModel.verifyCode.observe(viewLifecycleOwner, EventObserver {
+                        when (it) {
+                            UiState.Loading -> progressBar.visible(true)
                             is UiState.Success -> {
                                 progressBar.visible(false)
                                 findNavController().navigateSafe(R.id.action_verifyCardFragment_to_profileFragment)
@@ -69,7 +68,7 @@ class VerifyCardFragment :BaseFragment<FragmentVerifyCardBinding>() {
                         }.exhaustive
                     })
 
-                }else root.snackbar(getString(R.string.kod_error))
+                } else root.snackbar(getString(R.string.kod_error))
             }
         }
 

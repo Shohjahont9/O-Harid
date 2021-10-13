@@ -25,7 +25,7 @@ class BookDetailViewModel @Inject constructor(
     private val _comments = MutableLiveData<Event<UiState<CommentResponse>>>()
     val comments: LiveData<Event<UiState<CommentResponse>>> = _comments
 
-    fun getComment(bookId:String) = viewModelScope.launch {
+    fun getComment(bookId: String) = viewModelScope.launch {
         _comments.value = Event(UiState.Loading)
         try {
             repository.comments(bookId).catch { e ->
@@ -99,10 +99,10 @@ class BookDetailViewModel @Inject constructor(
         }
     }
 
-   private val _addComment = MutableLiveData<Event<UiState<AddCommentResponse>>>()
+    private val _addComment = MutableLiveData<Event<UiState<AddCommentResponse>>>()
     val addComment: LiveData<Event<UiState<AddCommentResponse>>> = _addComment
 
-    fun getAddComment(text:String, bookId: String, evaluate:String) = viewModelScope.launch {
+    fun getAddComment(text: String, bookId: String, evaluate: String) = viewModelScope.launch {
         _addComment.value = Event(UiState.Loading)
         try {
             repository.addComment(text, bookId, evaluate).catch { e ->

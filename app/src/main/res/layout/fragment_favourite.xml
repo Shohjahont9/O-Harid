@@ -18,7 +18,7 @@
         android:fontFamily="@font/g_bold"
         android:text="@string/javon"
         android:textSize="@dimen/_18ssp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_search"
@@ -55,7 +55,6 @@
                 android:maxLines="1"
                 android:padding="@dimen/_5sdp"
                 android:textColorHint="#6E7D91" />
-
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -106,8 +105,7 @@
         android:fontFamily="@font/g_regular"
         android:textSize="@dimen/_20ssp"
         android:gravity="center"
-        android:id="@+id/tv_empty"
-        />
+        android:id="@+id/tv_empty" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/progress_bar"
@@ -135,7 +133,7 @@
         android:clipToPadding="false"
         android:paddingStart="@dimen/_16sdp"
         android:paddingEnd="@dimen/_16sdp"
-        app:layout_constraintTop_toBottomOf="@id/cv_search"/>
+        app:layout_constraintTop_toBottomOf="@id/cv_search" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,6 +32,9 @@ class MainViewModel @Inject constructor(
             }.collect { response ->
                 if (response.status.code == 200)
                     _bestSeller.value = Event(UiState.Success(response))
+                else if (response.status.code == 401) {
+                    _bestSeller.value = Event(UiState.Error("main error ->${response.status.code}"))
+                }
             }
         } catch (e: Exception) {
             _bestSeller.value = Event(UiState.Error("main error ->${e.message}"))

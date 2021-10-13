@@ -49,7 +49,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>(),
 
         binding!!.etSearchPlaces.setOnQueryTextListener(this)
         binding!!.etSearchPlaces.setIconifiedByDefault(false)
-        val v: View =  binding!!.etSearchPlaces.findViewById(R.id.search_plate)
+        val v: View = binding!!.etSearchPlaces.findViewById(R.id.search_plate)
         v.setBackgroundColor(Color.WHITE)
 
         binding!!.rooot.setOnClickListener { it ->
@@ -57,7 +57,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>(),
             hideKeyBoard(it)
         }
 
-        binding!!.rvFavourite.setOnClickListener { it->
+        binding!!.rvFavourite.setOnClickListener { it ->
             binding!!.etSearchPlaces.clearFocus()
             hideKeyBoard(it)
         }
@@ -121,9 +121,10 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>(),
 
     override fun onDeleteItem(position: Int, data: Object) {
         viewModel.getDeleteBook(data.id.toString())
-        viewModel.deleteBook.observe(viewLifecycleOwner, EventObserver{
-            when(it){
-                UiState.Loading ->{}
+        viewModel.deleteBook.observe(viewLifecycleOwner, EventObserver {
+            when (it) {
+                UiState.Loading -> {
+                }
                 is UiState.Success -> {
                     nowadaysBooks.removeAt(position)
                     favouriteAdapter.updateList(nowadaysBooks)
@@ -164,7 +165,10 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>(),
             with(binding!!) {
                 rvSearch.visible(true)
 
-                viewModelMain.getSearchBook("Bearer ${prefs.token}", newText.toString().toLowerCase())
+                viewModelMain.getSearchBook(
+                    "Bearer ${prefs.token}",
+                    newText.toString().toLowerCase()
+                )
                 viewModelMain.searchBook.observe(viewLifecycleOwner, EventObserver {
                     when (it) {
                         UiState.Loading -> {

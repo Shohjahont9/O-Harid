@@ -37,8 +37,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         val callback: OnBackPressedCallback =
-            object : OnBackPressedCallback(true)
-            {
+            object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     findNavController().navigateSafe(R.id.action_profileFragment_to_mainFragment)
 

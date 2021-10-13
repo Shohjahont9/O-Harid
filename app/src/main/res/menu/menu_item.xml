@@ -3,26 +3,26 @@
     <item
         android:id="@+id/mainFragment"
         android:title="Home"
-        android:icon="@drawable/ic_books"/>
+        android:icon="@drawable/ic_books" />
 
     <item
         android:id="@+id/audioFragment"
         android:title="Audio"
-        android:icon="@drawable/ic_audio"/>
+        android:icon="@drawable/ic_audio" />
 
     <item
         android:id="@+id/bookFragment"
         android:title="Sotib olingan"
-        android:icon="@drawable/ic_study"/>
+        android:icon="@drawable/ic_study" />
 
     <item
         android:id="@+id/favouriteFragment"
         android:title="Javon"
-        android:icon="@drawable/ic_marked_book"/>
+        android:icon="@drawable/ic_marked_book" />
 
     <item
         android:id="@+id/profileFragment"
         android:title="Profile"
-        android:icon="@drawable/ic_profile"/>
+        android:icon="@drawable/ic_profile" />
 
 </menu>

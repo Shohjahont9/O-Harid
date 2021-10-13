@@ -51,14 +51,14 @@
             app:cardCornerRadius="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_16sdp">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:background="@color/white"
-            android:textSize="@dimen/_15ssp"
-            android:hint="@string/ism_kiriting"
-            android:padding="@dimen/_8sdp"
-            android:layout_height="wrap_content"
-            android:id="@+id/et_name"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:textSize="@dimen/_15ssp"
+                android:hint="@string/ism_kiriting"
+                android:padding="@dimen/_8sdp"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_name" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -136,18 +136,17 @@
             android:visibility="gone"
             app:cardCornerRadius="@dimen/_5sdp">
 
-        <EditText
-            android:id="@+id/et_parol"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:gravity="center"
-            android:hint="parol"
-            android:inputType="number"
-            android:padding="@dimen/_5sdp"
-            android:textColor="@color/main_color"
-            android:textSize="@dimen/_15ssp"
-            />
+            <EditText
+                android:id="@+id/et_parol"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:hint="parol"
+                android:inputType="number"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/_15ssp" />
         </com.google.android.material.card.MaterialCardView>
 
         <TextView

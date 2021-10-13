@@ -37,8 +37,7 @@
         android:fontFamily="@font/g_regular"
         android:textSize="@dimen/_20ssp"
         android:gravity="center"
-        android:id="@+id/tv_empty"
-        />
+        android:id="@+id/tv_empty" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

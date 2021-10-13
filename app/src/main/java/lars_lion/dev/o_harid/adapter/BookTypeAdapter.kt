@@ -22,7 +22,8 @@ class BookTypeAdapter(
     private val listener: BestSellerAdapterListener
 ) : RecyclerView.Adapter<BookTypeAdapter.BestSellerViewHolder>() {
 
-    private var fullDataList = ArrayList<lars_lion.dev.o_harid.network.response.getBookByBookType.Object>()
+    private var fullDataList =
+        ArrayList<lars_lion.dev.o_harid.network.response.getBookByBookType.Object>()
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
@@ -52,7 +53,7 @@ class BookTypeAdapter(
         private val binding: ItemRvBookTypeBinding,
         private val listener: BestSellerAdapterListener
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data:lars_lion.dev.o_harid.network.response.getBookByBookType.Object) {
+        fun bind(data: lars_lion.dev.o_harid.network.response.getBookByBookType.Object) {
             with(binding) {
                 imgBook.load(data.foto) {
                     crossfade(true)
@@ -97,7 +98,10 @@ class BookTypeAdapter(
             data: lars_lion.dev.o_harid.network.response.getBookByBookType.Object
         )
 
-        fun onFavouriteClick(position: Int, data:lars_lion.dev.o_harid.network.response.getBookByBookType.Object)
+        fun onFavouriteClick(
+            position: Int,
+            data: lars_lion.dev.o_harid.network.response.getBookByBookType.Object
+        )
     }
 }
 

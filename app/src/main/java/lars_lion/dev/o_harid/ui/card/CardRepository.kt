@@ -9,9 +9,9 @@ import javax.inject.Inject
 
 class CardRepository @Inject constructor(
     private val apiService: ApiService,
-    private val prefs:PreferencesManager
+    private val prefs: PreferencesManager
 ) {
-    suspend fun createCard(body:String) = flow {
+    suspend fun createCard(body: String) = flow {
         emit(apiService.createCard("Bearer ${prefs.token}", body))
     }.flowOn(Dispatchers.IO)
 

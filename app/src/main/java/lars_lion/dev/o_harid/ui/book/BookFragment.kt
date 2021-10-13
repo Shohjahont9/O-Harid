@@ -121,11 +121,12 @@ class BookFragment : BaseFragment<FragmentBookBinding>(),
         horizontalProgressBar: RoundedHorizontalProgressBar,
         textView: TextView
     ) {
-        val file = File(requireContext().getExternalFilesDir(null), "${data.file.substring(35)}.epub")
+        val file =
+            File(requireContext().getExternalFilesDir(null), "${data.file.substring(35)}.epub")
 
 
         println("Path -> ${file.absoluteFile}")
-   //     folioReader.openBook(file.absolutePath)
+        //     folioReader.openBook(file.absolutePath)
 
         if (file.exists()) {
             println("Path -> ${file.absoluteFile}")
@@ -265,7 +266,8 @@ class BookFragment : BaseFragment<FragmentBookBinding>(),
     private fun initRvSearch() {
         searchAdapter = SearchBooksAdapter(this)
         with(binding!!.rvSearch) {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
         }
     }

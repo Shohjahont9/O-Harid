@@ -49,7 +49,7 @@ class GetBookByTypeFragment : BaseFragment<FragmentGetBookByTypeBinding>(),
 
         binding!!.tvType.text = prefs.bookTypeName
         binding!!.etSearchPlaces.setIconifiedByDefault(false)
-        val v: View =  binding!!.etSearchPlaces.findViewById(R.id.search_plate)
+        val v: View = binding!!.etSearchPlaces.findViewById(R.id.search_plate)
         v.setBackgroundColor(Color.WHITE)
 
         loadNowadaysBooks()

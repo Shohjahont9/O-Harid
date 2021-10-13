@@ -48,7 +48,7 @@ class PaidBooksAdapter(
         private val binding: ItemNowadaysBinding,
         private val listener: BestSellerAdapterListener
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data:lars_lion.dev.o_harid.network.response.paidBooks.Object) {
+        fun bind(data: lars_lion.dev.o_harid.network.response.paidBooks.Object) {
             with(binding) {
                 imgItem.load(data.foto) {
                     crossfade(true)
@@ -81,9 +81,16 @@ class PaidBooksAdapter(
 
     interface BestSellerAdapterListener {
         fun onItemClick(
-            position: Int, data:lars_lion.dev.o_harid.network.response.paidBooks.Object , horizontalProgressBar: RoundedHorizontalProgressBar, textView: TextView       )
+            position: Int,
+            data: lars_lion.dev.o_harid.network.response.paidBooks.Object,
+            horizontalProgressBar: RoundedHorizontalProgressBar,
+            textView: TextView
+        )
 
-        fun onDeleteItem(position: Int, data: lars_lion.dev.o_harid.network.response.paidBooks.Object)
+        fun onDeleteItem(
+            position: Int,
+            data: lars_lion.dev.o_harid.network.response.paidBooks.Object
+        )
     }
 }
 

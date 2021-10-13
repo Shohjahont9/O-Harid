@@ -9,7 +9,7 @@
         android:id="@+id/registrationFragment"
         android:name="lars_lion.dev.o_harid.ui.registration.reg.RegistrationFragment"
         android:label="fragment_registration"
-        tools:layout="@layout/fragment_registration" >
+        tools:layout="@layout/fragment_registration">
         <action
             android:id="@+id/action_registrationFragment_to_loginFragment"
             app:destination="@id/loginFragment" />

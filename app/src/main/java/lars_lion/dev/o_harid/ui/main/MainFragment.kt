@@ -1,5 +1,6 @@
 package lars_lion.dev.o_harid.ui.main
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ import lars_lion.dev.o_harid.base.BaseFragment
 import lars_lion.dev.o_harid.databinding.FragmentMainBinding
 import lars_lion.dev.o_harid.network.response.nowadays.Object
 import lars_lion.dev.o_harid.preferences.PreferencesManager
+import lars_lion.dev.o_harid.ui.registration.RegistrationActivity
 import lars_lion.dev.o_harid.utils.*
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 import javax.inject.Inject
@@ -44,8 +46,13 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         prefsData()
+
+        loadBestSeller()
+
+        loadNowadaysBooks()
+
+        loadBookType()
 
         initRvBookType()
 
@@ -53,14 +60,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
 
         binding!!.etSearchPlaces.setOnQueryTextListener(this)
         binding!!.etSearchPlaces.setIconifiedByDefault(false)
-        val v: View =  binding!!.etSearchPlaces.findViewById(R.id.search_plate)
+        val v: View = binding!!.etSearchPlaces.findViewById(R.id.search_plate)
         v.setBackgroundColor(Color.WHITE)
-
-        loadBestSeller()
-
-        loadNowadaysBooks()
-
-        loadBookType()
 
         onClicks()
 
@@ -159,6 +160,15 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
                         initRv(bestSeller)
                     }
                     is UiState.Error -> {
+                        if (it.message.contains("401")) {
+                            startActivity(
+                                Intent(
+                                    requireContext(),
+                                    RegistrationActivity::class.java
+                                )
+                            )
+                            requireActivity().finish()
+                        }
                         progressBarBestseller.visible(false)
                         toast(it.message)
                     }
@@ -171,7 +181,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(),
     private fun initRv(dataList: ArrayList<lars_lion.dev.o_harid.network.response.bestSeller.Object>) {
         bestSellerAdapter = BestSellerAdapter(this)
         binding!!.rvBestseller.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             OverScrollDecoratorHelper.setUpOverScroll(
                 this, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL
             )

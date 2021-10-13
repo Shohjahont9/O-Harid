@@ -92,7 +92,10 @@ class FavouriteBooksAdapter(
             data: lars_lion.dev.o_harid.network.response.favourite.Object
         )
 
-        fun onDeleteItem(position: Int, data: lars_lion.dev.o_harid.network.response.favourite.Object)
+        fun onDeleteItem(
+            position: Int,
+            data: lars_lion.dev.o_harid.network.response.favourite.Object
+        )
     }
 }
 

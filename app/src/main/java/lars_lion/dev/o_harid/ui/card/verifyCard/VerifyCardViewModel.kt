@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class VerifyCardViewModel @Inject constructor(
     private val repository: VerifyCardRepository
-):ViewModel(){
+) : ViewModel() {
     private val _verifyCode = MutableLiveData<Event<UiState<VerifyCodeResponse>>>()
     val verifyCode: LiveData<Event<UiState<VerifyCodeResponse>>> = _verifyCode
 
